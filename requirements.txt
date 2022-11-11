@@ -1,0 +1,10 @@
+Django==4.1.2
+celery==5.2.7
+celery-progress==0.1.2
+django-celery-results==2.4.0
+redis==4.3.4
+opytimizer==3.1.2
+opytimark==1.0.8
+pylint==2.15.4
+coverage==6.5.0
+pytest==7.1.3
