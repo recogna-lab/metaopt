@@ -9,7 +9,12 @@ from .forms import LoginForm
 def login_view(request):
     loginForm = LoginForm()
     
-    request.session['next'] = request.GET.get('next', 'dashboard:index')
+    next = request.GET.get('next', '')
+    
+    if next == '':
+        next = 'dashboard:index'
+
+    request.session['next'] = next
 
     return render(request, 'accounts/login.html', context={
         'form': loginForm,
