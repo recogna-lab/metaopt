@@ -55,7 +55,7 @@ class SignupForm(forms.ModelForm):
 
         if found:
             raise ValidationError(
-                'E-mail já está em uso.', 
+                'O e-mail já está em uso.', 
                 code='invalid'
             )
 
