@@ -16,12 +16,12 @@ class SignupForm(forms.ModelForm):
         add_placeholder(self.fields['password'], 'Digite sua senha')
         add_placeholder(self.fields['confirm_password'], 'Confirme sua senha')
         
-        add_attr(self.fields['first_name'], 'class', 'form-control')
-        add_attr(self.fields['last_name'], 'class', 'form-control')
-        add_attr(self.fields['username'], 'class', 'form-control')
-        add_attr(self.fields['email'], 'class', 'form-control')
-        add_attr(self.fields['password'], 'class', 'form-control')
-        add_attr(self.fields['confirm_password'], 'class', 'form-control')
+        add_attr(self.fields['first_name'], 'class', 'input--style-4')
+        add_attr(self.fields['last_name'], 'class', 'input--style-4')
+        add_attr(self.fields['username'], 'class', 'input--style-4')
+        add_attr(self.fields['email'], 'class', 'input--style-4')
+        add_attr(self.fields['password'], 'class', 'input--style-4 ')
+        add_attr(self.fields['confirm_password'], 'class', 'input--style-4')
 
     first_name = forms.CharField(label='Nome')
     last_name = forms.CharField(label='Sobrenome')
@@ -30,12 +30,16 @@ class SignupForm(forms.ModelForm):
     
     password = forms.CharField(
         label='Senha', 
-        widget=forms.PasswordInput()
+        widget=forms.PasswordInput(),
+        min_length=8,
+        max_length=20
     )
     
     confirm_password = forms.CharField(
         label='Confirmar senha', 
-        widget=forms.PasswordInput()
+        widget=forms.PasswordInput(),
+        min_length=8,
+        max_length=20
     )
     
     class Meta:

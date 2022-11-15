@@ -10,6 +10,9 @@
     font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
   }
   
+  .bold {
+    font-weight: bold;
+  }
   /* ==========================================================================
      #GRID
      ========================================================================== */
@@ -122,6 +125,7 @@
      ========================================================================== */
   .page-wrapper {
     min-height: 100vh;
+    display: flex;
   }
   
   body {
@@ -183,6 +187,14 @@
     background: -moz-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
     background: -o-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
     background: linear-gradient(to top right, #fc2c77 0%, #6c4079 100%);
+  }
+
+  .bg-gra-03 {
+    background: rgb(34,193,195);
+    background: -moz-linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(45,58,253,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(45,58,253,1) 100%);
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(45,58,253,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#22c1c3",endColorstr="#2d3afd",GradientType=1);
   }
   
   /* ==========================================================================
@@ -504,6 +516,14 @@
     cursor: pointer;
   }
   
+  .a-right {
+    text-align: right;
+  }
+
+  .a-left {
+    text-align: left;
+  }
+
   /* ==========================================================================
      #SELECT2
      ========================================================================== */
@@ -618,6 +638,7 @@
     -moz-border-radius: 3px;
     border-radius: 3px;
     background: #fff;
+    border: 2px black;
   }
   
   .card-4 {
