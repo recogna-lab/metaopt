@@ -9,6 +9,8 @@ from .forms import LoginForm
 def login_view(request):
     loginForm = LoginForm()
     
+    request.session['next'] = request.GET.get('next', 'dashboard:index')
+
     return render(request, 'accounts/login.html', context={
         'form': loginForm,
         'form_action': reverse('accounts:perform_login')
@@ -28,7 +30,9 @@ def perform_login(request):
         
         if authenticated_user is not None:
             login(request, authenticated_user)
-            return redirect('dashboard:index')
+
+            redirect_url = request.session.pop('next')
+            return redirect(redirect_url)
         
         messages.error(request, 'Credenciais inválidas.')
     else:
