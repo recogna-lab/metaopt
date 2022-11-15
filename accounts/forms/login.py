@@ -10,8 +10,8 @@ class LoginForm(forms.Form):
         add_placeholder(self.fields['username'], 'Digite seu usuário')
         add_placeholder(self.fields['password'], 'Digite sua senha')
         
-        add_attr(self.fields['username'], 'class', 'form-control')
-        add_attr(self.fields['password'], 'class', 'form-control')
+        add_attr(self.fields['username'], 'class', 'input--style-4')
+        add_attr(self.fields['password'], 'class', 'input--style-4')
 
     username = forms.CharField(label='Usuário')
     
