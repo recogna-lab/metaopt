@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from utils.django_forms import add_attr, add_placeholder
+from utils.django_forms import add_attr, add_placeholder, strong_password
 
 
 class SignupForm(forms.ModelForm):
@@ -23,25 +23,63 @@ class SignupForm(forms.ModelForm):
         add_attr(self.fields['password'], 'class', 'input--style-4 ')
         add_attr(self.fields['confirm_password'], 'class', 'input--style-4')
 
-    first_name = forms.CharField(label='Nome')
-    last_name = forms.CharField(label='Sobrenome')
-    username = forms.CharField(label='Usuário')
-    email = forms.CharField(label='E-mail')
+    first_name = forms.CharField(
+        label='Nome',
+        error_messages={'required': 'Digite seu nome.'}
+    )
+
+    last_name = forms.CharField(
+        label='Sobrenome',
+        error_messages={'required': 'Digite seu sobrenome.'}
+    )
     
+    username = forms.CharField(
+        label='Usuário',
+        help_text=(
+            'O usuário pode conter letras, dígitos ou os símbolos @.+-_. '
+            'Esse campo deve ter entre 4 e 150 caracteres.'
+        ),
+        error_messages={
+            'required': 'Esse campo não pode ficar vazio.',
+            'min_length': 'O usuário deve ter pelo menos 4 caracteres.',
+            'max_length': 'O usuário pode ter no máximo 150 caracteres.' 
+        },
+        min_length=4,
+        max_length=150
+    )
+                                
+    email = forms.CharField(
+        label='E-mail',
+        error_messages={'required': 'Esse campo não pode ficar vazio.'},
+        help_text='O e-mail deve ser válido.'
+    )
+
     password = forms.CharField(
         label='Senha', 
         widget=forms.PasswordInput(),
         min_length=8,
-        max_length=20
+        max_length=20,
+        error_messages={
+            'required': 'Esse campo não pode ficar vazio.'
+        },
+        help_text=(
+            'A senha deve conter pelo menos uma letra maiúscula, '
+            'uma letra minúscula e um dígito numérico. No mais, a senha '
+            'deve conter pelo menos 8 caracteres.'
+        ),
+        validators=[strong_password]
     )
     
     confirm_password = forms.CharField(
         label='Confirmar senha', 
         widget=forms.PasswordInput(),
         min_length=8,
-        max_length=20
+        max_length=20,
+        error_messages={
+            'required': 'Por favor, digite sua senha novamente.'
+        }
     )
-    
+
     class Meta:
         model = User
         fields = [
@@ -59,7 +97,7 @@ class SignupForm(forms.ModelForm):
 
         if found:
             raise ValidationError(
-                'E-mail já está em uso.', 
+                'O e-mail já está em uso.', 
                 code='invalid'
             )
 
