@@ -23,7 +23,7 @@ def login_view(request):
     
     loginForm = LoginForm()
 
-    return render(request, 'accounts/login.html', context={
+    return render(request, 'accounts/pages/login.html', context={
         'form': loginForm,
         'form_action': reverse('accounts:perform_login')
     })
