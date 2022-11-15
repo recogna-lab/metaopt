@@ -6,6 +6,12 @@ from django.urls import reverse
 from .forms import LoginForm
 
 
+def signup(request):
+    ...
+
+def perform_signup(request):
+    ...
+
 def login_view(request):
     dashboard_url = reverse('dashboard:index')
     

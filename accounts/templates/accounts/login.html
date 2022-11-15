@@ -20,5 +20,10 @@
                 {{ message }}
             {% endfor %}
         {% endif %}
+
+        <span>
+            Se ainda não tem uma conta, clique aqui para se 
+            <a href="{% url 'accounts:signup' %}">registrar</a>.
+        </span>
     </form>
 {% endblock content %}
