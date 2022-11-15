@@ -1,7 +1,11 @@
-{% extends 'global/pages/base.html' %}
+{% extends 'global/base.html' %}
 
 {% block title %}Cadastro |{% endblock title %}
 
 {% block content %}
     <h1>Cadastro</h1>
+
+    {% include 'accounts/partials/form.html' %}
+
+    {% include 'global/partials/messages.html' %}
 {% endblock content %}
