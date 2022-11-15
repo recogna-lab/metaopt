@@ -1,0 +1,37 @@
+{% include 'accounts/partials/head.html' %}
+
+{% load widget_tweaks %}
+
+<body> 
+
+    <form action="{% url 'accounts:login' %}" method="post">
+
+    {% csrf_token %}
+
+    <div class = "">
+        
+        <h2 class="title">Cadastro de Usuário</h2>
+
+        <div class="form-group mb-3 col-md-6">
+            <label class="form-label">Nome de Usuário</label>
+            {% render_field form.user_name class+="form-control" placeholder="Enter user"%}
+        </div>
+
+        <div class="form-group mb-3 col-md-6">
+            <label class="form-label">Email</label>
+            {% render_field form.email class+="form-control" placeholder="Enter email"%}
+        </div>
+
+        <div class="form-group mb-3 col-md-6">
+            <label class="form-label">Senha</label>
+            {% render_field form.password class+="form-control" placeholder="Enter password"%}
+        </div>
+        
+        <div class="text-right">
+            <button class="btn btn-primary">Enviar</button>
+        </div>
+    </div>
+
+    </form>
+
+</body>
