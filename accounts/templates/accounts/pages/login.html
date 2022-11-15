@@ -6,13 +6,9 @@
     <h1>Login</h1>
 
     {% include 'accounts/partials/form.html' %}
+    
+    {% include 'global/partials/messages.html' %}
 
-    {% if messages %}
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
-    {% endif %}
-        
     <span>
         Se ainda não tem uma conta, clique aqui para se 
         <a href="{% url 'accounts:signup' %}">registrar</a>.
