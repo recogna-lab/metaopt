@@ -45,8 +45,6 @@ def perform_signup(request):
 
         return redirect(reverse('accounts:login'))
 
-    messages.success(request, 'Já existe uma conta com esse nome de usuário.')
-            
     return redirect(signup_url)
 
 def login_view(request):
