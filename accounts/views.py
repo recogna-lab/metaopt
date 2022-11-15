@@ -7,6 +7,9 @@ from .forms import LoginForm, SignupForm
 
 
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect(reverse('dashboard:index'))
+
     signup_form_data = request.session.get('signup_form_data', None)
     
     signup_form = SignupForm(signup_form_data)
