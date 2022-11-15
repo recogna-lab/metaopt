@@ -3,9 +3,17 @@
 {% block title %}Cadastro |{% endblock title %}
 
 {% block content %}
-
-    {% include 'accounts/partials/form.html' %}
-
-    {% include 'global/partials/messages.html' %}
+    
+    <div class="page-wrapper bg-gra-03 p-t-180 p-b-100 font-poppins">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-4">
+                <div class="card-body">
+                    <h2 class="title">Crie sua conta</h2>        
+                    
+                    {% include 'accounts/partials/form.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock content %}
