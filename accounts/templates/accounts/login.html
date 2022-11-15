@@ -1,17 +1,25 @@
-<form action="{{ form_action }}" method="POST">
-    {% csrf_token %}
+{% extends 'global/base.html' %}
 
-    <label for="{{ form.username.id_for_label }}">Usuário</label>
-    {{ form.username }}
+{% block title %}Login |{% endblock title %}
 
-    <label for="{{ form.password.id_for_label }}">Senha</label>
-    {{ form.password }}
+{% block content %}
+    <h1>Login</h1>
 
-    {% if messages %}
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
-    {% endif %}
-
-    <input type="submit" value="Entrar" />
-</form>
+    <form action="{{ form_action }}" method="POST">
+        {% csrf_token %}
+    
+        <label for="{{ form.username.id_for_label }}">Usuário</label>
+        {{ form.username }}
+    
+        <label for="{{ form.password.id_for_label }}">Senha</label>
+        {{ form.password }}
+    
+        <input type="submit" value="Entrar" />
+        
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+    </form>
+{% endblock content %}

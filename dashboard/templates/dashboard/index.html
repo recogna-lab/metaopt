@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | MetaOPT </title>
-</head>
-<body>
+{% extends 'global/base.html' %}
+
+{% block title %}Dashboard |{% endblock title %}
+
+{% block content %}
     <h1>Dashboard</h1>
     <span>
         Clique aqui para <a href="{% url 'accounts:logout' %}">sair</a>.
     </span>
-</body>
-</html>
+{% endblock content %}
