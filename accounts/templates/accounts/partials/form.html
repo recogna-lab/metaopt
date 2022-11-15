@@ -3,44 +3,44 @@
         <div class="card card-4">
             <div class="card-body">
                 <h2 class="title">{{ form_name }}</h2>
-                    <form action="{{ form_action }}" method="POST">
-                        {% csrf_token %}
+                <form action="{{ form_action }}" method="POST">
+                    {% csrf_token %}
 
-                        {% for field in form %}
-                            <div class="input-group">
-                                <label class="label bold" for="{{ field.id_for_label }}">
-                                    {{ field.label }}
-                                </label>
-                                {{ field }}
-                                
-                                {% if field.help_text %}
-                                    <p class="help-text">{{ field.help_text }}</p>
-                                {% endif %}
+                    {% for field in form %}
+                        <div class="input-group">
+                            <label class="label bold" for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                            </label>
+                            {{ field }}
+                            
+                            {% if field.help_text %}
+                                <p class="help-text">{{ field.help_text }}</p>
+                            {% endif %}
 
-                                {{ field.errors }}
-                            </div>
-                        {% endfor %}
-                        
-                        {% if form_name == "Login" %}
-                            <span>
-                                Ainda não tem uma conta? <a href="{% url 'accounts:signup' %}">Clique aqui</a>.  
-                            </span>
-                        {% endif %}
+                            {{ field.errors }}
+                        </div>
+                    {% endfor %}
+                    
+                    {% if form_name == "Login" %}
+                        <span>
+                            Ainda não tem uma conta? <a href="{% url 'accounts:signup' %}">Clique aqui</a>.  
+                        </span>
+                    {% endif %}
 
-                        {% if form.errors %}
-                            <div class="form-content form-content-grid">
-                                <div class="form-group">
-                                    <div class="message message-error">
-                                        Há erros no formulário, por favor, conserte-os e tente novamente.
-                                    </div>
+                    {% if form.errors %}
+                        <div class="form-content form-content-grid">
+                            <div class="form-group">
+                                <div class="message message-error">
+                                    Há erros no formulário, por favor, conserte-os e tente novamente.
                                 </div>
                             </div>
-                        {% endif %}
+                        </div>
+                    {% endif %}
 
-                        <div class="p-t-15 a-right">
-                            <button class="btn btn--radius-2 btn--blue" type="submit">Entrar</button>
-                        </div>                  
-                    </form>  
+                    <div class="p-t-15 a-right">
+                        <button class="btn btn--radius-2 btn--blue" type="submit">Entrar</button>
+                    </div>                  
+                </form>  
             </div>
         </div>
     </div>
