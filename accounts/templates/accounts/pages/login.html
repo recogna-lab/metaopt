@@ -14,16 +14,16 @@
         {% endfor %}
 
         <input type="submit" value="Entrar" />
-        
-        {% if messages %}
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-        {% endif %}
-        
-        <span>
-            Se ainda não tem uma conta, clique aqui para se 
-            <a href="{% url 'accounts:signup' %}">registrar</a>.
-        </span>
     </form>
+
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+        
+    <span>
+        Se ainda não tem uma conta, clique aqui para se 
+        <a href="{% url 'accounts:signup' %}">registrar</a>.
+    </span>
 {% endblock content %}
