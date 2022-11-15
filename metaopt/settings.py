@@ -58,7 +58,13 @@ ROOT_URLCONF = 'metaopt.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+<<<<<<< HEAD
         'DIRS': [BASE_DIR / 'base_templates'],
+=======
+        'DIRS': [
+            BASE_DIR / 'base_templates',
+        ],
+>>>>>>> 4085041b859987f2267c2756dd294ff3f95282ab
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

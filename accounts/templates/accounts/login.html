@@ -1,0 +1,25 @@
+{% extends 'global/base.html' %}
+
+{% block title %}Login |{% endblock title %}
+
+{% block content %}
+    <h1>Login</h1>
+
+    <form action="{{ form_action }}" method="POST">
+        {% csrf_token %}
+    
+        <label for="{{ form.username.id_for_label }}">Usuário</label>
+        {{ form.username }}
+    
+        <label for="{{ form.password.id_for_label }}">Senha</label>
+        {{ form.password }}
+    
+        <input type="submit" value="Entrar" />
+        
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+    </form>
+{% endblock content %}

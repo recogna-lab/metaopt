@@ -1,46 +1,53 @@
-from django.shortcuts import render
-from django.contrib.auth.models import User
-from django.views.decorators.http import require_POST
-from .forms import UserForm
-from django.http import HttpResponseRedirect
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import redirect, render
+from django.urls import reverse
+
+from .forms import LoginForm
 
 
-def login(request):
-    return render(request, 'accounts/pages/login.html')
-
-def register(request):
-
-    if request.method == 'POST':
-        
-        form = UserForm(request.POST)
-
-        if form.is_valid():
-            return HttpResponseRedirect('/thanks/')
-
-    else:
-
-        print('Criando formulário')
-        
-        form = UserForm()
-
-    return render(request, 'accounts/pages/register.html', {'form': form})
-
-@require_POST
-def user_registering(request):
-
-    try:
-        # Verifica se o e-mail que se está tentando cadastrar já não existe -> CASO: email seja único
-        user = User.objects.get(email = request.POST['email'])
-
-        if user:
-            return render(request, 'caminho para index', {'msg': 'E-mail já cadastrado!'})
+def login_view(request):
+    dashboard_url = reverse('dashboard:index')
     
-    except User.DoesNotExist:
-        user_name = request.POST['user_name']
-        email = request.POST['email']
-        passwd = request.POST['password']
+    if request.user.is_authenticated:
+        return redirect(dashboard_url)
+    
+    next = request.GET.get('next', '')
+    request.session['next'] = next or dashboard_url
+    
+    loginForm = LoginForm()
 
-        newUser = User.objects.create_user(username=user_name, email=email, password=passwd)
-        newUser.save()
+    return render(request, 'accounts/login.html', context={
+        'form': loginForm,
+        'form_action': reverse('accounts:perform_login')
+    })
 
+def perform_login(request):
+    login_url = reverse('accounts:login')
+    
+    if not request.POST:
+        return redirect(login_url)
+    
+    loginForm = LoginForm(request.POST)
+    
+    if loginForm.is_valid():
+        authenticated_user = authenticate(
+            username=loginForm.cleaned_data.get('username', ''),
+            password=loginForm.cleaned_data.get('password', '')
+        )
+        
+        if authenticated_user is not None:
+            login(request, authenticated_user)
 
+            next_url = request.session.pop('next')
+            return redirect(next_url)
+        
+        messages.error(request, 'Credenciais inválidas.')
+    else:
+        messages.error(request, 'Erro de validação.')
+    
+    return redirect(login_url)
+
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('accounts:login'))

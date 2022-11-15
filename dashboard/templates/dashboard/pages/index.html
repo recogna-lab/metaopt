@@ -1,1 +1,10 @@
-<h1>MetaOPT Dashboard</h1>
+{% extends 'global/base.html' %}
+
+{% block title %}Dashboard |{% endblock title %}
+
+{% block content %}
+    <h1>Dashboard</h1>
+    <span>
+        Clique aqui para <a href="{% url 'accounts:logout' %}">sair</a>.
+    </span>
+{% endblock content %}
