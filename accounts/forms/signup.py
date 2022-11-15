@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 from utils.django_forms import add_attr, add_placeholder
 
@@ -46,3 +47,16 @@ class SignupForm(forms.ModelForm):
             'email',
             'password'
         ]
+    
+    def clean_email(self):
+        email = self.cleaned_data.get('email', '')
+        
+        found = User.objects.filter(email=email).exists()
+
+        if found:
+            raise ValidationError(
+                'E-mail já está em uso.', 
+                code='invalid'
+            )
+
+        return email
