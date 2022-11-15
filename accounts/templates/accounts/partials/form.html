@@ -2,9 +2,15 @@
     {% csrf_token %}
 
     {% for field in form %}
-        {{ field.label_tag }}
-        {{ field }}
+        <div class="form-group">
+            <label class="form-label" for="{{ field.id_for_label }}">
+                {{ field.label }}
+            </label>
+            {{ field }}
+        </div>
     {% endfor %}
 
-    <input type="submit" value="Prosseguir" />
+    <div>
+        <input class="btn btn-primary" type="submit" value="Prosseguir" />
+    </div>
 </form>
