@@ -194,7 +194,6 @@
     background: -moz-linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(45,58,253,1) 100%);
     background: -webkit-linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(45,58,253,1) 100%);
     background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(45,58,253,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#22c1c3",endColorstr="#2d3afd",GradientType=1);
   }
   
   /* ==========================================================================
