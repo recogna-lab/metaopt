@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
@@ -23,8 +23,10 @@ def login_view(request):
     })
 
 def perform_login(request):
+    login_url = reverse('accounts:login')
+    
     if not request.POST:
-        return redirect('accounts:login')
+        return redirect(login_url)
     
     loginForm = LoginForm(request.POST)
     
@@ -37,11 +39,15 @@ def perform_login(request):
         if authenticated_user is not None:
             login(request, authenticated_user)
 
-            redirect_url = request.session.pop('next')
-            return redirect(redirect_url)
+            next_url = request.session.pop('next')
+            return redirect(next_url)
         
         messages.error(request, 'Credenciais inválidas.')
     else:
         messages.error(request, 'Erro de validação.')
     
-    return redirect('accounts:login')
+    return redirect(login_url)
+
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('accounts:login'))
