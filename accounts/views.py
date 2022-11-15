@@ -36,9 +36,7 @@ def perform_signup(request):
         user.set_password(user.password)
         user.save()
         
-        message = 'Usuário criado com sucesso. '
-        message += 'Por favor, logue.'
-        
+        message = 'Usuário criado com sucesso.'
         messages.success(request, message)        
       
         del request.session['signup_form_data']
