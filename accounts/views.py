@@ -7,14 +7,15 @@ from .forms import LoginForm
 
 
 def login_view(request):
-    loginForm = LoginForm()
+    dashboard_url = reverse('dashboard:index')
+    
+    if request.user.is_authenticated:
+        return redirect(dashboard_url)
     
     next = request.GET.get('next', '')
+    request.session['next'] = next or dashboard_url
     
-    if next == '':
-        next = 'dashboard:index'
-
-    request.session['next'] = next
+    loginForm = LoginForm()
 
     return render(request, 'accounts/login.html', context={
         'form': loginForm,
