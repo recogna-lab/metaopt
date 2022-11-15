@@ -1,0 +1,10 @@
+<form action="{{ form_action }}" method="POST">
+    {% csrf_token %}
+
+    {% for field in form %}
+        {{ field.label_tag }}
+        {{ field }}
+    {% endfor %}
+
+    <input type="submit" value="Prosseguir" />
+</form>
