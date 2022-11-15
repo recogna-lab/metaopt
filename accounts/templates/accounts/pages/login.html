@@ -1,4 +1,4 @@
-{% extends 'global/pages/base.html' %}
+{% extends 'global/base.html' %}
 
 {% block title %}Login |{% endblock title %}
 
@@ -20,7 +20,7 @@
                 {{ message }}
             {% endfor %}
         {% endif %}
-
+        
         <span>
             Se ainda não tem uma conta, clique aqui para se 
             <a href="{% url 'accounts:signup' %}">registrar</a>.
