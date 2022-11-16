@@ -14,11 +14,4 @@ def strong_password(password):
     regex = compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')
     
     if not regex.match(password):
-        raise ValidationError(
-            (
-                'A senha deve conter pelo menos uma letra maiúscula, '
-                'uma letra minúscula e um dígito numérico. No mais, a senha '
-                'deve conter pelo menos 8 caracteres.'
-            ),
-            code='invalid'
-        )
+        raise ValidationError('Informe uma senha válida.', code='invalid')

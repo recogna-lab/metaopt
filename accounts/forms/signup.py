@@ -36,8 +36,7 @@ class SignupForm(forms.ModelForm):
     username = forms.CharField(
         label='Usuário',
         help_text=(
-            'O usuário pode conter letras, dígitos ou os símbolos @.+-_. '
-            'Esse campo deve ter entre 4 e 150 caracteres.'
+            'O nome de usuário pode conter letras, dígitos ou @.+-_. '
         ),
         error_messages={
             'required': 'Esse campo não pode ficar vazio.',
@@ -51,7 +50,7 @@ class SignupForm(forms.ModelForm):
     email = forms.CharField(
         label='E-mail',
         error_messages={'required': 'Esse campo não pode ficar vazio.'},
-        help_text='O e-mail deve ser válido.'
+        help_text='O endereço de e-mail deve ser válido.'
     )
 
     password = forms.CharField(
@@ -63,9 +62,9 @@ class SignupForm(forms.ModelForm):
             'required': 'Esse campo não pode ficar vazio.'
         },
         help_text=(
-            'A senha deve conter pelo menos uma letra maiúscula, '
-            'uma letra minúscula e um dígito numérico. No mais, a senha '
-            'deve conter pelo menos 8 caracteres.'
+            'A senha deve conter no mínimo 8 caracteres. Dentre esses, '
+            'deve haver pelo menos uma letra maiúscula, uma minúscula e '
+            'um dígito numérico.'
         ),
         validators=[strong_password]
     )
@@ -116,7 +115,6 @@ class SignupForm(forms.ModelForm):
             )
             
             raise ValidationError({
-                'password': password_confirmation_error,
                 'confirm_password': [
                     password_confirmation_error
                 ]
