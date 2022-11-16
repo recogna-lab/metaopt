@@ -480,12 +480,12 @@ input {
 	display: none;
 }
 
-.input-group {
+.form-group {
 	position: relative;
 	margin-bottom: 22px;
 }
 
-.input-group-icon {
+.form-group-icon {
 	position: relative;
 }
 
