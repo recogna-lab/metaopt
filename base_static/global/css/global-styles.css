@@ -480,8 +480,24 @@ input {
 	display: none;
 }
 
+.inline-form-group {
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: baseline;
+	justify-content: flex-start;
+}
+
+.inline-form-group label {
+	flex: auto;
+}
+
+.inline-form-group input {
+	width: fit-content;
+	margin-right: 5%;
+}
+
+.inline-form-group,
 .form-group {
-	position: relative;
 	margin-bottom: 22px;
 }
 

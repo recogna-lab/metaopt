@@ -79,6 +79,9 @@ def perform_login(request):
         if authenticated_user is not None:
             login(request, authenticated_user)
 
+            if not login_form.cleaned_data.get('remember_me'):
+                request.session.set_expiry(0)
+                    
             next_url = request.session.pop('next')
             return redirect(next_url)
         

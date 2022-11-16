@@ -19,3 +19,8 @@ class LoginForm(forms.Form):
         label='Senha', 
         widget=forms.PasswordInput()
     )
+    
+    remember_me = forms.BooleanField(
+        label='Manter conectado',
+        required=False
+    )
