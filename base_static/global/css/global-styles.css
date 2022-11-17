@@ -351,6 +351,31 @@ input[type="date" i] {
 #FORM
 ========================================================================== */
 
+.inline-form-group {
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: baseline;
+	justify-content: flex-start;
+}
+
+.inline-form-group label {
+	flex: auto;
+}
+
+.inline-form-group input {
+	width: fit-content;
+	margin-right: 5%;
+}
+
+.inline-form-group,
+.form-group {
+	margin-bottom: 5%;
+}
+
+.form-group-icon {
+	position: relative;
+}
+
 input {
 	outline: none;
 	margin: 0;
@@ -408,7 +433,7 @@ input {
 	color: #555;
 	text-transform: capitalize;
 	display: block;
-	margin-bottom: 5px;
+	margin-bottom: 1%;
 }
 
 .radio-container {
@@ -478,31 +503,6 @@ input {
 	content: "";
 	position: absolute;
 	display: none;
-}
-
-.inline-form-group {
-	display: flex;
-	flex-direction: row-reverse;
-	align-items: baseline;
-	justify-content: flex-start;
-}
-
-.inline-form-group label {
-	flex: auto;
-}
-
-.inline-form-group input {
-	width: fit-content;
-	margin-right: 5%;
-}
-
-.inline-form-group,
-.form-group {
-	margin-bottom: 22px;
-}
-
-.form-group-icon {
-	position: relative;
 }
 
 .input-icon {
