@@ -17,7 +17,6 @@ def signup(request):
     return render(request, 'accounts/pages/signup.html', context={
         'form': signup_form,
         'form_action': reverse('accounts:perform_signup'),
-        'form_name': "Cadastro",
     })
 
 def perform_signup(request):
@@ -59,7 +58,6 @@ def login_view(request):
     return render(request, 'accounts/pages/login.html', context={
         'form': login_form,
         'form_action': reverse('accounts:perform_login'),
-        'form_name': "Login",
     })
 
 def perform_login(request):
