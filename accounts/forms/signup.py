@@ -15,13 +15,9 @@ class SignupForm(forms.ModelForm):
         add_placeholder(self.fields['email'], 'Digite seu e-mail')
         add_placeholder(self.fields['password'], 'Digite sua senha')
         add_placeholder(self.fields['confirm_password'], 'Confirme sua senha')
-                        
-        add_attr(self.fields['first_name'], 'class', 'input--style-4')
-        add_attr(self.fields['last_name'], 'class', 'input--style-4')
-        add_attr(self.fields['username'], 'class', 'input--style-4')
-        add_attr(self.fields['email'], 'class', 'input--style-4')
-        add_attr(self.fields['password'], 'class', 'input--style-4 ')
-        add_attr(self.fields['confirm_password'], 'class', 'input--style-4')
+        
+        for field in self.fields.values():
+            add_attr(field, 'class', 'input--style-4')
 
     # Set an id for the form element
     id = 'signup-form'
