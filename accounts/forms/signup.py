@@ -18,6 +18,11 @@ class SignupForm(forms.ModelForm):
         
         for field in self.fields.values():
             add_attr(field, 'class', 'input--style-4')
+            
+            # Add tooltips
+            add_attr(field, 'data-toggle', 'tooltip')
+            add_attr(field, 'data-placement', 'top')
+            add_attr(field, 'title', field.help_text)
 
     # Set an id for the form element
     id = 'signup-form'
@@ -25,18 +30,24 @@ class SignupForm(forms.ModelForm):
     # Define the fields of the form
     first_name = forms.CharField(
         label='Nome',
+        help_text=(
+            'Preencha esse campo com o seu nome.'
+        ),
         error_messages={'required': 'Digite seu nome.'}
     )
 
     last_name = forms.CharField(
         label='Sobrenome',
+        help_text=(
+            'Preencha esse campo com o seu sobrenome.'
+        ),
         error_messages={'required': 'Digite seu sobrenome.'}
     )
     
     username = forms.CharField(
         label='Usuário',
         help_text=(
-            'O nome de usuário pode conter letras, dígitos ou @.+-_. '
+            'O nome de usuário pode conter letras, dígitos ou @.+-_.'
         ),
         error_messages={
             'required': 'Esse campo não pode ficar vazio.',
@@ -49,8 +60,8 @@ class SignupForm(forms.ModelForm):
                                 
     email = forms.CharField(
         label='E-mail',
-        error_messages={'required': 'Esse campo não pode ficar vazio.'},
-        help_text='O endereço de e-mail deve ser válido.'
+        help_text='O endereço de e-mail deve ser válido.',
+        error_messages={'required': 'Esse campo não pode ficar vazio.'}
     )
 
     password = forms.CharField(
@@ -58,14 +69,14 @@ class SignupForm(forms.ModelForm):
         widget=forms.PasswordInput(),
         min_length=8,
         max_length=20,
-        error_messages={
-            'required': 'Esse campo não pode ficar vazio.'
-        },
         help_text=(
             'A senha deve conter no mínimo 8 caracteres. Dentre esses, '
             'deve haver pelo menos uma letra maiúscula, uma minúscula e '
             'um dígito numérico.'
         ),
+        error_messages={
+            'required': 'Esse campo não pode ficar vazio.'
+        },
         validators=[strong_password]
     )
     
@@ -74,6 +85,9 @@ class SignupForm(forms.ModelForm):
         widget=forms.PasswordInput(),
         min_length=8,
         max_length=20,
+        help_text=(
+            'Repita sua senha.'
+        ),
         error_messages={
             'required': 'Por favor, digite sua senha novamente.'
         }

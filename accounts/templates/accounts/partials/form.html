@@ -1,26 +1,22 @@
-<form 
-    id="{% if form.id %}{{ form.id }}{% endif %}" 
-    action="{{ form_action }}" 
-    method="POST">
+<form  action="{{ form_action }}" method="POST">
 
     {% csrf_token %}
 
-    {% for field in form %}
-        <div class="{% if field.field.widget.input_type == 'checkbox' %}inline-{% endif %}form-group">
-            <label class="label bold" for="{{ field.id_for_label }}">
-                {{ field.label }}
-            </label>
-            {{ field }}
-            
-            {% if field.help_text %}
-                <p class="text-secondary">{{ field.help_text }}</p>
-            {% endif %}
-            
-            {% for error in field.errors %}
-                <p class="text-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-    {% endfor %}
+    <fieldset id="{% if form.id %}{{ form.id }}{% endif %}">
+        {% for field in form %}
+            <div class="{% if field.field.widget.input_type == 'checkbox' %}inline-{% endif %}form-group">
+                <label class="label bold" for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+
+                {{ field }}
+
+                {% for error in field.errors %}
+                    <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </fieldset>
 
     {% if form.errors %}
         <div class="form-group">
@@ -30,7 +26,15 @@
         </div>
     {% endif %}
 
-    <div class="p-t-15 a-right">
-        <button class="btn btn--radius-2 btn--blue" type="submit">Continuar</button>
+    <div class="button-div p-t-15 a-right">
+        <button class="btn btn--radius-2 btn--blue" type="submit">
+            Continuar
+        </button>
     </div>                  
 </form>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>

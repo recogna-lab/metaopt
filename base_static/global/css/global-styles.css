@@ -351,6 +351,18 @@ input[type="date" i] {
 #FORM
 ========================================================================== */
 
+#signup-form {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: baseline;
+}
+
+#signup-form .form-group {
+	width: 47.5%;
+}
+
 .inline-form-group {
 	display: flex;
 	flex-direction: row-reverse;
