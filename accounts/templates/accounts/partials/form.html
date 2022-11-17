@@ -1,6 +1,13 @@
 <form  action="{{ form_action }}" method="POST">
-
     {% csrf_token %}
+
+    {% if form.errors %}
+        <div class="form-group">
+           <p class="text-danger">
+                Há erros no formulário. Conserte-os e tente novamente.
+           </p>
+        </div>
+    {% endif %}
 
     <fieldset id="{% if form.id %}{{ form.id }}{% endif %}">
         {% for field in form %}
@@ -17,14 +24,6 @@
             </div>
         {% endfor %}
     </fieldset>
-
-    {% if form.errors %}
-        <div class="form-group">
-           <p class="text-danger">
-                Há erros no formulário. Conserte-os e tente novamente.
-           </p>
-        </div>
-    {% endif %}
 
     <div class="button-div p-t-15 a-right">
         <button class="btn btn--radius-2 btn--blue" type="submit">
