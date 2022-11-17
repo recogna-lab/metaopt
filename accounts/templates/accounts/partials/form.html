@@ -1,4 +1,8 @@
-<form action="{{ form_action }}" method="POST">
+<form 
+    id="{% if form.id %}{{ form.id }}{% endif %}" 
+    action="{{ form_action }}" 
+    method="POST">
+
     {% csrf_token %}
 
     {% for field in form %}

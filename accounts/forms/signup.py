@@ -15,7 +15,7 @@ class SignupForm(forms.ModelForm):
         add_placeholder(self.fields['email'], 'Digite seu e-mail')
         add_placeholder(self.fields['password'], 'Digite sua senha')
         add_placeholder(self.fields['confirm_password'], 'Confirme sua senha')
-        
+                        
         add_attr(self.fields['first_name'], 'class', 'input--style-4')
         add_attr(self.fields['last_name'], 'class', 'input--style-4')
         add_attr(self.fields['username'], 'class', 'input--style-4')
@@ -23,6 +23,10 @@ class SignupForm(forms.ModelForm):
         add_attr(self.fields['password'], 'class', 'input--style-4 ')
         add_attr(self.fields['confirm_password'], 'class', 'input--style-4')
 
+    # Set an id for the form element
+    id = 'signup-form'
+    
+    # Define the fields of the form
     first_name = forms.CharField(
         label='Nome',
         error_messages={'required': 'Digite seu nome.'}
