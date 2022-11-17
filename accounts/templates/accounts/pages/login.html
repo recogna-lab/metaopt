@@ -4,24 +4,22 @@
 
 {% block content %}
 
-    <div class="page-wrapper bg-gra-03 p-t-180 p-b-100 font-poppins">
-        <div class="wrapper wrapper--w680">
-            <div class="card card-4">
-                <div class="card-body">
-                    <h2 class="title">Entre em sua conta</h2>        
-                    
-                    {% include 'global/partials/messages.html' %}
+    <div class="page-wrapper bg-gra-03 font-poppins">
+        <div class="card card-4 wrapper--w680">
+            <div class="card-body">
+                <h2 class="title">Entre em sua conta</h2>        
+                
+                {% include 'global/partials/messages.html' %}
 
-                    {% include 'accounts/partials/form.html' %}
+                {% include 'accounts/partials/form.html' %}
 
-                    <div class="p-t-20">
-                        <span>
-                            Novo por aqui? 
-                            <a href="{% url 'accounts:signup' %}">
-                                Crie uma conta!
-                            </a>  
-                        </span>
-                    </div>
+                <div class="p-t-20">
+                    <span>
+                        Novo por aqui? 
+                        <a href="{% url 'accounts:signup' %}">
+                            Crie uma conta!
+                        </a>  
+                    </span>
                 </div>
             </div>
         </div>

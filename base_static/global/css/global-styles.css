@@ -110,15 +110,17 @@ button {
 #PAGE WRAPPER
 ========================================================================== */
 
-.page-wrapper {
-	min-height: 100vh;
-	display: flex;
-}
-
 body {
 	font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
 	font-weight: 400;
 	font-size: 14px;
+}
+
+.page-wrapper {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -228,10 +230,6 @@ h6 {
 #WRAPPER
 ========================================================================== */
 
-.wrapper {
-	margin: 0 auto;
-}
-
 .wrapper--w960 {
 	max-width: 960px;
 }
@@ -242,6 +240,8 @@ h6 {
 
 .wrapper--w680 {
 	max-width: 680px;
+	margin-top: 5%;
+	margin-bottom: 5%;
 }
   
 /* ==========================================================================
