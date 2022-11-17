@@ -1,13 +1,7 @@
 <form  action="{{ form_action }}" method="POST" novalidate>
     {% csrf_token %}
 
-    {% if form.errors %}
-        <div class="form-group">
-           <p class="text-danger">
-                Há erros no formulário. Conserte-os e tente novamente.
-           </p>
-        </div>
-    {% endif %}
+    {% include 'global/partials/messages.html' %}
 
     <fieldset id="{% if form.id %}{{ form.id }}{% endif %}">
         {% for field in form %}

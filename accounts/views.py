@@ -42,6 +42,9 @@ def perform_signup(request):
 
         return redirect(reverse('accounts:login'))
 
+    message = 'Há erros no formulário. Conserte-os e tente novamente.'
+    messages.error(request, message)
+
     return redirect(signup_url)
 
 def login_view(request):
