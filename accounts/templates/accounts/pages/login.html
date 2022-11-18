@@ -7,19 +7,21 @@
     <div class="page-wrapper bg-gra-03 font-poppins">
         <div class="card card-4 wrapper--w680">
             <div class="card-body">
-                <h2 class="title">Entre em sua conta</h2>        
-                
+                <h2 class="title">Entre em sua conta</h2>     
+                            
                 {% include 'global/partials/messages.html' %}
 
                 {% include 'accounts/partials/form.html' %}
 
-                <div class="p-t-20">
-                    <span>
-                        Novo por aqui? 
-                        <a href="{% url 'accounts:signup' %}">
-                            Crie uma conta!
-                        </a>  
-                    </span>
+                    <div class="p-t-20">
+
+                        <span>
+                            Novo por aqui? 
+                            <a href="{% url 'accounts:signup' %}">
+                                Crie uma conta!
+                            </a>  
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
