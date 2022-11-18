@@ -1,13 +1,7 @@
 <form  action="{{ form_action }}" method="POST" novalidate>
     {% csrf_token %}
 
-<<<<<<< HEAD
     <div id="{% if form.id %}{{ form.id }}{% endif %}">
-=======
-    {% include 'global/partials/messages.html' %}
-
-    <fieldset id="{% if form.id %}{{ form.id }}{% endif %}">
->>>>>>> origin/master
         {% for field in form %}
             <div class="{% if field.field.widget.input_type == 'checkbox' %}inline-{% endif %}form-group{% if field.label != 'Nome' and field.label != 'Sobrenome' and field.field.widget.input_type != 'checkbox' %}-line{% endif %}">
                 <label class="label bold" for="{{ field.id_for_label }}">
@@ -23,7 +17,6 @@
         {% endfor %}
     </div>
 
-<<<<<<< HEAD
     {% if form.errors %}
         <div class="form-group">
            <p class="text-danger">
@@ -34,8 +27,6 @@
     
     <div class = "button-span">
 
-=======
->>>>>>> origin/master
     <div class="button-div p-t-15 a-right">
         <button class="btn btn--radius-2 btn--blue" type="submit">
             Continuar
