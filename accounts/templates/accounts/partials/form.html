@@ -2,9 +2,9 @@
 
     {% csrf_token %}
 
-    <fieldset id="{% if form.id %}{{ form.id }}{% endif %}">
+    <div id="{% if form.id %}{{ form.id }}{% endif %}">
         {% for field in form %}
-            <div class="{% if field.field.widget.input_type == 'checkbox' %}inline-{% endif %}form-group">
+            <div class="{% if field.field.widget.input_type == 'checkbox' %}inline-{% endif %}form-group{% if field.label != 'Nome' and field.label != 'Sobrenome' and field.field.widget.input_type != 'checkbox' %}-line{% endif %}">
                 <label class="label bold" for="{{ field.id_for_label }}">
                     {{ field.label }}
                 </label>
@@ -25,12 +25,15 @@
            </p>
         </div>
     {% endif %}
-
+    
+    <div class = "button-span">
+        
     <div class="button-div p-t-15 a-right">
         <button class="btn btn--radius-2 btn--blue" type="submit">
             Continuar
         </button>
     </div>                  
+
 </form>
 
 <script>
