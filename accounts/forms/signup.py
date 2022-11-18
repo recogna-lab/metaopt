@@ -21,7 +21,6 @@ class SignupForm(forms.ModelForm):
             
             # Add tooltips
             add_attr(field, 'data-toggle', 'tooltip')
-            add_attr(field, 'data-placement', 'top')
             add_attr(field, 'title', field.help_text)
 
     # Set an id for the form element
