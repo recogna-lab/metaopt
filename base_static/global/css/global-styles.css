@@ -79,7 +79,6 @@ h1, h2, h3, h4, h5, h6,
 blockquote, p, pre,
 dl, dd, ol, ul,
 figure,
-hr,
 fieldset, legend {
 	margin: 0;
 	padding: 0;
@@ -355,19 +354,35 @@ input[type="date" i] {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: baseline;
 }
 
-#signup-form .form-group {
-	width: 47.5%;
+#login-form {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: baseline;
 }
 
+#signup-form .form-group-line, #login-form .form-group-line{
+	width: 100%;
+	margin-bottom: 5%;
+}
+
+#signup-form .form-group {
+	width: 48%;
+	justify-content: space-between;
+}
+
+/* Checkbox - Mantenha-me conectado*/
 .inline-form-group {
 	display: flex;
 	flex-direction: row-reverse;
 	align-items: baseline;
 	justify-content: flex-start;
+	width: 100%;
 }
 
 .inline-form-group label {
@@ -539,6 +554,7 @@ input {
 	text-align: left;
 }
 
+
 /* ==========================================================================
 #SELECT2
 ========================================================================== */
@@ -678,4 +694,11 @@ input {
 	.card-4 .card-body {
 		padding: 50px 40px;
 	}
+}
+
+.button-span{
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+	width: 100%;
 }
