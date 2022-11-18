@@ -13,6 +13,9 @@ class LoginForm(forms.Form):
         for field in self.fields.values():
             add_attr(field, 'class', 'input--style-4')
 
+    # Set an id for the form element
+    id = 'login-form'
+
     username = forms.CharField(label='Usuário')
     
     password = forms.CharField(
