@@ -1,18 +1,28 @@
 <form  action="{{ form_action }}" method="POST" novalidate>
     {% csrf_token %}
 
+    {% load widget_tweaks %}
     <div id="{% if form.id %}{{ form.id }}{% endif %}">
         {% for field in form %}
             <div class="{% if field.field.widget.input_type == 'checkbox' %}inline-{% endif %}form-group{% if field.label != 'Nome' and field.label != 'Sobrenome' and field.field.widget.input_type != 'checkbox' %}-line{% endif %}">
                 <label class="label bold" for="{{ field.id_for_label }}">
                     {{ field.label }}
                 </label>
+                
+                {% if not form.errors %}
+                    {{ field }}
+                {% else %}
+                    {% if field.errors %}
+                        {{ field|add_class:'is-invalid' }}
 
-                {{ field }}
-
-                {% for error in field.errors %}
-                    <p class="text-danger">{{ error }}</p>
-                {% endfor %}
+                        {% for error in field.errors %}
+                            <p class="text-danger">{{ error }}</p>
+                        {% endfor %}
+                    {% else %}
+                        {{ field|add_class:'is-valid' }}
+                        <p class="text-success">Parece certo!</p>
+                    {% endif %}
+                {% endif %}
             </div>
         {% endfor %}
     </div>
