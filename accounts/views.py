@@ -82,7 +82,6 @@ def perform_new_password(request, uidb64, token):
         
     return redirect(new_password_url)
 
-
 def signup(request):
     if request.user.is_authenticated:
         return redirect(reverse('dashboard:index'))
@@ -119,6 +118,9 @@ def perform_signup(request):
 
         return redirect(reverse('accounts:login'))
 
+    message = 'Há erros no formulário. Conserte-os e tente novamente.'
+    messages.error(request, message)  
+    
     return redirect(signup_url)
 
 def login_view(request):
