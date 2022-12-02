@@ -8,13 +8,14 @@ from .forms import LoginForm, NewPasswordForm, ResetPasswordForm, SignupForm
 
 
 def reset_password(request):
-    forgot_password_url = reverse('accounts:perform_reset_password')
+    reset_password_url = reverse('accounts:perform_reset_password')
 
-    forgot_form = ResetPasswordForm()
-
+    reset_password_data = request.session.get('reset_password_data', None)
+    reset_password_form = ResetPasswordForm(reset_password_data)
+    
     return render(request, 'accounts/pages/reset_password.html', context={
-        'form': forgot_form,
-        'form_action': forgot_password_url,
+        'form': reset_password_form,
+        'form_action': reset_password_url,
         'has_password_fields': False
     })
 
@@ -24,63 +25,57 @@ def perform_reset_password(request):
     if not request.POST:
         return redirect(reverse('accounts:reset_password'))
 
-    password_data = request.POST
+    reset_password_data = request.POST
+    request.session['reset_password_data'] = reset_password_data
 
-    request.session['password_data'] = password_data
+    reset_password_form = ResetPasswordForm(reset_password_data)
 
-    forgot_password_form = ResetPasswordForm(password_data)
-
-    if forgot_password_form.is_valid():
-
-        if forgot_password_form.email_exists():
-
-            forgot_password_form.send_email(password_data['email'])
+    if reset_password_form.is_valid():
+        if reset_password_form.email_exists():
+            reset_password_form.send_email(reset_password_data['email'])
 
             message = "E-mail para redefinição enviado. Por favor, verifique."
             messages.success(request, message)   
 
-            del request.session['password_data'] 
+            del request.session['reset_password_data'] 
 
             return redirect(login_url)
-        
-        messages.error(request, 'E-mail não cadastrado.')
-    
-    messages.error(request, 'Endereço de e-mail inválido.')
+
+        messages.error(request, 'E-mail não encontrado.')
+    else:
+        messages.error(request, 'Por favor, digite seu e-mail.')
         
     return redirect('accounts:reset_password')
 
 def new_password(request, uidb64, token):
-    forgot_password_url = reverse('accounts:perform_new_password', args=(uidb64, token))
-
-    forgot_form = NewPasswordForm()
+    new_password_form = NewPasswordForm()
+    
+    form_action = reverse('accounts:perform_new_password', args=(uidb64, token))
 
     return render(request, 'accounts/pages/new_password.html', context={
-        'form': forgot_form,
-        'form_action': forgot_password_url,
+        'form': new_password_form,
+        'form_action': form_action,
         'has_password_fields': True
     })
 
 def perform_new_password(request, uidb64, token):
-    login_url = reverse('accounts:login')
-
     new_password_url = reverse('accounts:new_password', args=(uidb64, token))
 
     if not request.POST:
         return redirect(new_password_url)
 
-    password_data = request.POST
-    new_password_form = NewPasswordForm(password_data)
+    new_password_data = request.POST
+    new_password_form = NewPasswordForm(new_password_data)
 
     if new_password_form.is_valid():
-
-        new_password_form.change_password(uidb64, password_data)
+        new_password_form.change_password(uidb64, new_password_data)
         
         message = 'Senha alterada com sucesso.'
         messages.success(request, message)        
 
-        return redirect(login_url)
+        return redirect(reverse('accounts:login'))
     
-    messages.error(request, 'Senhas digitadas não são iguais.')
+    messages.error(request, 'As senhas não são iguais.')
         
     return redirect(new_password_url)
 
@@ -88,9 +83,8 @@ def signup(request):
     if request.user.is_authenticated:
         return redirect(reverse('dashboard:index'))
 
-    signup_form_data = request.session.get('signup_form_data', None)
-    
-    signup_form = SignupForm(signup_form_data)
+    signup_data = request.session.get('signup_data', None)
+    signup_form = SignupForm(signup_data)
 
     return render(request, 'accounts/pages/signup.html', context={
         'form': signup_form,
@@ -104,10 +98,10 @@ def perform_signup(request):
     if not request.POST:
         return redirect(signup_url)
 
-    signup_form_data = request.POST
-    request.session['signup_form_data'] = signup_form_data
+    signup_data = request.POST
+    request.session['signup_data'] = signup_data
     
-    signup_form = SignupForm(signup_form_data)
+    signup_form = SignupForm(signup_data)
     
     if signup_form.is_valid():
         user = signup_form.save(commit=False)
@@ -117,11 +111,11 @@ def perform_signup(request):
         message = 'Usuário criado com sucesso.'
         messages.success(request, message)        
       
-        del request.session['signup_form_data']
+        del request.session['signup_data']
 
         return redirect(reverse('accounts:login'))
 
-    message = 'Há erros no formulário. Conserte-os e tente novamente.'
+    message = 'Por favor, preenchar todos os campos corretamente.'
     messages.error(request, message)  
     
     return redirect(signup_url)
@@ -136,7 +130,7 @@ def login_view(request):
     request.session['next'] = next or dashboard_url
     
     login_form = LoginForm()
-
+        
     return render(request, 'accounts/pages/login.html', context={
         'form': login_form,
         'form_action': reverse('accounts:perform_login'),
@@ -148,7 +142,7 @@ def perform_login(request):
     
     if not request.POST:
         return redirect(login_url)
-    
+
     login_form = LoginForm(request.POST)
     
     if login_form.is_valid():
@@ -163,9 +157,9 @@ def perform_login(request):
             next_url = request.session.pop('next')
             return redirect(next_url)
         
-        messages.error(request, 'Credenciais inválidas.')
+        messages.error(request, 'Usuário ou senha inválidos.')
     else:
-        messages.error(request, 'Erro de validação.')
+        messages.error(request, 'Por favor, preencha os dois campos.')
     
     return redirect(login_url)
 
