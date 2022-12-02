@@ -1,16 +1,17 @@
 from django import forms
-from django.http import HttpResponse
+from django.contrib import messages
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
 from django.contrib.auth.tokens import default_token_generator
+from django.core.exceptions import ValidationError
+from django.core.mail import BadHeaderError, send_mail
+from django.http import HttpResponse
+from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from django.template.loader import render_to_string
-from django.core.mail import send_mail, BadHeaderError
-from django.contrib import messages
-from metaopt.settings.mail import EMAIL_HOST_PASSWORD, EMAIL_HOST_USER
 
+from metaopt.settings.mail import EMAIL_HOST_PASSWORD, EMAIL_HOST_USER
 from utils.django_forms import add_attr, add_placeholder
+
 
 class ResetPasswordForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -42,7 +43,7 @@ class ResetPasswordForm(forms.Form):
         user = User.objects.filter(email=email).first()
 
         subject = "Pedido de Redefinição de Senha"
-        email_template = "accounts/pages/password_reset.html"
+        email_template = "accounts/pages/password_reset_email.txt"
         c = {
             "email" : user.email,
             'domain' : '127.0.0.1:8000',
