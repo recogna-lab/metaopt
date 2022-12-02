@@ -15,6 +15,7 @@ def reset_password(request):
     return render(request, 'accounts/pages/reset_password.html', context={
         'form': forgot_form,
         'form_action': forgot_password_url,
+        'has_password_fields': False
     })
 
 def perform_reset_password(request):
@@ -56,6 +57,7 @@ def new_password(request, uidb64, token):
     return render(request, 'accounts/pages/new_password.html', context={
         'form': forgot_form,
         'form_action': forgot_password_url,
+        'has_password_fields': True
     })
 
 def perform_new_password(request, uidb64, token):
@@ -93,6 +95,7 @@ def signup(request):
     return render(request, 'accounts/pages/signup.html', context={
         'form': signup_form,
         'form_action': reverse('accounts:perform_signup'),
+        'has_password_fields': True
     })
 
 def perform_signup(request):
@@ -137,6 +140,7 @@ def login_view(request):
     return render(request, 'accounts/pages/login.html', context={
         'form': login_form,
         'form_action': reverse('accounts:perform_login'),
+        'has_password_fields': True
     })
 
 def perform_login(request):

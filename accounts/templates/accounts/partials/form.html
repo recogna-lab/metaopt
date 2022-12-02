@@ -2,11 +2,10 @@
     {% csrf_token %}
 
     {% load widget_tweaks %}
-    
     <fieldset>
-        {% for field in form %}
 
-            <div class="{% if field|widget_type == 'checkboxinput' %}inline-{% endif %}form-group{% if form.name == 'signup_form' and field.label != 'Usuário' and field.label != 'E-mail' %}-half{% endif %}">
+        {% for field in form %}
+            <div class="form-group{% if form.name == 'signup_form' and field.label != 'Usuário' and field.label != 'E-mail' %}-half{% endif %}">
 
                 {% if not form.errors %}
                     {{ field }}
@@ -24,14 +23,20 @@
                 {% endif %}
                 
                 {% if field|widget_type == 'checkboxinput' %}
-                    <label class="label bold" for="{{ field.id_for_label }}">
+                    <label class="label" for="{{ field.id_for_label }}">
                         {{ field.label }}
                     </label>
                 {% endif %}
-
             </div>
-            
         {% endfor %}
+        
+        {% if has_password_fields %}
+            <div class="inline-form-group">
+                <input type="checkbox" name="show" onclick="showPassword()">
+                <label class="label" for="show">Mostrar Senha</label>
+            </div>
+        {% endif %}
+
     </fieldset>
     
     <div class = "button-span">
@@ -69,11 +74,7 @@
             </button>
         </div>                  
     </div>
-
 </form>
 
-<script>
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip({placement: 'bottom'})
-    })
-</script>
+{% load static %}
+<script src="{% static 'accounts/js/scripts.js' %}"></script>
