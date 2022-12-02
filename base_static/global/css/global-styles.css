@@ -379,7 +379,6 @@ input[type="date" i] {
 /* Checkbox - Mantenha-me conectado*/
 .inline-form-group {
 	display: flex;
-	flex-direction: row-reverse;
 	align-items: baseline;
 	justify-content: flex-start;
 	width: 100%;
