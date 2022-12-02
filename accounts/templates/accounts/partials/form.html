@@ -5,10 +5,6 @@
     <div id="{{ form.id }}">
         {% for field in form %}
             <div class="{% if field.field.widget.input_type == 'checkbox' %}inline-{% endif %}form-group{% if field.label != 'Nome' and field.label != 'Sobrenome' and field.field.widget.input_type != 'checkbox' %}-line{% endif %}">
-                <label class="label bold" for="{{ field.id_for_label }}">
-                    {{ field.label }}
-                </label>
-                
                 {% if not form.errors %}
                     {{ field }}
                 {% else %}
@@ -22,6 +18,12 @@
                         {{ field|add_class:'is-valid' }}
                         <p class="text-success">Parece certo!</p>
                     {% endif %}
+                {% endif %}
+
+                {% if field.field.widget.input_type == 'checkbox' %}
+                    <label class="label bold" for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
                 {% endif %}
             </div>
         {% endfor %}
