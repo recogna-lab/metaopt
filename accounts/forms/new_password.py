@@ -13,10 +13,14 @@ class NewPasswordForm(forms.Form):
         self.name = 'new_password_form'
         
         add_placeholder(self.fields['password'], 'Digite a nova senha')
-        add_placeholder(self.fields['confirm_password'], 'Digite novamente a sua senha.')
+        add_placeholder(self.fields['confirm_password'], 'Repita sua senha.')
         
         for field in self.fields.values():
             add_attr(field, 'class', 'form-control')
+            
+            # Add tooltips
+            add_attr(field, 'data-toggle', 'tooltip')
+            add_attr(field, 'title', field.help_text)
 
     password = forms.CharField(
         label='Senha', 
@@ -29,7 +33,7 @@ class NewPasswordForm(forms.Form):
             'um dígito numérico.'
         ),
         error_messages={
-            'required': 'Esse campo não pode ficar vazio.'
+            'required': 'Por favor, digite sua senha.'
         },
         validators=[strong_password]
     )
@@ -43,12 +47,11 @@ class NewPasswordForm(forms.Form):
             'Repita sua senha.'
         ),
         error_messages={
-            'required': 'Por favor, digite sua senha novamente.'
+            'required': 'Por favor, repita sua senha.'
         }
     )
 
     def change_password(self, uidb64, password):
-
         id = urlsafe_base64_decode(uidb64)
         
         user = User.objects.filter(id = id).first() 

@@ -18,14 +18,12 @@ class ResetPasswordForm(forms.Form):
         self.name = 'reset_password_form'
         
         add_placeholder(self.fields['email'], 'Digite seu-email')
-        
-        for field in self.fields.values():
-            add_attr(field, 'class', 'form-control')
+        add_attr(self.fields['email'], 'class', 'form-control')
 
     email = forms.CharField(
-        label = "E-mail",
-        help_text = 'O endereço de e-mail deve ser válido.',
-        error_messages={'required': 'Esse campo não pode ficar vazio.'}
+        label='E-mail',
+        help_text = 'Digite seu e-mail.',
+        error_messages={'required': 'Por favor, digite seu e-mail.'}
     )
 
     def email_exists(self):
@@ -56,5 +54,5 @@ class ResetPasswordForm(forms.Form):
             send_mail(subject=subject, message=email, from_email="", recipient_list=[user.email], auth_user=EMAIL_HOST_USER,
             auth_password=EMAIL_HOST_PASSWORD, fail_silently=False)
         except BadHeaderError:
-            return HttpResponse('Invalid header found.')
+            return HttpResponse('Não foi possível enviar o e-mail.')
 

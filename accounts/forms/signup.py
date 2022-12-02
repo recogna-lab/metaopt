@@ -16,7 +16,7 @@ class SignupForm(forms.ModelForm):
         add_placeholder(self.fields['username'], 'Digite seu usuário')
         add_placeholder(self.fields['email'], 'Digite seu e-mail')
         add_placeholder(self.fields['password'], 'Digite sua senha')
-        add_placeholder(self.fields['confirm_password'], 'Confirme sua senha')
+        add_placeholder(self.fields['confirm_password'], 'Repita sua senha')
         
         for field in self.fields.values():
             add_attr(field, 'class', 'form-control')
@@ -28,17 +28,17 @@ class SignupForm(forms.ModelForm):
     first_name = forms.CharField(
         label='Nome',
         help_text=(
-            'Preencha esse campo com o seu nome.'
+            'Digite seu nome.'
         ),
-        error_messages={'required': 'Digite seu nome.'}
+        error_messages={'required': 'Por favor, digite seu nome.'}
     )
 
     last_name = forms.CharField(
         label='Sobrenome',
         help_text=(
-            'Preencha esse campo com o seu sobrenome.'
+            'Digite seu sobrenome.'
         ),
-        error_messages={'required': 'Digite seu sobrenome.'}
+        error_messages={'required': 'Por favor, digite seu sobrenome.'}
     )
     
     username = forms.CharField(
@@ -47,7 +47,7 @@ class SignupForm(forms.ModelForm):
             'O nome de usuário pode conter letras, dígitos ou @.+-_.'
         ),
         error_messages={
-            'required': 'Esse campo não pode ficar vazio.',
+            'required': 'Por favor, digite seu usuário.',
             'min_length': 'O usuário deve ter pelo menos 4 caracteres.',
             'max_length': 'O usuário pode ter no máximo 150 caracteres.' 
         },
@@ -57,8 +57,8 @@ class SignupForm(forms.ModelForm):
                                 
     email = forms.CharField(
         label='E-mail',
-        help_text='O endereço de e-mail deve ser válido.',
-        error_messages={'required': 'Esse campo não pode ficar vazio.'}
+        help_text='Digite seu e-mail.',
+        error_messages={'required': 'Por favor, digite seu e-mail.'}
     )
 
     password = forms.CharField(
@@ -72,7 +72,7 @@ class SignupForm(forms.ModelForm):
             'um dígito numérico.'
         ),
         error_messages={
-            'required': 'Esse campo não pode ficar vazio.'
+            'required': 'Por favor, digite sua senha.'
         },
         validators=[strong_password]
     )
@@ -86,7 +86,7 @@ class SignupForm(forms.ModelForm):
             'Repita sua senha.'
         ),
         error_messages={
-            'required': 'Por favor, digite sua senha novamente.'
+            'required': 'Por favor, repita sua senha.'
         }
     )
 
