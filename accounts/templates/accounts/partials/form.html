@@ -2,6 +2,7 @@
     {% csrf_token %}
 
     {% load widget_tweaks %}
+    
     <fieldset>
         {% for field in form %}
 
@@ -34,12 +35,40 @@
     </fieldset>
     
     <div class = "button-span">
+        {% if form.name == 'signup_form' %}
+            <div class="p-t-20">
+                <span>
+                    Já tem uma? 
+                    <a href="{% url 'accounts:login' %}">
+                        Entre em sua conta!
+                    </a>  
+                </span>
+            </div>
+        {% endif %}
 
-    <div class="button-div p-t-15 a-right">
-        <button class="btn btn--radius-2 btn--blue" type="submit">
-            Continuar
-        </button>
-    </div>                  
+        {% if form.name == 'login_form' %}
+            <div class="p-t-20">
+                <div>
+                    Novo por aqui? 
+                    <a href="{% url 'accounts:signup' %}">
+                        Crie uma conta!
+                    </a>  
+                </div>
+                <div>
+                    Esqueceu sua senha?
+                    <a href="{% url 'accounts:reset_password' %}">
+                        Clique aqui!
+                    </a>  
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="button-div p-t-15 a-right">
+            <button class="btn btn--radius-2 btn--blue" type="submit">
+                Continuar
+            </button>
+        </div>                  
+    </div>
 
 </form>
 

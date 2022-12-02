@@ -679,7 +679,10 @@ input {
 
 .button-span{
 	display: flex;
-	flex-direction: row-reverse;
 	justify-content: space-between;
 	width: 100%;
+}
+
+.button-div {
+	margin-left: auto;
 }
