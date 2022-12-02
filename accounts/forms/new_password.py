@@ -10,6 +10,8 @@ class NewPasswordForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
+        self.name = 'new_password_form'
+        
         add_placeholder(self.fields['password'], 'Digite a nova senha')
         add_placeholder(self.fields['confirm_password'], 'Digite novamente a sua senha.')
         

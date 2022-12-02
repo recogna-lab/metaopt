@@ -7,6 +7,8 @@ class LoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
+        self.name = 'login_form'
+        
         add_placeholder(self.fields['username'], 'Digite seu usuário')
         add_placeholder(self.fields['password'], 'Digite sua senha')
         

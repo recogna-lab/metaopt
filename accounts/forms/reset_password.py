@@ -15,6 +15,8 @@ class ResetPasswordForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
+        self.name = 'reset_password_form'
+        
         add_placeholder(self.fields['email'], 'Digite seu-email')
         
         for field in self.fields.values():

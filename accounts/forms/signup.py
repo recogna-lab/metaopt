@@ -9,6 +9,8 @@ class SignupForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
+        self.name = 'signup_form'
+        
         add_placeholder(self.fields['first_name'], 'Digite seu nome')
         add_placeholder(self.fields['last_name'], 'Digite seu sobrenome')
         add_placeholder(self.fields['username'], 'Digite seu usuário')
