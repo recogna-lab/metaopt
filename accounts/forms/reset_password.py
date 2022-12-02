@@ -20,9 +20,6 @@ class ResetPasswordForm(forms.Form):
         for field in self.fields.values():
             add_attr(field, 'class', 'form-control')
 
-    # Set an id for the form element
-    id = 'reset-password-form'
-
     email = forms.CharField(
         label = "E-mail",
         help_text = 'O endereço de e-mail deve ser válido.',

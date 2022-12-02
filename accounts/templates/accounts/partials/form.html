@@ -2,7 +2,7 @@
     {% csrf_token %}
 
     {% load widget_tweaks %}
-    <div id="{{ form.id }}">
+    <fieldset>
         {% for field in form %}
             <div class="{% if field.field.widget.input_type == 'checkbox' %}inline-{% endif %}form-group{% if field.label != 'Nome' and field.label != 'Sobrenome' and field.field.widget.input_type != 'checkbox' %}-line{% endif %}">
                 {% if not form.errors %}
@@ -27,7 +27,7 @@
                 {% endif %}
             </div>
         {% endfor %}
-    </div>
+    </fieldset>
     
     <div class = "button-span">
 

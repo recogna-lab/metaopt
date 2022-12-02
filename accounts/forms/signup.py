@@ -23,10 +23,6 @@ class SignupForm(forms.ModelForm):
             add_attr(field, 'data-toggle', 'tooltip')
             add_attr(field, 'title', field.help_text)
 
-    # Set an id for the form element
-    id = 'signup-form'
-    
-    # Define the fields of the form
     first_name = forms.CharField(
         label='Nome',
         help_text=(

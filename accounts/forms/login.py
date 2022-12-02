@@ -14,9 +14,6 @@ class LoginForm(forms.Form):
             if 'BooleanField' not in str(type(field)):
                 add_attr(field, 'class', 'form-control')
 
-    # Set an id for the form element
-    id = 'login-form'
-
     username = forms.CharField(label='Usuário')
     
     password = forms.CharField(

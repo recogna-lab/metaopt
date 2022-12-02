@@ -16,9 +16,6 @@ class NewPasswordForm(forms.Form):
         for field in self.fields.values():
             add_attr(field, 'class', 'form-control')
 
-    # Set an id for the form element
-    id = 'new-password-form'
-
     password = forms.CharField(
         label='Senha', 
         widget=forms.PasswordInput(),

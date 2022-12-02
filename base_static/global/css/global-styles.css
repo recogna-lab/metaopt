@@ -350,7 +350,7 @@ input[type="date" i] {
 #FORM
 ========================================================================== */
 
-#signup-form {
+fieldset {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -358,20 +358,12 @@ input[type="date" i] {
 	align-items: baseline;
 }
 
-#login-form {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: baseline;
-}
-
-#signup-form .form-group-line, #login-form .form-group-line{
+fieldset .form-group-line {
 	width: 100%;
 	margin-bottom: 5%;
 }
 
-#signup-form .form-group {
+fieldset .form-group {
 	width: 48%;
 	justify-content: space-between;
 }
