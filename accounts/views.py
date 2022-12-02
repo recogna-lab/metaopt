@@ -1,9 +1,10 @@
 from django.contrib import messages
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from .forms import LoginForm, SignupForm, ResetPasswordForm, NewPasswordForm
+
+from .forms import LoginForm, NewPasswordForm, ResetPasswordForm, SignupForm
 
 
 def reset_password(request):
@@ -52,7 +53,7 @@ def new_password(request, uidb64, token):
     print(uidb64)
     print(token)
 
-    forgot_password_url = reverse('accounts:new_password_perform', args=(uidb64, token))
+    forgot_password_url = reverse('accounts:perform_new_password', args=(uidb64, token))
 
     forgot_form = NewPasswordForm()
 
@@ -61,7 +62,7 @@ def new_password(request, uidb64, token):
         'form_action': forgot_password_url,
     })
 
-def new_password_perform(request, uidb64, token):
+def perform_new_password(request, uidb64, token):
     login_url = reverse('accounts:login')
 
     new_password_url = reverse('accounts:new_password', args=(uidb64, token))
