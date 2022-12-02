@@ -43,7 +43,7 @@ class ResetPasswordForm(forms.Form):
         user = User.objects.filter(email=email).first()
 
         subject = "Pedido de Redefinição de Senha"
-        email_template = "accounts/pages/password_reset_email.txt"
+        email_template = "accounts/password_reset_email.txt"
         c = {
             "email" : user.email,
             'domain' : '127.0.0.1:8000',
