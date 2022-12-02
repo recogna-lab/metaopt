@@ -49,10 +49,6 @@ def perform_reset_password(request):
     return redirect('accounts:reset_password')
 
 def new_password(request, uidb64, token):
-
-    print(uidb64)
-    print(token)
-
     forgot_password_url = reverse('accounts:perform_new_password', args=(uidb64, token))
 
     forgot_form = NewPasswordForm()
@@ -71,11 +67,6 @@ def perform_new_password(request, uidb64, token):
         return redirect(new_password_url)
 
     password_data = request.POST
-
-    print(password_data)
-
-    print(type(password_data))
-
     new_password_form = NewPasswordForm(password_data)
 
     if new_password_form.is_valid():
@@ -112,9 +103,6 @@ def perform_signup(request):
         return redirect(signup_url)
 
     signup_form_data = request.POST
-
-    print(signup_form_data)
-
     request.session['signup_form_data'] = signup_form_data
     
     signup_form = SignupForm(signup_form_data)
