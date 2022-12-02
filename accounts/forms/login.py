@@ -13,8 +13,7 @@ class LoginForm(forms.Form):
         add_placeholder(self.fields['password'], 'Digite sua senha')
         
         for field in self.fields.values():
-            if 'BooleanField' not in str(type(field)):
-                add_attr(field, 'class', 'form-control')
+            add_attr(field, 'class', 'form-control')
 
     username = forms.CharField(label='Usuário')
     
