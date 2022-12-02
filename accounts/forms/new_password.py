@@ -1,7 +1,8 @@
 from django import forms
-from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.utils.http import urlsafe_base64_decode
+
 from utils.django_forms import add_attr, add_placeholder, strong_password
 
 
@@ -13,7 +14,7 @@ class NewPasswordForm(forms.Form):
         add_placeholder(self.fields['confirm_password'], 'Digite novamente a sua senha.')
         
         for field in self.fields.values():
-            add_attr(field, 'class', 'input--style-4')
+            add_attr(field, 'class', 'form-control')
 
     # Set an id for the form element
     id = 'login-form'
