@@ -249,7 +249,7 @@ h6 {
 
 .btn {
 	display: inline-block;
-	line-height: 50px;
+	line-height: 40px;
 	padding: 0 50px;
 	-webkit-transition: all 0.4s ease;
 	-o-transition: all 0.4s ease;
@@ -358,14 +358,14 @@ fieldset {
 	align-items: baseline;
 }
 
-fieldset .form-group-line {
+fieldset .form-group {
 	width: 100%;
 	margin-bottom: 5%;
 }
 
-fieldset .form-group {
+fieldset .form-group-half {
 	width: 48%;
-	justify-content: space-between;
+	margin-bottom: 5%;
 }
 
 /* Checkbox - Mantenha-me conectado*/
@@ -407,7 +407,7 @@ input {
 }
 
 .form-control {
-	line-height: 50px;
+	line-height: 40px;
 	background: #fafafa;
 	padding: 0 20px;
 	font-size: 16px;
