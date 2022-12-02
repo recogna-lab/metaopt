@@ -11,7 +11,8 @@ class LoginForm(forms.Form):
         add_placeholder(self.fields['password'], 'Digite sua senha')
         
         for field in self.fields.values():
-            add_attr(field, 'class', 'input--style-4')
+            if 'BooleanField' not in str(type(field)):
+                add_attr(field, 'class', 'form-control')
 
     # Set an id for the form element
     id = 'login-form'
