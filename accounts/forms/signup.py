@@ -17,7 +17,7 @@ class SignupForm(forms.ModelForm):
         add_placeholder(self.fields['confirm_password'], 'Confirme sua senha')
         
         for field in self.fields.values():
-            add_attr(field, 'class', 'input--style-4')
+            add_attr(field, 'class', 'form-control')
             
             # Add tooltips
             add_attr(field, 'data-toggle', 'tooltip')
