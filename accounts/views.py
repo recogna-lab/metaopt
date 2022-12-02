@@ -1,9 +1,9 @@
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from django.urls import reverse
-
-from .forms import LoginForm, SignupForm, ResetPasswordForm
+from .forms import LoginForm, SignupForm, ResetPasswordForm, NewPasswordForm
 
 
 def reset_password(request):
@@ -32,10 +32,10 @@ def perform_reset_password(request):
 
         if forgot_password_form.email_exists():
 
+            forgot_password_form.send_email(password_data['email'])
+
             message = "E-mail para redefinição enviado. Por favor, verifique."
             messages.success(request, message)   
-
-            forgot_password_form.send_email(password_data['email'])
 
             del request.session['password_data'] 
 
@@ -46,6 +46,50 @@ def perform_reset_password(request):
     messages.error(request, 'Endereço de e-mail inválido.')
         
     return redirect('accounts:reset_password')
+
+def new_password(request, uidb64, token):
+
+    print(uidb64)
+    print(token)
+
+    forgot_password_url = reverse('accounts:new_password_perform', args=(uidb64, token))
+
+    forgot_form = NewPasswordForm()
+
+    return render(request, 'accounts/pages/new_password.html', context={
+        'form': forgot_form,
+        'form_action': forgot_password_url,
+    })
+
+def new_password_perform(request, uidb64, token):
+    login_url = reverse('accounts:login')
+
+    new_password_url = reverse('accounts:new_password', args=(uidb64, token))
+
+    if not request.POST:
+        return redirect(new_password_url)
+
+    password_data = request.POST
+
+    print(password_data)
+
+    print(type(password_data))
+
+    new_password_form = NewPasswordForm(password_data)
+
+    if new_password_form.is_valid():
+
+        new_password_form.change_password(uidb64, password_data)
+        
+        message = 'Senha alterada com sucesso.'
+        messages.success(request, message)        
+
+        return redirect(login_url)
+    
+    messages.error(request, 'Senhas digitadas não são iguais.')
+        
+    return redirect(new_password_url)
+
 
 def signup(request):
     if request.user.is_authenticated:
