@@ -21,7 +21,7 @@ class ResetPasswordForm(forms.Form):
             add_attr(field, 'class', 'form-control')
 
     # Set an id for the form element
-    id = 'password-form'
+    id = 'reset-password-form'
 
     email = forms.CharField(
         label = "E-mail",

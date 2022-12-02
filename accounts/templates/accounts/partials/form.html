@@ -2,7 +2,7 @@
     {% csrf_token %}
 
     {% load widget_tweaks %}
-    <div id="{% if form.id %}{{ form.id }}{% endif %}">
+    <div id="{{ form.id }}">
         {% for field in form %}
             <div class="{% if field.field.widget.input_type == 'checkbox' %}inline-{% endif %}form-group{% if field.label != 'Nome' and field.label != 'Sobrenome' and field.field.widget.input_type != 'checkbox' %}-line{% endif %}">
                 <label class="label bold" for="{{ field.id_for_label }}">
