@@ -13,7 +13,7 @@ class NewPasswordForm(forms.Form):
         self.name = 'new_password_form'
         
         add_placeholder(self.fields['password'], 'Digite a nova senha')
-        add_placeholder(self.fields['confirm_password'], 'Repita sua senha.')
+        add_placeholder(self.fields['confirm_password'], 'Repita sua senha')
         
         for field in self.fields.values():
             add_attr(field, 'class', 'form-control')
