@@ -18,7 +18,7 @@
 #GRID
 ========================================================================== */
 
-.row {
+/* .row {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -moz-box;
@@ -47,7 +47,7 @@
 	.col-2 {
 		width: 100%;
 	}
-}
+} */
   
 /* ==========================================================================
 #BOX-SIZING
@@ -244,6 +244,193 @@ h6 {
 }
   
 /* ==========================================================================
+#FORM
+========================================================================== */
+
+fieldset {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: baseline;
+}
+
+fieldset .form-group {
+	width: 100%;
+	margin-bottom: 5%;
+}
+
+fieldset .form-group-half {
+	width: 48%;
+	margin-bottom: 5%;
+}
+
+.form-group {
+	margin-bottom: 5%;
+}
+
+.form-group-icon {
+	position: relative;
+}
+
+input {
+	outline: none;
+	margin: 0;
+	border: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	width: 100%;
+	font-size: 14px;
+	font-family: inherit;
+}
+
+.form-control {
+	line-height: 40px;
+	background: #fafafa;
+	padding: 0 20px;
+	font-size: 16px;
+	color: #666;
+}
+
+.form-control::-webkit-input-placeholder {
+	color: #666;
+}
+
+.form-control:-moz-placeholder {
+	color: #666;
+	opacity: 1;
+}
+
+.form-control::-moz-placeholder {
+	color: #666;
+	opacity: 1;
+}
+
+.form-control:-ms-input-placeholder {
+	color: #666;
+}
+
+.form-control:-ms-input-placeholder {
+	color: #666;
+}
+
+.button-wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+fieldset .button-wrapper {
+	margin-bottom: 2.5%;
+}
+
+#show-btn {
+	color: #525252;
+}
+
+#show-btn:hover {
+	color: #4272d7;
+}
+
+#show-btn, 
+.button-div {
+	margin-left: auto;
+}
+
+.radio-container {
+	display: inline-block;
+	position: relative;
+	padding-left: 30px;
+	cursor: pointer;
+	font-size: 16px;
+	color: #666;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.radio-container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.radio-container input:checked ~ .checkmark {
+	background-color: #e5e5e5;
+}
+
+.radio-container input:checked ~ .checkmark:after {
+	display: block;
+}
+
+.radio-container .checkmark:after {
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	width: 12px;
+	height: 12px;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	background: #57b846;
+}
+
+.checkmark {
+	position: absolute;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	transform: translateY(-50%);
+	left: 0;
+	height: 20px;
+	width: 20px;
+	background-color: #e5e5e5;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	-webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+	-moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+	box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+}
+
+.checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+.input-icon {
+	position: absolute;
+	font-size: 18px;
+	color: #999;
+	right: 18px;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	transform: translateY(-50%);
+	cursor: pointer;
+}
+
+.a-right {
+	text-align: right;
+}
+
+.a-left {
+	text-align: left;
+}
+
+/* ==========================================================================
 #BUTTON
 ========================================================================== */
 
@@ -344,195 +531,6 @@ input[type="date" i] {
 	font-size: 14px;
 	padding: 5px;
 	outline: none;
-}
-  
-/* ==========================================================================
-#FORM
-========================================================================== */
-
-fieldset {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: baseline;
-}
-
-fieldset .form-group {
-	width: 100%;
-	margin-bottom: 5%;
-}
-
-fieldset .form-group-half {
-	width: 48%;
-	margin-bottom: 5%;
-}
-
-/* Checkbox - Mantenha-me conectado*/
-.inline-form-group {
-	display: flex;
-	align-items: baseline;
-	justify-content: flex-start;
-	width: 100%;
-}
-
-.inline-form-group label {
-	flex: auto;
-}
-
-.inline-form-group input {
-	width: fit-content;
-	margin-right: 5%;
-}
-
-.inline-form-group,
-.form-group {
-	margin-bottom: 5%;
-}
-
-.form-group-icon {
-	position: relative;
-}
-
-input {
-	outline: none;
-	margin: 0;
-	border: none;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-	width: 100%;
-	font-size: 14px;
-	font-family: inherit;
-}
-
-.form-control {
-	line-height: 40px;
-	background: #fafafa;
-	padding: 0 20px;
-	font-size: 16px;
-	color: #666;
-}
-
-.form-control::-webkit-input-placeholder {
-	color: #666;
-}
-
-.form-control:-moz-placeholder {
-	color: #666;
-	opacity: 1;
-}
-
-.form-control::-moz-placeholder {
-	color: #666;
-	opacity: 1;
-}
-
-.form-control:-ms-input-placeholder {
-	color: #666;
-}
-
-.form-control:-ms-input-placeholder {
-	color: #666;
-}
-
-.label {
-	font-size: 16px;
-	color: #555;
-	text-transform: capitalize;
-	display: block;
-	margin-bottom: 1%;
-}
-
-.radio-container {
-	display: inline-block;
-	position: relative;
-	padding-left: 30px;
-	cursor: pointer;
-	font-size: 16px;
-	color: #666;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-
-.radio-container input {
-	position: absolute;
-	opacity: 0;
-	cursor: pointer;
-}
-
-.radio-container input:checked ~ .checkmark {
-	background-color: #e5e5e5;
-}
-
-.radio-container input:checked ~ .checkmark:after {
-	display: block;
-}
-
-.radio-container .checkmark:after {
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%, -50%);
-	-moz-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	-o-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-	width: 12px;
-	height: 12px;
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
-	border-radius: 50%;
-	background: #57b846;
-}
-
-.checkmark {
-	position: absolute;
-	top: 50%;
-	-webkit-transform: translateY(-50%);
-	-moz-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
-	-o-transform: translateY(-50%);
-	transform: translateY(-50%);
-	left: 0;
-	height: 20px;
-	width: 20px;
-	background-color: #e5e5e5;
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
-	border-radius: 50%;
-	-webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
-	-moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
-	box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
-}
-
-.checkmark:after {
-	content: "";
-	position: absolute;
-	display: none;
-}
-
-.input-icon {
-	position: absolute;
-	font-size: 18px;
-	color: #999;
-	right: 18px;
-	top: 50%;
-	-webkit-transform: translateY(-50%);
-	-moz-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
-	-o-transform: translateY(-50%);
-	transform: translateY(-50%);
-	cursor: pointer;
-}
-
-.a-right {
-	text-align: right;
-}
-
-.a-left {
-	text-align: left;
 }
 
 
@@ -675,15 +673,4 @@ input {
 	.card-4 .card-body {
 		padding: 50px 40px;
 	}
-}
-
-.button-span{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-}
-
-.button-div {
-	margin-left: auto;
 }

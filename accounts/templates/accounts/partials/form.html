@@ -31,15 +31,23 @@
         {% endfor %}
         
         {% if has_password_fields %}
-            <div class="inline-form-group">
-                <input type="checkbox" name="show" onclick="showPassword()">
-                <label class="label" for="show">Mostrar Senha</label>
+            <div class="button-wrapper">
+                {% if form.name == 'login_form' %}
+                    <div>
+                        <a href="{% url 'accounts:reset_password' %}">
+                            Esqueceu sua senha?
+                        </a>  
+                    </div>
+                {% endif %}
+                <button id="show-btn" type="button" onclick="showPassword()">
+                    Mostrar senha
+                </button>
             </div>
         {% endif %}
 
     </fieldset>
     
-    <div class = "button-span">
+    <div class="button-wrapper">
         {% if form.name == 'signup_form' %}
             <div class="p-t-20">
                 <span>
@@ -53,18 +61,12 @@
 
         {% if form.name == 'login_form' %}
             <div class="p-t-20">
-                <div>
+                <span>
                     Novo por aqui? 
                     <a href="{% url 'accounts:signup' %}">
                         Crie uma conta!
                     </a>  
-                </div>
-                <div>
-                    Esqueceu sua senha?
-                    <a href="{% url 'accounts:reset_password' %}">
-                        Clique aqui!
-                    </a>  
-                </div>
+                </span>
             </div>
         {% endif %}
 
