@@ -1,55 +1,4 @@
 /* ==========================================================================
-#FONT
-========================================================================== */
-
-.font-robo {
-	font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
-}
-
-.font-poppins {
-	font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
-}
-
-.bold {
-	font-weight: bold;
-}
-
-/* ==========================================================================
-#GRID
-========================================================================== */
-
-/* .row {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-flex-wrap: wrap;
-	-ms-flex-wrap: wrap;
-	flex-wrap: wrap;
-}
-
-.row-space {
-	-webkit-box-pack: justify;
-	-webkit-justify-content: space-between;
-	-moz-box-pack: justify;
-	-ms-flex-pack: justify;
-	justify-content: space-between;
-}
-
-.col-2 {
-	width: -webkit-calc((100% - 30px) / 2);
-	width: -moz-calc((100% - 30px) / 2);
-	width: calc((100% - 30px) / 2);
-}
-
-@media (max-width: 767px) {
-	.col-2 {
-		width: 100%;
-	}
-} */
-  
-/* ==========================================================================
 #BOX-SIZING
 ========================================================================== */
 
@@ -104,6 +53,22 @@ button {
 	background: none;
 	border: none;
 }
+
+/* ==========================================================================
+#FONT
+========================================================================== */
+
+.font-robo {
+	font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+}
+
+.font-poppins {
+	font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+}
+
+.bold {
+	font-weight: bold;
+}
   
 /* ==========================================================================
 #PAGE WRAPPER
@@ -122,32 +87,28 @@ body {
 	align-items: center;
 }
 
-h1, h2, h3, h4, h5, h6 {
-	font-weight: 400;
+/* ==========================================================================
+#WRAPPER
+========================================================================== */
+
+.wrapper-w960 {
+	max-width: 960px;
 }
 
-h1 {
-	font-size: 36px;
+.wrapper-w780 {
+	max-width: 780px;
 }
 
-h2 {
-	font-size: 30px;
+.wrapper-w680 {
+	max-width: 680px;
+	margin-top: 5%;
+	margin-bottom: 5%;
 }
 
-h3 {
-	font-size: 24px;
-}
-
-h4 {
-	font-size: 18px;
-}
-
-h5 {
-	font-size: 15px;
-}
-
-h6 {
-	font-size: 13px;
+.wrapper-w480 {
+	max-width: 480px;
+	margin-top: 5%;
+	margin-bottom: 5%;
 }
   
 /* ==========================================================================
@@ -223,24 +184,6 @@ h6 {
 
 .m-r-45 {
 	margin-right: 45px;
-}
-  
-/* ==========================================================================
-#WRAPPER
-========================================================================== */
-
-.wrapper--w960 {
-	max-width: 960px;
-}
-
-.wrapper--w780 {
-	max-width: 780px;
-}
-
-.wrapper--w680 {
-	max-width: 680px;
-	margin-top: 5%;
-	margin-bottom: 5%;
 }
   
 /* ==========================================================================
@@ -448,37 +391,37 @@ fieldset .button-wrapper {
 	font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
 }
 
-.btn--radius {
+.btn-radius {
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 }
 
-.btn--radius-2 {
+.btn-radius-2 {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
 
-.btn--pill {
+.btn-pill {
 	-webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
 	border-radius: 20px;
 }
 
-.btn--green {
+.btn-green {
 	background: #57b846;
 }
 
-.btn--green:hover {
+.btn-green:hover {
 	background: #4dae3c;
 }
 
-.btn--blue {
+.btn-blue {
 	background: #4272d7;
 }
 
-.btn--blue:hover {
+.btn-blue:hover {
 	background: #3868cd;
 }
   
@@ -641,7 +584,35 @@ input[type="date" i] {
 	font-weight: 400;
 	margin-bottom: 40px;
 }
-  
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 400;
+}
+
+h1 {
+	font-size: 36px;
+}
+
+h2 {
+	font-size: 30px;
+}
+
+h3 {
+	font-size: 24px;
+}
+
+h4 {
+	font-size: 18px;
+}
+
+h5 {
+	font-size: 15px;
+}
+
+h6 {
+	font-size: 13px;
+}
+ 
 /* ==========================================================================
 #CARD
 ========================================================================== */
@@ -669,8 +640,43 @@ input[type="date" i] {
 	padding-bottom: 65px;
 }
 
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
 	.card-4 .card-body {
 		padding: 50px 40px;
 	}
+} */
+
+/* ==========================================================================
+#GRID
+========================================================================== */
+
+/* .row {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
 }
+
+.row-space {
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	-moz-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+}
+
+.col-2 {
+	width: -webkit-calc((100% - 30px) / 2);
+	width: -moz-calc((100% - 30px) / 2);
+	width: calc((100% - 30px) / 2);
+}
+
+@media (max-width: 767px) {
+	.col-2 {
+		width: 100%;
+	}
+} */
