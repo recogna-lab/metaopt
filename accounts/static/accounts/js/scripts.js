@@ -1,5 +1,5 @@
 $(function () {
-    $('[data-toggle="tooltip"]').tooltip({placement: 'right'})
+    $('[data-toggle="tooltip"]').tooltip({placement: 'bottom'})
 })
 
 const showPassword = function() {
