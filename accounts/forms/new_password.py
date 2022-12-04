@@ -28,9 +28,7 @@ class NewPasswordForm(forms.Form):
         min_length=8,
         max_length=20,
         help_text=(
-            'A senha deve conter no mínimo 8 caracteres. Dentre esses, '
-            'deve haver pelo menos uma letra maiúscula, uma minúscula e '
-            'um dígito numérico.'
+            'Digite uma combinação de pelo menos 8 caracteres como letras ' 'maiúsculas e minúsculas, e dígitos.'
         ),
         error_messages={
             'required': 'Por favor, digite sua senha.'
