@@ -34,7 +34,7 @@ def perform_reset_password(request):
         if reset_password_form.email_exists():
             reset_password_form.send_email(reset_password_data['email'])
 
-            message = "E-mail para redefinição enviado. Por favor, verifique."
+            message = 'E-mail de redefinição de senha enviado.'
             messages.success(request, message)   
 
             del request.session['reset_password_data'] 
