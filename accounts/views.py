@@ -115,7 +115,7 @@ def perform_signup(request):
 
         return redirect(reverse('accounts:login'))
 
-    message = 'Por favor, preenchar todos os campos corretamente.'
+    message = 'Por favor, preencha todos os campos corretamente.'
     messages.error(request, message)  
     
     return redirect(signup_url)
