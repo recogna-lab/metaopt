@@ -1,5 +1,14 @@
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip({placement: 'bottom'})
+$(function() {
+    const elements = $('[data-toggle="tooltip"]')
+    let elementsArray = [...elements]
+
+    elementsArray.forEach((e) => {
+        if(e.classList.contains('tooltip-left')) {
+            $(e).tooltip({placement: 'left'})
+        } else {
+            $(e).tooltip({placement: 'right'})
+        }
+    })
 })
 
 const showPassword = function() {
