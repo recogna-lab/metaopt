@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
