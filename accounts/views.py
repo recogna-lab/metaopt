@@ -142,7 +142,7 @@ def confirm_password_reset(request, uidb64, token):
             'status_code': 498,
             'error_type': 'Token inválido.',
             'error_message': (
-                'O link de redefinição de senha já foi utilizado.'
+                'Parece que você já recuperou sua conta.'
             )
         })
         response.status_code = 498
