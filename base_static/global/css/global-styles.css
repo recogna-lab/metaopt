@@ -115,31 +115,7 @@ body {
 #BACKGROUND
 ========================================================================== */
 
-.bg-blue {
-	background: #2c6ed5;
-}
-
-.bg-red {
-	background: #fa4251;
-}
-
-.bg-gra-01 {
-	background: -webkit-gradient(linear, left bottom, left top, from(#fbc2eb), to(#a18cd1));
-	background: -webkit-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
-	background: -moz-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
-	background: -o-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
-	background: linear-gradient(to top, #fbc2eb 0%, #a18cd1 100%);
-}
-
-.bg-gra-02 {
-	background: -webkit-gradient(linear, left bottom, right top, from(#fc2c77), to(#6c4079));
-	background: -webkit-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
-	background: -moz-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
-	background: -o-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
-	background: linear-gradient(to top right, #fc2c77 0%, #6c4079 100%);
-}
-
-.bg-gra-03 {
+.gradient {
 	background: rgb(34,193,195);
 	background: -moz-linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(45,58,253,1) 100%);
 	background: -webkit-linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(45,58,253,1) 100%);
@@ -639,44 +615,3 @@ h6 {
 	padding: 57px 65px;
 	padding-bottom: 65px;
 }
-
-/* @media (max-width: 767px) {
-	.card-4 .card-body {
-		padding: 50px 40px;
-	}
-} */
-
-/* ==========================================================================
-#GRID
-========================================================================== */
-
-/* .row {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-flex-wrap: wrap;
-	-ms-flex-wrap: wrap;
-	flex-wrap: wrap;
-}
-
-.row-space {
-	-webkit-box-pack: justify;
-	-webkit-justify-content: space-between;
-	-moz-box-pack: justify;
-	-ms-flex-pack: justify;
-	justify-content: space-between;
-}
-
-.col-2 {
-	width: -webkit-calc((100% - 30px) / 2);
-	width: -moz-calc((100% - 30px) / 2);
-	width: calc((100% - 30px) / 2);
-}
-
-@media (max-width: 767px) {
-	.col-2 {
-		width: 100%;
-	}
-} */
