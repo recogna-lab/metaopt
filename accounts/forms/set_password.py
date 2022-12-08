@@ -49,13 +49,6 @@ class SetPasswordForm(forms.Form):
         }
     )
 
-    def change_password(self, uidb64, password):
-        id = urlsafe_base64_decode(uidb64)
-        
-        user = User.objects.filter(pk = id).first() 
-        user.set_password(password.get('password'))
-        user.save()
-
     def clean(self):
         cleaned_data = super().clean()
 
@@ -73,3 +66,11 @@ class SetPasswordForm(forms.Form):
                     password_confirmation_error
                 ]
             })
+    
+    def set_password(self, uidb64):
+        id = urlsafe_base64_decode(uidb64)
+        password = self.cleaned_data.get('password')
+        
+        user = User.objects.filter(pk = id).first() 
+        user.set_password(password)
+        user.save()

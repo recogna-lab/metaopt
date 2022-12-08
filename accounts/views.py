@@ -159,7 +159,7 @@ def complete_password_reset(request, uidb64, token):
     set_password_form = SetPasswordForm(set_password_data)
 
     if set_password_form.is_valid():
-        set_password_form.change_password(uidb64, set_password_data)
+        set_password_form.set_password(uidb64)
         
         message = 'Senha alterada com sucesso.'
         messages.success(request, message)        
