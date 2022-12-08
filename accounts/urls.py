@@ -19,11 +19,11 @@ urlpatterns = [
     path(
         'reset/<uidb64>/<token>/', 
         views.confirm_password_reset, 
-        name='confirm_password_reset'
+        name='confirm_reset'
     ),
     path(
         'complete_reset/<uidb64>/<token>/', 
         views.complete_password_reset, 
-        name='complete_password_reset'
+        name='complete_reset'
     ),
 ]

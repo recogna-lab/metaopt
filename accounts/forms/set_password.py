@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
 from django.core.exceptions import ValidationError
 from django.utils.http import urlsafe_base64_decode
 
@@ -67,10 +68,22 @@ class SetPasswordForm(forms.Form):
                 ]
             })
     
+    def get_user(self, uidb64):
+        id = urlsafe_base64_decode(uidb64).decode()
+        return User.objects.filter(pk = id).first()
+    
+    def check_user_and_token(self, uidb64, token):
+        user = self.get_user(uidb64)
+
+        if user is not None:
+            if default_token_generator.check_token(user, token):
+                return True
+
+        return False
+
     def set_password(self, uidb64):
-        id = urlsafe_base64_decode(uidb64)
         password = self.cleaned_data.get('password')
         
-        user = User.objects.filter(pk = id).first() 
+        user = self.get_user(uidb64) 
         user.set_password(password)
         user.save()

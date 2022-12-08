@@ -134,26 +134,31 @@ def send_password_reset(request):
         
     return redirect('accounts:password_reset')
 
-def confirm_password_reset(request, uidb64, token):
+def confirm_password_reset(request, uidb64, token): 
     set_password_form = SetPasswordForm()
     
-    form_action = reverse(
-        'accounts:complete_password_reset', args=(uidb64, token)
-    )
+    if set_password_form.check_user_and_token(uidb64, token):
+        request.session['uidb64'] = uidb64
+        request.session['token'] = token
 
-    return render(request, 'accounts/pages/set_password.html', context={
-        'form': set_password_form,
-        'form_action': form_action,
-        'has_password_fields': True
-    })
+        form_action = reverse('accounts:complete_reset')
 
-def complete_password_reset(request, uidb64, token):
-    confirm_password_reset_url = reverse(
-        'accounts:confirm_password_reset', args=(uidb64, token)
-    )
+        return render(request, 'accounts/pages/set_password.html', context={
+            'form': set_password_form,
+            'form_action': form_action,
+            'has_password_fields': True
+        })
+    
+    return render(request, 'accounts/pages/set_password.html')
+
+def complete_password_reset(request):
+    uidb64 = request.session.get('uidb64')
+    token = request.session.get('token')
+    
+    confirm_reset_url = reverse('accounts:confirm_reset', args=(uidb64, token))
 
     if not request.POST:
-        return redirect(confirm_password_reset)
+        return redirect(confirm_reset_url)
 
     set_password_data = request.POST
     set_password_form = SetPasswordForm(set_password_data)
@@ -164,8 +169,10 @@ def complete_password_reset(request, uidb64, token):
         message = 'Senha alterada com sucesso.'
         messages.success(request, message)        
 
+        del request.session['uidb64'], request.session['token']
+
         return redirect(reverse('accounts:login'))
     
     messages.error(request, 'As senhas não são iguais.')
         
-    return redirect(confirm_password_reset_url)
+    return redirect(confirm_reset_url)
