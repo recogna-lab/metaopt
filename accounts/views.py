@@ -107,10 +107,10 @@ def password_reset(request):
     })
 
 def send_password_reset(request):
-    login_url = reverse('accounts:login')
+    password_reset_url = reverse('accounts:password_reset')
 
     if not request.POST:
-        return redirect(reverse('accounts:password_reset'))
+        return redirect(password_reset_url)
 
     password_reset_data = request.POST
     request.session['password_reset_data'] = password_reset_data
@@ -126,13 +126,13 @@ def send_password_reset(request):
 
             del request.session['password_reset_data'] 
 
-            return redirect(login_url)
+            return redirect(reverse('accounts:login'))
 
         messages.error(request, 'E-mail não encontrado.')
     else:
         messages.error(request, 'Por favor, digite seu e-mail.')
         
-    return redirect('accounts:password_reset')
+    return redirect(password_reset_url)
 
 def confirm_password_reset(request, uidb64, token): 
     set_password_form = SetPasswordForm()
