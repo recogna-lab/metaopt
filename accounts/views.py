@@ -14,11 +14,11 @@ def login_view(request):
     
     next = request.GET.get('next', '')
     request.session['next'] = next or dashboard_url
-    
-    login_form = LoginForm()
-        
-    return render(request, 'accounts/pages/login.html', context={
-        'form': login_form,
+            
+    return render(request, 'accounts/pages/form_page.html', context={
+        'page_title': 'Login',
+        'form_title': 'Entre em sua conta',
+        'form': LoginForm(),
         'form_action': reverse('accounts:perform_login'),
         'has_password_fields': True
     })
@@ -60,7 +60,9 @@ def signup(request):
     signup_data = request.session.get('signup_data', None)
     signup_form = SignupForm(signup_data)
 
-    return render(request, 'accounts/pages/signup.html', context={
+    return render(request, 'accounts/pages/form_page.html', context={
+        'title': 'Cadastro',
+        'form_title': 'Crie uma conta',
         'form': signup_form,
         'form_action': reverse('accounts:perform_signup'),
         'has_password_fields': True
@@ -95,14 +97,14 @@ def perform_signup(request):
     return redirect(signup_url)
 
 def password_reset(request):
-    password_reset_url = reverse('accounts:send_password_reset')
-
     password_reset_data = request.session.get('password_reset_data', None)
     password_reset_form = PasswordResetForm(password_reset_data)
     
-    return render(request, 'accounts/pages/password_reset.html', context={
+    return render(request, 'accounts/pages/form_page.html', context={
+        'title': 'Pedido de Redefinição de Senha',
+        'form_title': 'Peça uma nova senha',
         'form': password_reset_form,
-        'form_action': password_reset_url,
+        'form_action': reverse('accounts:send_password_reset'),
         'has_password_fields': False
     })
 
@@ -153,7 +155,9 @@ def confirm_password_reset(request, uidb64, token):
 
     form_action = reverse('accounts:complete_reset')
 
-    return render(request, 'accounts/pages/set_password.html', context={
+    return render(request, 'accounts/pages/form_page.html', context={
+        'title': 'Redefinição de Senha',
+        'form_title': 'Redefina sua senha',
         'form': set_password_form,
         'form_action': form_action,
         'has_password_fields': True
