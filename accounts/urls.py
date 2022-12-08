@@ -22,7 +22,7 @@ urlpatterns = [
         name='confirm_reset'
     ),
     path(
-        'complete_reset/<uidb64>/<token>/', 
+        'reset/complete/', 
         views.complete_password_reset, 
         name='complete_reset'
     ),
