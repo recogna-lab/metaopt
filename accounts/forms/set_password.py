@@ -6,11 +6,11 @@ from django.utils.http import urlsafe_base64_decode
 from utils.django_forms import add_attr, add_placeholder, strong_password
 
 
-class NewPasswordForm(forms.Form):
+class SetPasswordForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
-        self.name = 'new_password_form'
+        self.name = 'set_password_form'
         
         add_placeholder(self.fields['password'], 'Digite a nova senha')
         add_placeholder(self.fields['confirm_password'], 'Repita sua senha')
@@ -52,10 +52,8 @@ class NewPasswordForm(forms.Form):
     def change_password(self, uidb64, password):
         id = urlsafe_base64_decode(uidb64)
         
-        user = User.objects.filter(id = id).first() 
-
+        user = User.objects.filter(pk = id).first() 
         user.set_password(password.get('password'))
-
         user.save()
 
     def clean(self):

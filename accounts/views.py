@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from .forms import LoginForm, NewPasswordForm, PasswordResetForm, SignupForm
+from .forms import LoginForm, PasswordResetForm, SetPasswordForm, SignupForm
 
 
 def login_view(request):
@@ -95,7 +95,7 @@ def perform_signup(request):
     return redirect(signup_url)
 
 def password_reset(request):
-    password_reset_url = reverse('accounts:perform_password_reset')
+    password_reset_url = reverse('accounts:send_password_reset')
 
     password_reset_data = request.session.get('password_reset_data', None)
     password_reset_form = PasswordResetForm(password_reset_data)
@@ -106,7 +106,7 @@ def password_reset(request):
         'has_password_fields': False
     })
 
-def perform_password_reset(request):
+def send_password_reset(request):
     login_url = reverse('accounts:login')
 
     if not request.POST:
@@ -134,28 +134,32 @@ def perform_password_reset(request):
         
     return redirect('accounts:password_reset')
 
-def new_password(request, uidb64, token):
-    new_password_form = NewPasswordForm()
+def confirm_password_reset(request, uidb64, token):
+    set_password_form = SetPasswordForm()
     
-    form_action = reverse('accounts:perform_new_password', args=(uidb64, token))
+    form_action = reverse(
+        'accounts:complete_password_reset', args=(uidb64, token)
+    )
 
-    return render(request, 'accounts/pages/new_password.html', context={
-        'form': new_password_form,
+    return render(request, 'accounts/pages/set_password.html', context={
+        'form': set_password_form,
         'form_action': form_action,
         'has_password_fields': True
     })
 
-def perform_new_password(request, uidb64, token):
-    new_password_url = reverse('accounts:new_password', args=(uidb64, token))
+def complete_password_reset(request, uidb64, token):
+    confirm_password_reset_url = reverse(
+        'accounts:confirm_password_reset', args=(uidb64, token)
+    )
 
     if not request.POST:
-        return redirect(new_password_url)
+        return redirect(confirm_password_reset)
 
-    new_password_data = request.POST
-    new_password_form = NewPasswordForm(new_password_data)
+    set_password_data = request.POST
+    set_password_form = SetPasswordForm(set_password_data)
 
-    if new_password_form.is_valid():
-        new_password_form.change_password(uidb64, new_password_data)
+    if set_password_form.is_valid():
+        set_password_form.change_password(uidb64, set_password_data)
         
         message = 'Senha alterada com sucesso.'
         messages.success(request, message)        
@@ -164,4 +168,4 @@ def perform_new_password(request, uidb64, token):
     
     messages.error(request, 'As senhas não são iguais.')
         
-    return redirect(new_password_url)
+    return redirect(confirm_password_reset_url)

@@ -12,18 +12,18 @@ urlpatterns = [
     path('signup/perform/', views.perform_signup, name='perform_signup'),
     path('password_reset/', views.password_reset, name='password_reset'),
     path(
-        'password_reset/perform/', 
-        views.perform_password_reset, 
-        name='perform_password_reset'
+        'password_reset/send/', 
+        views.send_password_reset, 
+        name='send_password_reset'
     ),
     path(
-        'new_password/<uidb64>/<token>/', 
-        views.new_password, 
-        name='new_password'
+        'reset/<uidb64>/<token>/', 
+        views.confirm_password_reset, 
+        name='confirm_password_reset'
     ),
     path(
-        'new_password_confirm/<uidb64>/<token>/', 
-        views.perform_new_password, 
-        name='perform_new_password'
+        'complete_reset/<uidb64>/<token>/', 
+        views.complete_password_reset, 
+        name='complete_password_reset'
     ),
 ]
