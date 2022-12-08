@@ -31,23 +31,23 @@ def perform_login(request):
 
     login_form = LoginForm(request.POST)
     
-    if login_form.is_valid():
-        authenticated_user = authenticate(
-            username = login_form.cleaned_data.get('username', ''),
-            password = login_form.cleaned_data.get('password', '')
-        )
-        
-        if authenticated_user is not None:
-            login(request, authenticated_user)
-
-            next_url = request.session.pop('next')
-            return redirect(next_url)
-        
-        messages.error(request, 'Usuário ou senha inválidos.')
-    else:
+    if not login_form.is_valid():
         messages.error(request, 'Por favor, preencha os dois campos.')
+        return redirect(login_url)
     
-    return redirect(login_url)
+    authenticated_user = authenticate(
+        username = login_form.cleaned_data.get('username', ''),
+        password = login_form.cleaned_data.get('password', '')
+    )
+        
+    if authenticated_user is None:
+        messages.error(request, 'Usuário ou senha inválidos.')
+        return redirect(login_url)
+    
+    login(request, authenticated_user)
+
+    next_url = request.session.pop('next')
+    return redirect(next_url)
 
 def logout_view(request):
     logout(request)
@@ -61,7 +61,7 @@ def signup(request):
     signup_form = SignupForm(signup_data)
 
     return render(request, 'accounts/pages/form_page.html', context={
-        'title': 'Cadastro',
+        'page_title': 'Cadastro',
         'form_title': 'Crie uma conta',
         'form': signup_form,
         'form_action': reverse('accounts:perform_signup'),
@@ -79,29 +79,26 @@ def perform_signup(request):
     
     signup_form = SignupForm(signup_data)
     
-    if signup_form.is_valid():
-        user = signup_form.save(commit=False)
-        user.set_password(user.password)
-        user.save()
-        
-        message = 'Usuário criado com sucesso.'
-        messages.success(request, message)        
-      
-        del request.session['signup_data']
+    if not signup_form.is_valid():
+        message = 'Por favor, preencha todos os campos corretamente.'
+        messages.error(request, message) 
+        return redirect(signup_url)
 
-        return redirect(reverse('accounts:login'))
-
-    message = 'Por favor, preencha todos os campos corretamente.'
-    messages.error(request, message)  
+    signup_form.save_user()
     
-    return redirect(signup_url)
+    message = 'Usuário criado com sucesso.'
+    messages.success(request, message)        
+    
+    del request.session['signup_data']
+
+    return redirect(reverse('accounts:login'))
 
 def password_reset(request):
     password_reset_data = request.session.get('password_reset_data', None)
     password_reset_form = PasswordResetForm(password_reset_data)
     
     return render(request, 'accounts/pages/form_page.html', context={
-        'title': 'Pedido de Redefinição de Senha',
+        'page_title': 'Pedido de Redefinição de Senha',
         'form_title': 'Peça uma nova senha',
         'form': password_reset_form,
         'form_action': reverse('accounts:send_password_reset'),
@@ -119,22 +116,22 @@ def send_password_reset(request):
 
     password_reset_form = PasswordResetForm(password_reset_data)
 
-    if password_reset_form.is_valid():
-        if password_reset_form.email_exists():
-            password_reset_form.send_email()
-
-            message = 'E-mail de redefinição de senha enviado.'
-            messages.success(request, message)   
-
-            del request.session['password_reset_data'] 
-
-            return redirect(reverse('accounts:login'))
-
+    if not password_reset_form.is_valid():
+        messages.error(request, 'Por favor, digite seu e-mail.')        
+        return redirect(password_reset_url)
+    
+    if not password_reset_form.email_exists():
         messages.error(request, 'E-mail não encontrado.')
-    else:
-        messages.error(request, 'Por favor, digite seu e-mail.')
-        
-    return redirect(password_reset_url)
+        return redirect(password_reset_url)
+    
+    password_reset_form.send_email()
+
+    message = 'E-mail de redefinição de senha enviado.'
+    messages.success(request, message)   
+
+    del request.session['password_reset_data'] 
+
+    return redirect(reverse('accounts:login'))
 
 def confirm_password_reset(request, uidb64, token): 
     set_password_form = SetPasswordForm()
@@ -153,13 +150,11 @@ def confirm_password_reset(request, uidb64, token):
     request.session['uidb64'] = uidb64
     request.session['token'] = token
 
-    form_action = reverse('accounts:complete_reset')
-
     return render(request, 'accounts/pages/form_page.html', context={
-        'title': 'Redefinição de Senha',
+        'page_title': 'Redefinição de Senha',
         'form_title': 'Redefina sua senha',
         'form': set_password_form,
-        'form_action': form_action,
+        'form_action': reverse('accounts:complete_reset'),
         'has_password_fields': True
     })
 
@@ -175,16 +170,15 @@ def complete_password_reset(request):
     set_password_data = request.POST
     set_password_form = SetPasswordForm(set_password_data)
 
-    if set_password_form.is_valid():
-        set_password_form.set_password(uidb64)
-        
-        message = 'Senha alterada com sucesso.'
-        messages.success(request, message)        
+    if not set_password_form.is_valid():
+        messages.error(request, 'As senhas não são iguais.')        
+        return redirect(confirm_reset_url)
 
-        del request.session['uidb64'], request.session['token']
-
-        return redirect(reverse('accounts:login'))
+    set_password_form.set_password(uidb64)
     
-    messages.error(request, 'As senhas não são iguais.')
-        
-    return redirect(confirm_reset_url)
+    message = 'Senha alterada com sucesso.'
+    messages.success(request, message)        
+
+    del request.session['uidb64'], request.session['token']
+
+    return redirect(reverse('accounts:login'))

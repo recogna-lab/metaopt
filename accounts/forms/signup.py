@@ -132,3 +132,8 @@ class SignupForm(forms.ModelForm):
                     password_confirmation_error
                 ]
             })
+    
+    def save_user(self):
+        user = self.save(commit=False)
+        user.set_password(user.password)
+        user.save()
