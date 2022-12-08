@@ -10,11 +10,11 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('signup/', views.signup, name='signup'),
     path('signup/perform/', views.perform_signup, name='perform_signup'),
-    path('reset-password', views.reset_password, name='reset_password'),
+    path('password_reset/', views.password_reset, name='password_reset'),
     path(
-        'reset-password/perform/', 
-        views.perform_reset_password, 
-        name='perform_reset_password'
+        'password_reset/perform/', 
+        views.perform_password_reset, 
+        name='perform_password_reset'
     ),
     path(
         'new_password/<uidb64>/<token>/', 

@@ -11,7 +11,7 @@ from metaopt.settings.mail import EMAIL_HOST_PASSWORD, EMAIL_HOST_USER
 from utils.django_forms import add_attr, add_placeholder
 
 
-class ResetPasswordForm(forms.Form):
+class PasswordResetForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         

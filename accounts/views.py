@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from .forms import LoginForm, NewPasswordForm, ResetPasswordForm, SignupForm
+from .forms import LoginForm, NewPasswordForm, PasswordResetForm, SignupForm
 
 
 def login_view(request):
@@ -94,37 +94,37 @@ def perform_signup(request):
     
     return redirect(signup_url)
 
-def reset_password(request):
-    reset_password_url = reverse('accounts:perform_reset_password')
+def password_reset(request):
+    password_reset_url = reverse('accounts:perform_password_reset')
 
-    reset_password_data = request.session.get('reset_password_data', None)
-    reset_password_form = ResetPasswordForm(reset_password_data)
+    password_reset_data = request.session.get('password_reset_data', None)
+    password_reset_form = PasswordResetForm(password_reset_data)
     
-    return render(request, 'accounts/pages/reset_password.html', context={
-        'form': reset_password_form,
-        'form_action': reset_password_url,
+    return render(request, 'accounts/pages/password_reset.html', context={
+        'form': password_reset_form,
+        'form_action': password_reset_url,
         'has_password_fields': False
     })
 
-def perform_reset_password(request):
+def perform_password_reset(request):
     login_url = reverse('accounts:login')
 
     if not request.POST:
-        return redirect(reverse('accounts:reset_password'))
+        return redirect(reverse('accounts:password_reset'))
 
-    reset_password_data = request.POST
-    request.session['reset_password_data'] = reset_password_data
+    password_reset_data = request.POST
+    request.session['password_reset_data'] = password_reset_data
 
-    reset_password_form = ResetPasswordForm(reset_password_data)
+    password_reset_form = PasswordResetForm(password_reset_data)
 
-    if reset_password_form.is_valid():
-        if reset_password_form.email_exists():
-            reset_password_form.send_email(reset_password_data['email'])
+    if password_reset_form.is_valid():
+        if password_reset_form.email_exists():
+            password_reset_form.send_email(password_reset_data['email'])
 
             message = 'E-mail de redefinição de senha enviado.'
             messages.success(request, message)   
 
-            del request.session['reset_password_data'] 
+            del request.session['password_reset_data'] 
 
             return redirect(login_url)
 
@@ -132,7 +132,7 @@ def perform_reset_password(request):
     else:
         messages.error(request, 'Por favor, digite seu e-mail.')
         
-    return redirect('accounts:reset_password')
+    return redirect('accounts:password_reset')
 
 def new_password(request, uidb64, token):
     new_password_form = NewPasswordForm()
