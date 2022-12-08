@@ -376,12 +376,6 @@ fieldset .button-wrapper {
 }
 
 .btn-radius {
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-}
-
-.btn-radius-2 {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
