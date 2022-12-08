@@ -137,19 +137,27 @@ def send_password_reset(request):
 def confirm_password_reset(request, uidb64, token): 
     set_password_form = SetPasswordForm()
     
-    if set_password_form.check_user_and_token(uidb64, token):
-        request.session['uidb64'] = uidb64
-        request.session['token'] = token
-
-        form_action = reverse('accounts:complete_reset')
-
-        return render(request, 'accounts/pages/set_password.html', context={
-            'form': set_password_form,
-            'form_action': form_action,
-            'has_password_fields': True
+    if not set_password_form.check_user_and_token(uidb64, token):
+        response = render(request, 'global/pages/error.html', context={
+            'status_code': 498,
+            'error_type': 'Token inválido.',
+            'error_message': (
+                'O link de redefinição de senha já foi utilizado.'
+            )
         })
-    
-    return render(request, 'accounts/pages/set_password.html')
+        response.status_code = 498
+        return response
+
+    request.session['uidb64'] = uidb64
+    request.session['token'] = token
+
+    form_action = reverse('accounts:complete_reset')
+
+    return render(request, 'accounts/pages/set_password.html', context={
+        'form': set_password_form,
+        'form_action': form_action,
+        'has_password_fields': True
+    })
 
 def complete_password_reset(request):
     uidb64 = request.session.get('uidb64')
