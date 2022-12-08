@@ -28,12 +28,10 @@ class PasswordResetForm(forms.Form):
 
     def email_exists(self):
         email = self.cleaned_data.get('email', '')
+        return User.objects.filter(email=email).exists()
 
-        found = User.objects.filter(email=email).exists()
-
-        return found
-
-    def send_email(self, email):
+    def send_email(self):
+        email = self.cleaned_data.get('email', '')
         user = User.objects.filter(email=email).first()
 
         subject = "Pedido de Redefinição de Senha"

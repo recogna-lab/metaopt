@@ -119,7 +119,7 @@ def perform_password_reset(request):
 
     if password_reset_form.is_valid():
         if password_reset_form.email_exists():
-            password_reset_form.send_email(password_reset_data['email'])
+            password_reset_form.send_email()
 
             message = 'E-mail de redefinição de senha enviado.'
             messages.success(request, message)   
