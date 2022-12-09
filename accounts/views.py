@@ -1,19 +1,20 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from .forms import LoginForm, PasswordResetForm, SetPasswordForm, SignupForm
 
+is_anonymous = lambda u: u.is_anonymous
 
+redirect_to = 'dashboard:index'
+next_redirect = None
+
+@user_passes_test(is_anonymous, redirect_to, next_redirect)
 def login_view(request):
-    dashboard_url = reverse('dashboard:index')
-    
-    if request.user.is_authenticated:
-        return redirect(dashboard_url)
-    
     next = request.GET.get('next', '')
-    request.session['next'] = next or dashboard_url
+    request.session['next'] = next or reverse('dashboard:index')
             
     return render(request, 'accounts/pages/form_page.html', context={
         'page_title': 'Login',
@@ -53,10 +54,8 @@ def logout_view(request):
     logout(request)
     return redirect(reverse('accounts:login'))
 
+@user_passes_test(is_anonymous, redirect_to, next_redirect)
 def signup(request):
-    if request.user.is_authenticated:
-        return redirect(reverse('dashboard:index'))
-
     signup_data = request.session.get('signup_data', None)
     signup_form = SignupForm(signup_data)
 
@@ -93,7 +92,8 @@ def perform_signup(request):
 
     return redirect(reverse('accounts:login'))
 
-def password_reset(request):
+@user_passes_test(is_anonymous, redirect_to, next_redirect)
+def password_reset(request):    
     password_reset_data = request.session.get('password_reset_data', None)
     password_reset_form = PasswordResetForm(password_reset_data)
     
@@ -146,6 +146,7 @@ def send_password_reset(request):
         )
     })
 
+@user_passes_test(is_anonymous, redirect_to, next_redirect)
 def confirm_password_reset(request, uidb64, token): 
     set_password_form = SetPasswordForm()
     
