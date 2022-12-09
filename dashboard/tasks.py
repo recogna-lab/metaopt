@@ -1,6 +1,8 @@
-from celery import shared_task
+from metaopt.celery import app
 
 
-@shared_task(bind=True)
+@app.task(name='dummy_task', bind=True)
 def dummy_task(self, message):
-    print(f'I\'m a dummy celery task: {message}!')
+    output = f"I'm a dummy celery task: {message}!"
+    print(output) 
+    return output
