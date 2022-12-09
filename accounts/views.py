@@ -4,9 +4,9 @@ from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from .forms import LoginForm, PasswordResetForm, SetPasswordForm, SignupForm
+from utils.django_auth import is_anonymous
 
-is_anonymous = lambda u: u.is_anonymous
+from .forms import LoginForm, PasswordResetForm, SetPasswordForm, SignupForm
 
 redirect_to = 'dashboard:index'
 next_redirect = None
@@ -146,7 +146,6 @@ def send_password_reset(request):
         )
     })
 
-@user_passes_test(is_anonymous, redirect_to, next_redirect)
 def confirm_password_reset(request, uidb64, token): 
     set_password_form = SetPasswordForm()
     
