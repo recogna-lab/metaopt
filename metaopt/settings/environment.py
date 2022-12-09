@@ -18,8 +18,3 @@ ROOT_URLCONF = 'metaopt.urls'
 CSRF_FAILURE_VIEW = 'metaopt.views.custom_csrf_failure'
 
 WSGI_APPLICATION = 'metaopt.wsgi.application'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
