@@ -152,7 +152,7 @@ def confirm_password_reset(request, uidb64, token):
     if not set_password_form.check_user_and_token(uidb64, token):
         response = render(request, 'global/pages/error.html', context={
             'status_code': 498,
-            'error_type': 'Token inválido.',
+            'error_type': 'Token inválido',
             'error_message': (
                 'Parece que você já recuperou sua conta. '
                 'Se preciso, solicite outra redefinição de senha.'
