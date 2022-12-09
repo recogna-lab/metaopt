@@ -3,8 +3,12 @@
 {% block title %}Dashboard |{% endblock title %}
 
 {% block content %}
-    <h1>Dashboard</h1>
-    <span>
-        Clique aqui para <a href="{% url 'accounts:logout' %}">sair</a>.
-    </span>
+
+    <div class="font-robo">
+        <h1>Dashboard</h1>
+        <span>
+            Clique aqui para <a href="{% url 'accounts:logout' %}">sair</a>.
+        </span>
+    </div>
+
 {% endblock content %}
