@@ -2,7 +2,10 @@
     {% for message in messages %}
         <div class="container-fluid p-0">
             <div class="{{ message.tags }}" role="alert" >
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {% if not static_message %}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {% endif %}
+                
                 {{ message }}
             </div>
         </div>

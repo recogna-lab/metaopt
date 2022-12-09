@@ -10,8 +10,14 @@
                 <h2 class="title">{{ form_title }}</h2>
                 
                 {% include 'global/partials/messages.html' %}
+                
+                {% if form %}
+                    {% include 'accounts/partials/form.html' %}
+                {% endif %}
 
-                {% include 'accounts/partials/form.html' %}
+                {% if more_details %}
+                    <h6 class="text-secondary">{{ more_details }}</h6>
+                {% endif %}
             </div>
         </div>
     </div>

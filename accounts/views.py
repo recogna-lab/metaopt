@@ -126,12 +126,25 @@ def send_password_reset(request):
     
     password_reset_form.send_email()
 
-    message = 'E-mail de redefinição de senha enviado.'
-    messages.success(request, message)   
+    message = (
+        'E-mail de redefinição de senha enviado '
+        f"para {password_reset_form.cleaned_data.get('email')}. "
+    )
+    
+    messages.success(request, message)
 
     del request.session['password_reset_data'] 
 
-    return redirect(reverse('accounts:login'))
+    return render(request, 'accounts/pages/form_page.html', context={
+        'page_title': 'Pedido de Redefinição de Senha',
+        'form_title': 'Pedido enviado',
+        'static_message': True,
+        'more_details': (
+            'Aguarde um instante e verifique seu e-mail. '
+            'Caso necessário, repita a operação para que um novo '
+            'e-mail de redefinição de senha seja enviado.'
+        )
+    })
 
 def confirm_password_reset(request, uidb64, token): 
     set_password_form = SetPasswordForm()
