@@ -176,17 +176,20 @@ def complete_password_reset(request):
     uidb64 = request.session.get('uidb64')
     token = request.session.get('token')
     
-    confirm_reset_url = reverse('accounts:confirm_reset', args=(uidb64, token))
+    if uidb64 is not None and token is not None:
+        redirect_to = reverse('accounts:confirm_reset', args=(uidb64, token))
+    else:
+        redirect_to = 'dashboard:index'
 
     if not request.POST:
-        return redirect(confirm_reset_url)
+        return redirect(redirect_to)
 
     set_password_data = request.POST
     set_password_form = SetPasswordForm(set_password_data)
 
     if not set_password_form.is_valid():
         messages.error(request, 'As senhas não são iguais.')        
-        return redirect(confirm_reset_url)
+        return redirect(redirect_to)
 
     set_password_form.set_password(uidb64)
     
