@@ -14,7 +14,7 @@ next_redirect = None
 @user_passes_test(is_anonymous, redirect_to, next_redirect)
 def login_view(request):
     next = request.GET.get('next', '')
-    request.session['next'] = next or reverse('dashboard:index')
+    request.session['next'] = next or 'dashboard:index'
             
     return render(request, 'accounts/pages/form_page.html', context={
         'page_title': 'Login',
@@ -25,7 +25,7 @@ def login_view(request):
     })
 
 def perform_login(request):
-    login_url = reverse('accounts:login')
+    login_url = 'accounts:login'
     
     if not request.POST:
         return redirect(login_url)
@@ -52,7 +52,7 @@ def perform_login(request):
 
 def logout_view(request):
     logout(request)
-    return redirect(reverse('accounts:login'))
+    return redirect('accounts:login')
 
 @user_passes_test(is_anonymous, redirect_to, next_redirect)
 def signup(request):
@@ -68,7 +68,7 @@ def signup(request):
     })
 
 def perform_signup(request):
-    signup_url = reverse('accounts:signup')
+    signup_url = 'accounts:signup'
 
     if not request.POST:
         return redirect(signup_url)
@@ -90,7 +90,7 @@ def perform_signup(request):
     
     del request.session['signup_data']
 
-    return redirect(reverse('accounts:login'))
+    return redirect('accounts:login')
 
 @user_passes_test(is_anonymous, redirect_to, next_redirect)
 def password_reset(request):    
@@ -106,7 +106,7 @@ def password_reset(request):
     })
 
 def send_password_reset(request):
-    password_reset_url = reverse('accounts:password_reset')
+    password_reset_url = 'accounts:password_reset'
 
     if not request.POST:
         return redirect(password_reset_url)
@@ -195,4 +195,4 @@ def complete_password_reset(request):
 
     del request.session['uidb64'], request.session['token']
 
-    return redirect(reverse('accounts:login'))
+    return redirect('accounts:login')
