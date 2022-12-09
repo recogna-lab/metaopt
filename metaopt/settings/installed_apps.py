@@ -9,4 +9,7 @@ INSTALLED_APPS = [
     'dashboard',
     'accounts',
     'widget_tweaks',
+    'plotly',
+    'celery_progress',
+    'django_celery_results',
 ]
