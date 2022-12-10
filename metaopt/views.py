@@ -50,7 +50,8 @@ def custom_csrf_failure(request, reason):
         'status_code': 403,
         'error_type': 'Verificação CSRF falhou',
         'error_message': (
-            'O envio do formulário não pode ser feito de modo seguro.'
+            'O envio do formulário não pôde ser feito de modo seguro. '
+            'Tente realizar a operação novamente.'
         )
     })
     response.status_code = 403
