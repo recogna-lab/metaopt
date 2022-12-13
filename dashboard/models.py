@@ -3,7 +3,7 @@ from ast import literal_eval
 
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django_celery_results.models import TaskResult
 
@@ -23,12 +23,20 @@ class UserTask(models.Model):
     def __str__(self):
         return f'{self.user} {self.task}' 
 
-@receiver(post_save, sender=TaskResult)
-def save_user_task(sender, instance, **kwargs):
-    # Retrieve task named arguments
+@receiver(pre_save, sender=TaskResult)
+def format_task_kwargs(sender, instance, **kwargs):
+    # Retrieve task named arguments as dict 
     task_kwargs_dict = literal_eval(instance.task_kwargs)
     task_kwargs_dict = task_kwargs_dict.replace('\'', '"')
     task_kwargs_dict = json.loads(task_kwargs_dict)
+
+    # Correctly save named arguments as json 
+    instance.task_kwargs = json.dumps(task_kwargs_dict)
+    
+@receiver(post_save, sender=TaskResult)
+def save_user_task(sender, instance, **kwargs):
+    # Retrieve task named arguments
+    task_kwargs_dict = json.loads(instance.task_kwargs)
     
     # Get the user id
     user_id = task_kwargs_dict['user_id']
