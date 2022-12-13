@@ -16,6 +16,13 @@ class CustomTaskResultAdmin(TaskResultAdmin):
         'date_created', 
         'date_done'
     )
+    
+    # Remove permissions
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
 
 class UserTaskAdmin(admin.ModelAdmin):
     list_display = (
@@ -30,6 +37,7 @@ class UserTaskAdmin(admin.ModelAdmin):
     )
     readonly_fields = ('user', 'task')
     
+    # Retrieve more user fields
     def get_user_object(self, obj):
         user_object = User.objects.get(id=obj.user.id)
         return user_object
@@ -43,6 +51,7 @@ class UserTaskAdmin(admin.ModelAdmin):
     def last_name(self, obj):
         return self.get_user_object(obj).last_name
     
+    # Retrieve more task fields
     def get_task_object(self, obj):
         task_object = TaskResult.objects.get(task_id=obj.task.task_id)
         return task_object
@@ -62,6 +71,7 @@ class UserTaskAdmin(admin.ModelAdmin):
     def date_completed(self, obj):
         return self.get_task_object(obj).date_done
     
+    # Remove permissions
     def has_add_permission(self, request, obj=None):
         return False
 
