@@ -1,10 +1,21 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from django_celery_results.admin import GroupResult
+from django_celery_results.admin import GroupResult, TaskResultAdmin
 from django_celery_results.models import TaskResult
 
 from .models import UserTask
 
+
+class CustomTaskResultAdmin(TaskResultAdmin):
+    list_display = (
+        'task_id', 
+        'task_name', 
+        'status', 
+        'task_kwargs', 
+        'result', 
+        'date_created', 
+        'date_done'
+    )
 
 class UserTaskAdmin(admin.ModelAdmin):
     list_display = (
@@ -51,6 +62,8 @@ class UserTaskAdmin(admin.ModelAdmin):
     def date_completed(self, obj):
         return self.get_task_object(obj).date_done
     
-admin.site.register(UserTask, UserTaskAdmin)
-
 admin.site.unregister(GroupResult)
+admin.site.unregister(TaskResult)
+
+admin.site.register(TaskResult, CustomTaskResultAdmin)
+admin.site.register(UserTask, UserTaskAdmin)
