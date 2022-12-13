@@ -1,11 +1,17 @@
-import json
-
 from metaopt.celery import app
 
 
-@app.task(name='dummy_task', bind=True)
-def dummy_task(self, user_id, message):
-    output = f"Dummy task says: {message}!"
+@app.task(name='optimization', bind=True)
+def optimization(self, user_id, message):
+    output = f"Optimization task says: {message}!"
+    
+    return {
+        'output':  output,
+    }
+
+@app.task(name='feature_selection', bind=True)
+def feature_selection(self, user_id, message):
+    output = f"Feature Selection task says: {message}!"
     
     return {
         'output':  output,
