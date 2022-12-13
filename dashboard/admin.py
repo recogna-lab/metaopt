@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
+from django_celery_results.admin import GroupResult
 from django_celery_results.models import TaskResult
 
 from .models import UserTask
@@ -51,3 +52,5 @@ class UserTaskAdmin(admin.ModelAdmin):
         return self.get_task_object(obj).date_done
     
 admin.site.register(UserTask, UserTaskAdmin)
+
+admin.site.unregister(GroupResult)
