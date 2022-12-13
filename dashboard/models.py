@@ -1,3 +1,6 @@
+import json
+from ast import literal_eval
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
@@ -22,8 +25,15 @@ class UserTask(models.Model):
 
 @receiver(post_save, sender=TaskResult)
 def save_user_task(sender, instance, **kwargs):
-    # Get the user with id = 1 only for testing
-    user = User.objects.filter(pk=1).first()
+    # Retrieve task named arguments
+    task_kwargs_dict = literal_eval(instance.task_kwargs)
+    task_kwargs_dict = task_kwargs_dict.replace('\'', '"')
+    task_kwargs_dict = json.loads(task_kwargs_dict)
     
+    # Get the user id
+    user_id = task_kwargs_dict['user_id']
+
+    # Retrieve the user and save it with the task
+    user = User.objects.filter(pk=user_id).first()
     user_task = UserTask(user=user, task=instance)
     user_task.save()
