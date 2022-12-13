@@ -15,6 +15,6 @@ class CustomUserAdmin(UserAdmin):
     readonly_fields = ('id',)
 
 admin.site.unregister(User)
-admin.site.register(User, CustomUserAdmin)
-
 admin.site.unregister(Group)
+
+admin.site.register(User, CustomUserAdmin)
