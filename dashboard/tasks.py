@@ -7,6 +7,6 @@ from metaopt.celery import app
 def dummy_task(self, user_id, message):
     output = f"Dummy task says: {message}!"
     
-    return json.dumps({
+    return {
         'output':  output,
-    })
+    }
