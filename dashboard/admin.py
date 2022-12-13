@@ -62,6 +62,12 @@ class UserTaskAdmin(admin.ModelAdmin):
     def date_completed(self, obj):
         return self.get_task_object(obj).date_done
     
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
 admin.site.unregister(GroupResult)
 admin.site.unregister(TaskResult)
 
