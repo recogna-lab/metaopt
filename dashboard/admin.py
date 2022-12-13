@@ -13,9 +13,10 @@ class CustomTaskResultAdmin(TaskResultAdmin):
         'status', 
         'task_kwargs', 
         'result', 
-        'date_created', 
+        'date_created',
         'date_done'
     )
+    list_filter = ('task_name', 'status', 'date_created', 'date_done')
     
     # Remove permissions
     def has_add_permission(self, request, obj=None):
@@ -25,22 +26,43 @@ class CustomTaskResultAdmin(TaskResultAdmin):
         return False
 
 class UserTaskAdmin(admin.ModelAdmin):
+    date_hierarchy = 'task__date_done'
     list_display = (
-        'user', 
+        'username', 
         'email', 
         'first_name', 
         'last_name', 
-        'task', 
+        'task_id',
+        'status', 
         'task_name', 
         'date_created', 
         'date_completed'
     )
+    list_filter = (
+        'user__username', 
+        'task__task_name',
+        'task__status', 
+        'task__date_created', 
+        'task__date_done'
+    )
     readonly_fields = ('user', 'task')
+    search_fields = (
+        'user__username', 
+        'user__email', 
+        'user__first_name', 
+        'user__last_name', 
+        'task__task_id', 
+        'task__status', 
+        'task__task_name'
+    )
     
     # Retrieve more user fields
     def get_user_object(self, obj):
         user_object = User.objects.get(id=obj.user.id)
         return user_object
+    
+    def username(self, obj):
+        return self.get_user_object(obj).username
     
     def email(self, obj):
         return self.get_user_object(obj).email
@@ -62,7 +84,7 @@ class UserTaskAdmin(admin.ModelAdmin):
     def task_name(self, obj):
         return self.get_task_object(obj).task_name
     
-    def task_status(self, obj):
+    def status(self, obj):
         return self.get_task_object(obj).status
     
     def date_created(self, obj):
