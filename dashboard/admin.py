@@ -8,9 +8,9 @@ from .models import UserTask
 
 class CustomTaskResultAdmin(TaskResultAdmin):
     list_display = (
-        'task_id', 
+        'task_id',
+        'status',
         'task_name', 
-        'status', 
         'task_kwargs', 
         'result', 
         'date_created',
