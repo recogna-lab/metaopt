@@ -5,7 +5,12 @@ from django.contrib.auth.models import User
 
 class CustomUserAdmin(UserAdmin):
     list_display = (
-        'id', 'username', 'email', 'first_name', 'last_name', 'is_staff'
+        'id', 
+        'username', 
+        'email', 
+        'first_name', 
+        'last_name', 
+        'is_staff'
     )
     readonly_fields = ('id',)
 
