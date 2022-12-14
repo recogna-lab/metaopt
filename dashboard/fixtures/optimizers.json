@@ -1,0 +1,50 @@
+[
+{
+    "model": "dashboard.optimizer",
+    "pk": 1,
+    "fields": {
+        "acronym": "CS",
+        "name": "Busca Cuco"
+    }
+},
+{
+    "model": "dashboard.optimizer",
+    "pk": 2,
+    "fields": {
+        "acronym": "DE",
+        "name": "Evolução Diferencial"
+    }
+},
+{
+    "model": "dashboard.optimizer",
+    "pk": 3,
+    "fields": {
+        "acronym": "GA",
+        "name": "Algoritmo Genético"
+    }
+},
+{
+    "model": "dashboard.optimizer",
+    "pk": 4,
+    "fields": {
+        "acronym": "HS",
+        "name": "Busca Harmônica"
+    }
+},
+{
+    "model": "dashboard.optimizer",
+    "pk": 5,
+    "fields": {
+        "acronym": "PSO",
+        "name": "Otimização por Enxame de Partículas"
+    }
+},
+{
+    "model": "dashboard.optimizer",
+    "pk": 6,
+    "fields": {
+        "acronym": "SA",
+        "name": "Recozimento Simulado"
+    }
+}
+]
