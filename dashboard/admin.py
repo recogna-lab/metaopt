@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django_celery_results.admin import GroupResult, TaskResultAdmin
 from django_celery_results.models import TaskResult
 
-from .models import UserTask
+from .models import Optimizer, UserTask
 
 
 class CustomTaskResultAdmin(TaskResultAdmin):
@@ -105,3 +105,5 @@ admin.site.unregister(TaskResult)
 
 admin.site.register(TaskResult, CustomTaskResultAdmin)
 admin.site.register(UserTask, UserTaskAdmin)
+
+admin.site.register(Optimizer)

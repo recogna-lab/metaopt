@@ -8,6 +8,24 @@ from django.dispatch import receiver
 from django_celery_results.models import TaskResult
 
 
+class Optimizer(models.Model):
+    
+    acronym = models.CharField(
+        max_length=10,
+        verbose_name='Acronym',
+        help_text='Short name for the optimizer'
+    )
+    
+    name = models.CharField(
+        max_length=50,
+        verbose_name='Name',
+        help_text='Name of the optimizer'
+    )
+    
+    def __str__(self):
+        return f'{self.name} ({self.acronym})'
+
+
 class UserTask(models.Model):
 
     user = models.ForeignKey(
@@ -22,6 +40,7 @@ class UserTask(models.Model):
 
     def __str__(self):
         return f'{self.user} {self.task}' 
+
 
 @receiver(pre_save, sender=TaskResult)
 def format_task_kwargs(sender, instance, **kwargs):
