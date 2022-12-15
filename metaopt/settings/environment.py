@@ -15,6 +15,10 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 ROOT_URLCONF = 'metaopt.urls'
 
+# URL for login
+LOGIN_URL = 'accounts:login'
+
+# View for handling CSRF failures
 CSRF_FAILURE_VIEW = 'metaopt.views.custom_csrf_failure'
 
 WSGI_APPLICATION = 'metaopt.wsgi.application'
