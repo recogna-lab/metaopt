@@ -9,6 +9,11 @@
         <span>
             Clique aqui para <a href="{% url 'accounts:logout' %}">sair</a>.
         </span>
+        <div>
+            <a href="{% url 'dashboard:new_optimization_task' %}">
+                Nova tarefa de otimização
+            </a>
+        </div>
     </div>
 
 {% endblock content %}
