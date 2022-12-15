@@ -24,6 +24,9 @@ class Optimizer(models.Model):
     
     def __str__(self):
         return f'{self.name} ({self.acronym})'
+    
+    class Meta:
+        ordering = ('name', )
 
 
 class Function(models.Model):
@@ -48,6 +51,10 @@ class Function(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+    
+    class Meta:
+        ordering = ('name', )
+
 
 class UserTask(models.Model):
 
