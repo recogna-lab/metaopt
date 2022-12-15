@@ -6,6 +6,7 @@ from utils.django_forms import add_attr, add_placeholder, strong_password
 
 
 class SignupForm(forms.ModelForm):
+    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
