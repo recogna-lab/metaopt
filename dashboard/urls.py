@@ -17,7 +17,7 @@ urlpatterns = [
         name='start_opt_task'
     ),
     path(
-        'opt/<task_id>/', 
+        'opt/<uuid:task_id>/', 
         views.optimization_task, 
         name='opt_task'
     )
