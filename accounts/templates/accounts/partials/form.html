@@ -1,9 +1,8 @@
 <form action="{{ form_action }}" method="POST" novalidate>
     {% csrf_token %}
-
     {% load widget_tweaks %}
-    <fieldset>
 
+    <fieldset>
         {% for field in form %}
             <div class="form-group{% if form.name == 'signup_form' and field.label != 'Usuário' and field.label != 'E-mail' %}-half{% endif %}">
 
@@ -44,7 +43,6 @@
                 </button>
             </div>
         {% endif %}
-
     </fieldset>
     
     <div class="button-wrapper">
