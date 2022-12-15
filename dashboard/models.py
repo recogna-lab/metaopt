@@ -26,6 +26,29 @@ class Optimizer(models.Model):
         return f'{self.name} ({self.acronym})'
 
 
+class Function(models.Model):
+    
+    short_name = models.CharField(
+        max_length=50,
+        verbose_name='Short Name',
+        help_text='Short name for the function'
+    )
+    
+    name = models.CharField(
+        max_length=50,
+        verbose_name='Name',
+        help_text='Name of the function'
+    )
+    
+    latex_expression = models.CharField(
+        max_length=255,
+        verbose_name='Latex Expression',
+        help_text='Latex expression for the function'
+    )
+
+    def __str__(self):
+        return f'{self.name}'
+
 class UserTask(models.Model):
 
     user = models.ForeignKey(
