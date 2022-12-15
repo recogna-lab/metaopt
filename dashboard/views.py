@@ -15,7 +15,7 @@ def index(request):
 def new_optimization_task(request):
     optimization_form = OptimizationForm()
     
-    return render(request, 'dashboard/pages/form_page.html', context={
+    return render(request, 'dashboard/pages/new_task.html', context={
         'task_type': 'Otimização',
         'form': optimization_form
     })
