@@ -1,3 +1,4 @@
+from celery_progress.views import get_progress
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
@@ -49,3 +50,7 @@ def optimization_task(request, task_id):
     return render(request, 'dashboard/pages/task_result.html', context={
         'task_id': task_id
     })
+
+@login_required
+def task_progress(request, task_id):
+    return get_progress(request, task_id)

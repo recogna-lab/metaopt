@@ -20,5 +20,10 @@ urlpatterns = [
         'opt/<uuid:task_id>/', 
         views.optimization_task, 
         name='opt_task'
-    )
+    ),
+    path(
+        'progress/<uuid:task_id>/', 
+        views.task_progress, 
+        name='task_progress'
+    ),
 ]
