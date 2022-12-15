@@ -5,7 +5,20 @@
 {% block content %}
 
     <div class="font-robo">
-        {{ form }}
+        <form action="" method="post">
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label }}
+                    {{ field }}
+                </div>
+            {% endfor %}
+            
+            <div class="button-div p-t-15 a-right">
+                <button class="btn btn-radius btn-blue" type="submit">
+                    Iniciar
+                </button>
+            </div>
+        </form>
     </div>
 
 {% endblock content %}
