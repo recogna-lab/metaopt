@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
 from .forms import OptimizationForm
@@ -47,4 +46,6 @@ def start_optimization_task(request):
 
 @login_required
 def optimization_task(request, task_id):
-    return HttpResponse('Optimization Task')
+    return render(request, 'dashboard/pages/task_result.html', context={
+        'task_id': task_id
+    })
