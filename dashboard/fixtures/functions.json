@@ -1,0 +1,29 @@
+[
+{
+    "model": "dashboard.function",
+    "pk": 1,
+    "fields": {
+        "short_name": "Ackley2",
+        "name": "Função Ackley 2",
+        "latex_expression": "f(x_1, x_2) = -200e^{-0.2\\sqrt{x_1^2+x_2^2}}"
+    }
+},
+{
+    "model": "dashboard.function",
+    "pk": 2,
+    "fields": {
+        "short_name": "Adjiman",
+        "name": "Função Adjiman",
+        "latex_expression": "f(x_1, x_2) = cos(x_1) sin(x_2) - \\\\frac{x_1}{x_2^2+1}"
+    }
+},
+{
+    "model": "dashboard.function",
+    "pk": 3,
+    "fields": {
+        "short_name": "Beale",
+        "name": "Função Beale",
+        "latex_expression": "f(x_1, x_2) = (1.5-x_1+x_1x_2)^2 + (2.25-x_1+x_1x_2^2)^2 + (2.625-x_1+x_1x_2^3)^2"
+    }
+}
+]
