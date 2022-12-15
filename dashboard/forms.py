@@ -1,10 +1,22 @@
 from django import forms
 
+from utils.django_forms import add_attr
+
 from .models import Function, Optimizer
 
 
 class OptimizationForm(forms.Form):
     
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        self.name = 'optimization_form'
+        
+        add_attr(self.fields['optimizer'], 'class', 'form-select')
+        add_attr(self.fields['function'], 'class', 'form-select')
+        add_attr(self.fields['agents'], 'class', 'form-control')
+        add_attr(self.fields['iterations'], 'class', 'form-control')
+
     optimizer = forms.ModelChoiceField(
         label='Otimizador',
         queryset=Optimizer.objects.all(),
