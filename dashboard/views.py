@@ -60,7 +60,6 @@ def optimization_task(request, task_id):
     return render(request, 'dashboard/pages/task_result.html', context={
         'task_id': task_id
     })
-    
 
 @login_required
 def task_progress(request, task_id):
