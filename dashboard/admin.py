@@ -17,6 +17,7 @@ class CustomTaskResultAdmin(TaskResultAdmin):
         'date_done'
     )
     list_filter = ('task_name', 'status', 'date_created', 'date_done')
+    ordering = ('-date_created', )
     
     # Remove permissions
     def has_add_permission(self, request, obj=None):
@@ -33,10 +34,10 @@ class UserTaskAdmin(admin.ModelAdmin):
         'first_name', 
         'last_name', 
         'task_id',
-        'status', 
+        'task_state', 
         'task_name', 
-        'date_created', 
-        'date_completed'
+        'created_datetime', 
+        'completed_datetime'
     )
     list_filter = (
         'user__username', 
@@ -84,13 +85,13 @@ class UserTaskAdmin(admin.ModelAdmin):
     def task_name(self, obj):
         return self.get_task_object(obj).task_name
     
-    def status(self, obj):
+    def task_state(self, obj):
         return self.get_task_object(obj).status
     
-    def date_created(self, obj):
+    def created_datetime(self, obj):
         return self.get_task_object(obj).date_created
     
-    def date_completed(self, obj):
+    def completed_datetime(self, obj):
         return self.get_task_object(obj).date_done
     
     # Remove permissions
