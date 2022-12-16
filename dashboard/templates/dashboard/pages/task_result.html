@@ -1,11 +1,11 @@
 {% extends 'global/pages/base.html' %}
 
-{% block title %}Tarefa de {{ task_type }}: {{ task_id }} |{% endblock title %}
+{% block title %}Tarefa de {{ task_type }} {{ task_id }} |{% endblock title %}
 
 {% block content %}
 
     <div class="font-robo">
-        <h1>Tarefa: {{ task_id }}</h1>
+        <h1>Tarefa de {{ task_type }}: {{ task_id }}</h1>
 
         <div class="progress">
             <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar">&nbsp;</div>
@@ -22,7 +22,7 @@
     <script src="{% static 'celery_progress/celery_progress.js' %}"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener('DOMContentLoaded', function () {
             var progressUrl = "{% url 'dashboard:task_progress' task_id %}";
             CeleryProgressBar.initProgressBar(progressUrl);
         });
