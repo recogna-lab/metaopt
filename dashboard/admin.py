@@ -30,9 +30,7 @@ class UserTaskAdmin(admin.ModelAdmin):
     date_hierarchy = 'task__date_done'
     list_display = (
         'username', 
-        'email', 
-        'first_name', 
-        'last_name', 
+        'email',
         'task_id',
         'task_state', 
         'task_name', 
@@ -48,12 +46,10 @@ class UserTaskAdmin(admin.ModelAdmin):
     )
     readonly_fields = ('user', 'task')
     search_fields = (
-        'user__username', 
-        'user__email', 
-        'user__first_name', 
-        'user__last_name', 
-        'task__task_id', 
-        'task__status', 
+        'user__username',
+        'user__email',
+        'task__task_id',
+        'task__status',
         'task__task_name'
     )
     
@@ -67,12 +63,6 @@ class UserTaskAdmin(admin.ModelAdmin):
     
     def email(self, obj):
         return self.get_user_object(obj).email
-    
-    def first_name(self, obj):
-        return self.get_user_object(obj).first_name
-    
-    def last_name(self, obj):
-        return self.get_user_object(obj).last_name
     
     # Retrieve more task fields
     def get_task_object(self, obj):
