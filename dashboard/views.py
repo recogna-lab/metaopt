@@ -1,8 +1,8 @@
 from celery_progress.views import get_progress
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
+from django_celery_results.models import TaskResult
 
 from .forms import OptimizationForm
 from .models import UserTask
@@ -49,16 +49,18 @@ def start_optimization_task(request):
 
 @login_required
 def optimization_task(request, task_id):
-    isTaskOwner = UserTask.objects.filter(
+    user_task = get_object_or_404(
+        UserTask, 
         user__id=request.user.id, 
         task__task_id=task_id
-    ).exists()
+    )
     
-    if not isTaskOwner:
-        raise Http404()
+    task = TaskResult.objects.get(
+        task_id=user_task.task.task_id
+    )
     
     return render(request, 'dashboard/pages/task_result.html', context={
-        'task_id': task_id
+        'task_id': task.task_id
     })
 
 @login_required
