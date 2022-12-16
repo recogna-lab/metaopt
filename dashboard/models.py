@@ -85,7 +85,8 @@ def format_task_kwargs(sender, instance, **kwargs):
 @receiver(post_save, sender=TaskResult)
 def save_user_task(sender, instance, created, **kwargs):
     # Return if instance already existed before save
-    if not created: return
+    if not created: 
+        return
 
     # Retrieve task named arguments
     task_kwargs_dict = json.loads(instance.task_kwargs)
