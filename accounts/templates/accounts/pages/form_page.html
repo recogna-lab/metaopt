@@ -23,3 +23,10 @@
     </div>
 
 {% endblock content %}
+
+{% block scripts %}
+
+    {% load static %}
+    <script src="{% static 'accounts/js/scripts.js' %}"></script>
+
+{% endblock %}
