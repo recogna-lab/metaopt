@@ -6,6 +6,26 @@
 
     <div class="font-robo">
         <h1>Tarefa: {{ task_id }}</h1>
+
+        <div class="progress">
+            <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar">&nbsp;</div>
+        </div>
+
+        <div id="progress-bar-message"></div>
     </div>
 
 {% endblock content %}
+
+{% block scripts %}
+
+    {% load static %}
+    <script src="{% static 'celery_progress/celery_progress.js' %}"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var progressUrl = "{% url 'dashboard:task_progress' task_id %}";
+            CeleryProgressBar.initProgressBar(progressUrl);
+        });
+    </script>
+
+{% endblock scripts %}
