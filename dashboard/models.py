@@ -69,7 +69,10 @@ class UserTask(models.Model):
     )
 
     def __str__(self):
-        return f'{self.user} {self.task}' 
+        return f'{self.user} {self.task}'
+    
+    class Meta:
+        ordering = ('-task__date_created', )
 
 
 @receiver(pre_save, sender=TaskResult)
@@ -81,7 +84,7 @@ def format_task_kwargs(sender, instance, **kwargs):
 
     # Correctly save named arguments as json 
     instance.task_kwargs = json.dumps(task_kwargs_dict)
-    
+
 @receiver(post_save, sender=TaskResult)
 def save_user_task(sender, instance, created, **kwargs):
     # Return if instance already existed before save
