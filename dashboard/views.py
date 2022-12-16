@@ -60,6 +60,7 @@ def optimization_task(request, task_id):
     )
     
     return render(request, 'dashboard/pages/task_result.html', context={
+        'task_type': 'Otimização',
         'task_id': task.task_id
     })
 
