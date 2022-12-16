@@ -66,4 +66,10 @@ def optimization_task(request, task_id):
 
 @login_required
 def task_progress(request, task_id):
+    get_object_or_404(
+        UserTask, 
+        user__id=request.user.id, 
+        task__task_id=task_id
+    )
+    
     return get_progress(request, task_id)
