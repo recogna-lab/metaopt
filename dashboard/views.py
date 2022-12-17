@@ -11,7 +11,14 @@ from .tasks import optimization
 
 @login_required
 def index(request):
-    return render(request, 'dashboard/pages/index.html')
+    user_tasks = UserTask.objects.filter(user__id=request.user.id)
+    user_tasks = user_tasks.values_list('task__task_id')
+    
+    tasks = TaskResult.objects.filter(task_id__in=user_tasks)
+    
+    return render(request, 'dashboard/pages/index.html', context={
+        'tasks': tasks
+    })
 
 @login_required
 def new_optimization_task(request):
