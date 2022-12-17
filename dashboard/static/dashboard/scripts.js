@@ -55,14 +55,20 @@ const initializeProgressBar = (progressURL) => {
         pBarMessageElement.textContent = 'Tarefa concluída com sucesso!'
     }
 
+    const onResult = (resultElement, result) => {
+        resultElement.textContent = result.output
+    }
+    
     document.addEventListener('DOMContentLoaded', function () {
         CeleryProgressBar.initProgressBar(progressURL, {
             progressBarMessageId: 'progress-bar-status',
+            resultElementId: 'task-result',
             defaultMessages: defaultPBarMessages,
             onProgress: onProgress,
             onError: onError,
             onRetry: onRetry,
-            onSuccess: onSuccess
+            onSuccess: onSuccess,
+            onResult: onResult
         })
     })
 }
