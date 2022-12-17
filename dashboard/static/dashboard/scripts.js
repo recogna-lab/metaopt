@@ -24,6 +24,7 @@ const initializeProgressBar = (progressURL) => {
 
     document.addEventListener('DOMContentLoaded', function () {
         CeleryProgressBar.initProgressBar(progressURL, {
+            progressBarMessageId: 'progress-bar-status',
             defaultMessages: defaultPBarMessages,
             onProgress: onProgress
         })
