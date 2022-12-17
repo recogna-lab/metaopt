@@ -23,6 +23,8 @@
                             <a href="{% url 'dashboard:opt_task' task.task_id %}">{{ task.task_id }}</a>
                         {% endif %}
                     </li>
+                {% empty %}
+                    <span>Você ainda não possui tarefas.</span>
                 {% endfor %}
             </ul>
         </div>
