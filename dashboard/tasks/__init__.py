@@ -3,6 +3,7 @@ import json
 from celery import signals, states
 from django_celery_results.models import TaskResult
 
+# Import tasks so they can be easily accessed
 from .optimization_task import optimization
 
 
