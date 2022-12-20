@@ -15,6 +15,7 @@ def index(request):
     user_tasks = user_tasks.values_list('task__task_id')
     
     tasks = TaskResult.objects.filter(task_id__in=user_tasks)
+    tasks = tasks.order_by('-date_created')
     
     return render(request, 'dashboard/pages/index.html', context={
         'tasks': tasks
