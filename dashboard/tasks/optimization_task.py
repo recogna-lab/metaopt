@@ -1,11 +1,11 @@
 import numpy as np
 from opytimizer import Opytimizer
 from opytimizer.core import Function
-from opytimizer.optimizers.swarm import PSO
 from opytimizer.spaces import SearchSpace
 
 from metaopt.celery import app
 from utils.callbacks import ProgressCallback
+from utils.optimizers import get_optimizer
 
 
 class _OptimizationTask(app.Task):
@@ -32,17 +32,17 @@ class _OptimizationTask(app.Task):
         }
         
     def setup(self, optimizer, function, agents):
-        # Set optimizer    
-        self.optimizer = PSO()
+        # Get the optimizer object    
+        self.optimizer = get_optimizer(optimizer)
         
         # Set cost function
         self.function = Function(lambda x: np.sum(x ** 2))
         
         # Create search space
         self.space = SearchSpace(
-            n_agents=agents, 
-            n_variables=2, 
-            lower_bound=[-10, -10], 
+            n_agents=agents,
+            n_variables=2,
+            lower_bound=[-10, -10],
             upper_bound=[10, 10]
         )
     
