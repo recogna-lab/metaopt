@@ -1,12 +1,11 @@
 import numpy as np
-from celery_progress.backend import ProgressRecorder
 from opytimizer import Opytimizer
 from opytimizer.core import Function
 from opytimizer.optimizers.swarm import PSO
 from opytimizer.spaces import SearchSpace
-from opytimizer.utils.callback import Callback
 
 from metaopt.celery import app
+from utils.callbacks import ProgressCallback
 
 
 class _OptimizationTask(app.Task):
@@ -58,27 +57,7 @@ class _OptimizationTask(app.Task):
         }
 
     def create_progress_callback(self, total):
-        # Create custom callback class for Opytimizer
-        class ProgressCallback(Callback):
-            
-            def __init__(self, task, total):
-                # Create progress recorder associated with the task
-                self.progress_recorder = ProgressRecorder(task)
-                
-                # Save total number of iterations
-                self.total = total
-                
-                super().__init__()
-            
-            # At the beginning of each iteration, record the progress
-            def on_iteration_begin(self, curr_iteration, _):
-                self.progress_recorder.set_progress(
-                    current=curr_iteration,
-                    total=self.total, 
-                    description='Tarefa em execução...'
-                )
-
-        # Return custom callback instance
+        # Return progress callback instance
         return ProgressCallback(self, total)
 
 @app.task(name='optimization', base=_OptimizationTask, bind=True)
