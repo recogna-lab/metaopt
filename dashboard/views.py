@@ -57,19 +57,20 @@ def start_optimization_task(request):
 
 @login_required
 def optimization_task(request, task_id):
-    user_task = get_object_or_404(
+    get_object_or_404(
         UserTask, 
         user__id=request.user.id, 
         task__task_id=task_id
     )
     
+    # Use this task obj to pass more information
     task = TaskResult.objects.get(
-        task_id=user_task.task.task_id
+        task_id=task_id
     )
     
     return render(request, 'dashboard/pages/task_result.html', context={
         'task_type': 'Otimização',
-        'task_id': task.task_id
+        'task_id': task_id
     })
 
 @login_required
