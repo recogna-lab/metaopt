@@ -12,7 +12,7 @@ class _OptimizationTask(app.Task):
     abstract = True
     
     def optimize(self, optimizer, function, agents, iterations):
-        # Set optimizer, function and 
+        # Set optimizer, function and search space
         self.setup(optimizer, function, agents)
         
         # Start the optimization
@@ -38,9 +38,6 @@ class _OptimizationTask(app.Task):
         # Set cost function
         self.function = Function(lambda x: np.sum(x ** 2))
         
-        # Set number of agents and iterations
-        agents = 10
-        
         # Create search space
         self.space = SearchSpace(
             n_agents=agents, 
@@ -58,7 +55,7 @@ class _OptimizationTask(app.Task):
         
         # Start optimization
         self.opytimizer.start(
-            n_iterations=100, 
+            n_iterations=iterations, 
             callbacks=[progress_callback]
         )
     
@@ -74,7 +71,7 @@ class _OptimizationTask(app.Task):
 
     def get_errors(self):
         _, e = self.opytimizer.history.get_convergence('best_agent')
-
+        
         return e.tolist()
         
 @app.task(name='optimization', base=_OptimizationTask, bind=True)
