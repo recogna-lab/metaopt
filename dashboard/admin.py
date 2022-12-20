@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
+from django.template.defaultfilters import truncatechars
 from django_celery_results.admin import GroupResult, TaskResultAdmin
 from django_celery_results.models import TaskResult
 
@@ -12,13 +13,17 @@ class CustomTaskResultAdmin(TaskResultAdmin):
         'status',
         'task_name', 
         'task_kwargs', 
-        'result', 
+        'short_result', 
         'date_created',
         'date_done'
     )
     list_filter = ('task_name', 'status', 'date_created', 'date_done')
     ordering = ('-date_created', )
     
+    # Shorten result
+    def short_result(self, obj):
+        return truncatechars(obj.result, 80)
+
     # Remove permissions
     def has_add_permission(self, request, obj=None):
         return False
