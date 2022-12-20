@@ -5,8 +5,16 @@ from celery_progress.backend import ProgressRecorder
 from metaopt.celery import app
 
 
-@app.task(name='optimization', bind=True)
+class _OptimizationTask(app.Task):
+    abstract = True
+    
+    def optimize(self):
+        print('Actual Optimization Code IS HERE!')
+
+@app.task(name='optimization', base=_OptimizationTask, bind=True)
 def optimization(self, user_id, optimizer, function, agents, iterations):
+    self.optimize()
+    
     progress_recorder = ProgressRecorder(self)
     
     # Loop up to 50 sleeping 1 s in each iteration (simulated execution)
