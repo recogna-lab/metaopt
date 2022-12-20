@@ -13,5 +13,5 @@ python3 manage.py runserver --insecure
 For the tasks, have redis-server up and run:
 
 ```bash
-celery --app metaopt worker -l info
+celery --app metaopt worker -l debug
 ```
