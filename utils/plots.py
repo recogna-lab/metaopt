@@ -31,12 +31,7 @@ def plot_convergence(error_values):
             showexponent='all',
             exponentformat='e'
         ),
-        margin=dict(
-            l=0, 
-            r=0, 
-            t=30, 
-            b=30
-        ),
+        margin=dict(l=0, r=0, t=30, b=30)
     )
     
     # Generate a div element with the plot
