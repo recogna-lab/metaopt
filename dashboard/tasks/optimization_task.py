@@ -1,4 +1,3 @@
-import numpy as np
 from opytimizer import Opytimizer
 from opytimizer.core import Function
 from opytimizer.spaces import SearchSpace
