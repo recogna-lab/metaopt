@@ -12,9 +12,9 @@ from utils.optimizers import get_optimizer
 class _OptimizationTask(app.Task):
     abstract = True
     
-    def optimize(self, optimizer, function, agents, iterations):
+    def optimize(self, optimizer, function, space, agents, iterations):
         # Set optimizer, function and search space
-        self.setup(optimizer, function, agents)
+        self.setup(optimizer, function, space, agents)
         
         # Start the optimization
         self.start(iterations)
@@ -32,7 +32,7 @@ class _OptimizationTask(app.Task):
             'error_values': error_values
         }
         
-    def setup(self, optimizer, function, agents):
+    def setup(self, optimizer, function, space, agents):
         # Get and set the optimizer object    
         self.optimizer = get_optimizer(optimizer)
         
@@ -42,12 +42,16 @@ class _OptimizationTask(app.Task):
         # Set the cost function
         self.function = Function(function)
         
+        # Configure the search space
+        self.setup_space(agents, space)
+    
+    def setup_space(self, agents, space):
         # Create search space
         self.space = SearchSpace(
             n_agents=agents,
-            n_variables=2,
-            lower_bound=[-10, -10],
-            upper_bound=[10, 10]
+            n_variables=space['dimension'],
+            lower_bound=space['lower_bound'],
+            upper_bound=space['upper_bound']
         )
     
     def start(self, iterations):
@@ -83,5 +87,5 @@ class _OptimizationTask(app.Task):
         delete_logs()
 
 @app.task(name='optimization', base=_OptimizationTask, bind=True)
-def optimization(self, user_id, optimizer, function, agents, iterations):
-    return self.optimize(optimizer, function, agents, iterations)
+def optimization(self, user_id, optimizer, function, space, agents, iterations):
+    return self.optimize(optimizer, function, space, agents, iterations)

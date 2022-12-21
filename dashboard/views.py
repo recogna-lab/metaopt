@@ -5,6 +5,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django_celery_results.models import TaskResult
 
+from utils import load_json_data
+
 from .forms import FeatureSelectionForm, OptimizationForm
 from .models import UserTask
 from .tasks import feature_selection, optimization
@@ -50,10 +52,13 @@ def start_optimization_task(request):
     
     form_data = optimization_form.cleaned_data
     
+    space = load_json_data(form_data['function'].search_space)
+    
     opt_task = optimization.delay(
         user_id=request.user.id,
-        optimizer=form_data['optimizer'].acronym, 
-        function=form_data['function'].short_name, 
+        optimizer=form_data['optimizer'].acronym,
+        function=form_data['function'].short_name,
+        space=space,
         agents=form_data['agents'], 
         iterations=form_data['iterations']
     )
