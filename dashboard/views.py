@@ -2,13 +2,14 @@ from celery_progress.views import get_progress
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
-from django_celery_results.models import TaskResult
 from django.urls import reverse
+from django_celery_results.models import TaskResult
 
-from .forms import OptimizationForm, FeatureSelectionForm
+from .forms import FeatureSelectionForm, OptimizationForm
 from .models import UserTask
-from .tasks import optimization, feature_selection
+from .tasks import feature_selection, optimization
 
+# Dashboard page
 
 @login_required
 def index(request):
@@ -22,7 +23,7 @@ def index(request):
         'tasks': tasks
     })
 
-#------------------------------Optimization------------------------------#
+# Optimization related views
 
 @login_required
 def new_optimization_task(request):
@@ -62,7 +63,7 @@ def start_optimization_task(request):
 
     return redirect('dashboard:task_detail', task_id=opt_task.task_id)
 
-#------------------------------Feature Selection------------------------------#
+# Feature selection related views
 
 @login_required
 def new_feature_selection_task(request):
@@ -102,8 +103,7 @@ def start_feature_selection_task(request):
 
     return redirect('dashboard:task_detail', task_id=opt_task.task_id)
 
-
-#------------------------------Commom------------------------------#
+# Task related views
 
 @login_required
 def task_detail(request, task_id):
@@ -128,6 +128,7 @@ def task_detail(request, task_id):
         'task_id': task_id
     })
 
+# Endpoint for retrieving progress
 
 @login_required
 def task_progress(request, task_id):
@@ -138,4 +139,3 @@ def task_progress(request, task_id):
     )
     
     return get_progress(request, task_id)
-
