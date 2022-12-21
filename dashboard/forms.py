@@ -2,7 +2,8 @@ from django import forms
 
 from utils.django_forms import add_attr
 
-from .models import Function, Optimizer, Dataset
+from .models import Dataset, Function, Optimizer
+
 
 class TaskForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -50,7 +51,6 @@ class OptimizationForm(TaskForm):
         to_field_name='short_name',
         empty_label=None
     )
-    
 
 class FeatureSelectionForm(TaskForm):
     
