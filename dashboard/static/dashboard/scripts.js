@@ -33,7 +33,8 @@ const initializeProgressBar = (progressURL) => {
         pBarMessageElement.textContent = 'Algo deu errado! Recarregue ' + 
             'a página ou execute a tarefa novamente.'
         
-        // exception = exception || ''
+        // If necessary, use the lines above to see the problem
+        // exception = exception
         // console.log(exception)
     }
 
@@ -46,7 +47,8 @@ const initializeProgressBar = (progressURL) => {
         pBarMessageElement.textContent = 'Algo deu errado! Reexecutando ' +
             'tarefa em ' + retryWhen + ' segundos'
         
-        // exception = exception || ''
+        // If necessary, use the lines above to see the problem
+        // exception = exception
         // console.log(exception)
     }
 
@@ -56,10 +58,10 @@ const initializeProgressBar = (progressURL) => {
     }
 
     const onResult = (resultElement, result) => {
-        best_solution = 'Melhor solução = ' + result.best_solution
-        best_value = 'Melhor valor da função = ' + result.best_value
+        bestSolution = 'Melhor solução = ' + result.best_solution
+        bestValue = 'Melhor valor da função = ' + result.best_value
 
-        resultElement.innerHTML = best_solution + '</br>' + best_value
+        resultElement.innerHTML = bestSolution + '</br>' + bestValue
     }
     
     document.addEventListener('DOMContentLoaded', function () {
