@@ -5,11 +5,7 @@ from . import views
 app_name = 'dashboard'
 
 urlpatterns = [
-    path(
-        '', 
-        views.index, 
-        name='index'
-    ),
+    path('', views.index, name='index'),
     path(
         'opt/new/', 
          views.new_optimization_task, 
