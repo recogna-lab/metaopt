@@ -5,7 +5,7 @@ from django_celery_results.models import TaskResult
 
 # Import tasks so they can be easily accessed
 from .optimization_task import optimization
-
+from .feature_selection_task import feature_selection
 
 @signals.before_task_publish.connect
 def create_pending_task(headers=None, body=None, **kwargs):
