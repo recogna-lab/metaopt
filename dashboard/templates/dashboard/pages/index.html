@@ -3,31 +3,40 @@
 {% block title %}Dashboard |{% endblock title %}
 
 {% block content %}
+    
+    {% include 'dashboard/partials/navbar.html' %}
 
     <div class="font-robo">
         <h1>Dashboard</h1>
-        <span>
-            Clique aqui para <a href="{% url 'accounts:logout' %}">sair</a>.
-        </span>
-        <div>
-            <a href="{% url 'dashboard:new_opt_task' %}">
-                Nova tarefa de otimização
-            </a>
-            <br>
-            <a href="{% url 'dashboard:new_fs_task' %}">
-                Nova tarefa de seleção de características
-            </a>
-        </div>
-        <div>
-            <h2>Suas tarefas:</h2>
+        <div class="container">
+            <h2>Suas tarefas</h2>
             <ul>
-                {% for task in tasks %}
-                    <li>
-                        <a href="{% url 'dashboard:task_detail' task.task_id %}">{{ task.task_id }}</a>
-                    </li>
-                {% empty %}
-                    <span>Você ainda não possui tarefas.</span>
-                {% endfor %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Criada</th>
+                            <th scope="col">Finalizada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for task in tasks %}
+                            <tr>
+                                <th scope="row"><a href="{% url 'dashboard:task_detail' task.task_id %}">{{ task.task_id }}</a></th>
+                                <td>{{task.task_name}}</td>
+                                <td>
+                                    <span class="{% if task.status == 'SUCCESS' %}sucess{% else %}inprogress{% endif %}">{{task.status}}</span>                
+                                </td>
+                                <td>{{task.date_created}}</td>
+                                <td>{{task.date_finished}}</td>
+                            </tr>
+                        {% empty %}
+                            <span>Você ainda não possui tarefas.</span>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </ul>
         </div>
     </div>

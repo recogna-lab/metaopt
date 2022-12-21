@@ -12,4 +12,5 @@ INSTALLED_APPS = [
     'plotly',
     'celery_progress',
     'django_celery_results',
+    'fontawesomefree',
 ]
