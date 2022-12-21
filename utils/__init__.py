@@ -9,3 +9,9 @@ def delete_logs():
     for file in listdir(BASE_DIR):
         if '.log' in file:
             remove(file)
+
+def get_task_type(task_name):
+    if task_name == 'optimization':
+        return 'Otimização'
+    else:
+        return 'Seleção de Características'
