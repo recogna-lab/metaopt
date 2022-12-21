@@ -1,17 +1,16 @@
-from opfython.models.supervised import SupervisedOPF
+import os
+
 import opfython.math.general as g
 import opfython.stream.loader as l
 import opfython.stream.parser as p
 import opfython.stream.splitter as sp
+from opfython.models.supervised import SupervisedOPF
+
 import utils.transfer_functions as tf
-import numpy as np
-import os
-
-from opytimizer.spaces import SearchSpace
-from opytimizer.optimizers.swarm import PSO
-
 from metaopt.celery import app
+
 from .optimization_task import _OptimizationTask
+
 
 class _FeatureSelectionTask(_OptimizationTask):
     
