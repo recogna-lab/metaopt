@@ -2,13 +2,14 @@ from celery_progress.views import get_progress
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
-from django_celery_results.models import TaskResult
 from django.urls import reverse
+from django_celery_results.models import TaskResult
 
-from .forms import OptimizationForm, FeatureSelectionForm
+from .forms import FeatureSelectionForm, OptimizationForm
 from .models import UserTask
-from .tasks import optimization, feature_selection
+from .tasks import feature_selection, optimization
 
+# Dashboard page
 
 @login_required
 def index(request):
@@ -22,19 +23,16 @@ def index(request):
         'tasks': tasks
     })
 
-#------------------------------Optimization------------------------------#
+# Optimization related views
 
 @login_required
 def new_optimization_task(request):
     optimization_form = OptimizationForm()
     
-    form_action_url = 'dashboard:start_opt_task'
-    form_action = reverse(form_action_url)
-    
     return render(request, 'dashboard/pages/new_task.html', context={
         'task_type': 'Seleção de Características',
         'form': optimization_form,
-        'form_action': form_action
+        'form_action': reverse('dashboard:start_opt_task')
     })
 
 @login_required
@@ -62,19 +60,16 @@ def start_optimization_task(request):
 
     return redirect('dashboard:task_detail', task_id=opt_task.task_id)
 
-#------------------------------Feature Selection------------------------------#
+# Feature selection related views
 
 @login_required
 def new_feature_selection_task(request):
     feature_selection_form = FeatureSelectionForm()
-
-    form_action_url = 'dashboard:start_fs_task'
-    form_action = reverse(form_action_url)
     
     return render(request, 'dashboard/pages/new_task.html', context={
         'task_type': 'Seleção de Características',
         'form': feature_selection_form,
-        'form_action': form_action
+        'form_action': reverse('dashboard:start_fs_task')
     })
 
 @login_required
@@ -102,8 +97,7 @@ def start_feature_selection_task(request):
 
     return redirect('dashboard:task_detail', task_id=opt_task.task_id)
 
-
-#------------------------------Commom------------------------------#
+# Task related views
 
 @login_required
 def task_detail(request, task_id):
@@ -128,6 +122,7 @@ def task_detail(request, task_id):
         'task_id': task_id
     })
 
+# Endpoint for retrieving progress
 
 @login_required
 def task_progress(request, task_id):
@@ -138,4 +133,3 @@ def task_progress(request, task_id):
     )
     
     return get_progress(request, task_id)
-

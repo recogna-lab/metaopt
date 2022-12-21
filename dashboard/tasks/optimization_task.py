@@ -1,9 +1,9 @@
-import numpy as np
 from opytimizer import Opytimizer
 from opytimizer.core import Function
 from opytimizer.spaces import SearchSpace
 
 from metaopt.celery import app
+from utils.benchmark_functions import get_function
 from utils.callbacks import ProgressCallback
 from utils.optimizers import get_optimizer
 
@@ -32,11 +32,14 @@ class _OptimizationTask(app.Task):
         }
         
     def setup(self, optimizer, function, agents):
-        # Get the optimizer object    
+        # Get and set the optimizer object    
         self.optimizer = get_optimizer(optimizer)
         
-        # Set cost function
-        self.function = Function(lambda x: np.sum(x ** 2))
+        # Get the function object
+        function = get_function(function)
+        
+        # Set the cost function
+        self.function = Function(function)
         
         # Create search space
         self.space = SearchSpace(
