@@ -94,7 +94,7 @@ def feature_selection(self, user_id, optimizer, dataset, agents, iterations):
         X_train, Y_train, percentage = 0.2, random_state=1
     )
 
-    result = self.optimize(optimizer, agents, iterations)
+    result = self.optimize(optimizer, None, agents, iterations)
 
     opf = SupervisedOPF(
         distance='log_squared_euclidean',
