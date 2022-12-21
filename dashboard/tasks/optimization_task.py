@@ -1,53 +1,28 @@
 import numpy as np
 from opytimizer import Opytimizer
 from opytimizer.core import Function
-from opytimizer.optimizers.swarm import PSO
 from opytimizer.spaces import SearchSpace
 
 from metaopt.celery import app
 from utils.callbacks import ProgressCallback
+from utils.optimizers import get_optimizer
 
 
 class _OptimizationTask(app.Task):
     abstract = True
     
-    def optimize(self, _optimizer, _function, _agents, _iterations):
-        # Set optimizer    
-        optimizer = PSO()
+    def optimize(self, optimizer, function, agents, iterations):
+        # Set optimizer, function and search space
+        self.setup(optimizer, function, agents)
         
-        # Set cost function
-        function = lambda x: np.sum(x ** 2)
-        function = Function(function)
-        
-        # Set number of agents and iterations
-        agents = 10
-        iterations = 10
-        
-        # Create search space
-        space = SearchSpace(
-            n_agents=agents, 
-            n_variables=2, 
-            lower_bound=[-10, -10], 
-            upper_bound=[10, 10]
-        )
-        
-        # Create Opytimizer instance
-        opytimizer = Opytimizer(space, optimizer, function)
-        
-        # Create progress callback
-        progress_callback = self.create_progress_callback(total=iterations)
-        
-        # Start optimization
-        opytimizer.start(n_iterations=iterations, callbacks=[progress_callback])
+        # Start the optimization
+        self.start(iterations)
         
         # Get optimum value and function on optimum
-        optimum_value =  opytimizer.space.best_agent.position.flatten().tolist()
-        function_value = opytimizer.space.best_agent.fit.item()
-
-        # Get errors (for convergence plot)
-        _, error_values = opytimizer.history.get_convergence('best_agent')
+        optimum_value, function_value = self.get_results()
         
-        error_values = error_values.tolist()
+        # Get errors (for convergence plot)
+        error_values = self.get_errors()
         
         # Add results and errors to the output        
         return {
@@ -55,11 +30,50 @@ class _OptimizationTask(app.Task):
             'function_value': function_value,
             'error_values': error_values
         }
-
+        
+    def setup(self, optimizer, function, agents):
+        # Get the optimizer object    
+        self.optimizer = get_optimizer(optimizer)
+        
+        # Set cost function
+        self.function = Function(lambda x: np.sum(x ** 2))
+        
+        # Create search space
+        self.space = SearchSpace(
+            n_agents=agents,
+            n_variables=2,
+            lower_bound=[-10, -10],
+            upper_bound=[10, 10]
+        )
+    
+    def start(self, iterations):
+        # Create Opytimizer instance
+        self.opytimizer = Opytimizer(self.space, self.optimizer, self.function)
+        
+        # Create progress callback
+        progress_callback = self.create_progress_callback(total=iterations)
+        
+        # Start optimization
+        self.opytimizer.start(
+            n_iterations=iterations, 
+            callbacks=[progress_callback]
+        )
+    
     def create_progress_callback(self, total):
         # Return progress callback instance
         return ProgressCallback(self, total)
+    
+    def get_results(self):
+        x =  self.opytimizer.space.best_agent.position.flatten().tolist()
+        y = self.opytimizer.space.best_agent.fit.item()
+        
+        return x, y
 
+    def get_errors(self):
+        _, e = self.opytimizer.history.get_convergence('best_agent')
+        
+        return e.tolist()
+        
 @app.task(name='optimization', base=_OptimizationTask, bind=True)
 def optimization(self, user_id, optimizer, function, agents, iterations):
     return self.optimize(optimizer, function, agents, iterations)
