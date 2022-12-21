@@ -153,7 +153,7 @@ def convergence_plot(request, task_id):
         
         conv_plot_div = plot_convergence(task_result['error_values'])
 
-    return render(request, 'dashboard/pages/plot.html', context={
+    return render(request, 'dashboard/pages/plots.html', context={
         'task_id': task_id,
         'conv_plot_div': conv_plot_div
     })
