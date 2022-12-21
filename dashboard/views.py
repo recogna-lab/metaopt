@@ -29,13 +29,10 @@ def index(request):
 def new_optimization_task(request):
     optimization_form = OptimizationForm()
     
-    form_action_url = 'dashboard:start_opt_task'
-    form_action = reverse(form_action_url)
-    
     return render(request, 'dashboard/pages/new_task.html', context={
         'task_type': 'Seleção de Características',
         'form': optimization_form,
-        'form_action': form_action
+        'form_action': reverse('dashboard:start_opt_task')
     })
 
 @login_required
@@ -68,14 +65,11 @@ def start_optimization_task(request):
 @login_required
 def new_feature_selection_task(request):
     feature_selection_form = FeatureSelectionForm()
-
-    form_action_url = 'dashboard:start_fs_task'
-    form_action = reverse(form_action_url)
     
     return render(request, 'dashboard/pages/new_task.html', context={
         'task_type': 'Seleção de Características',
         'form': feature_selection_form,
-        'form_action': form_action
+        'form_action': reverse('dashboard:start_fs_task')
     })
 
 @login_required
