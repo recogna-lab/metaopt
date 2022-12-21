@@ -2,7 +2,7 @@ from django import forms
 
 from utils.django_forms import add_attr
 
-from .models import Function, Optimizer, Dataset
+from .models import Function, Optimizer, Dataset, TransferFunction
 
 class TaskForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -50,6 +50,8 @@ class OptimizationForm(TaskForm):
         to_field_name='short_name',
         empty_label=None
     )
+
+    field_order = ['optimizer', 'function', 'agents', 'iterations']
     
 
 class FeatureSelectionForm(TaskForm):
@@ -60,6 +62,7 @@ class FeatureSelectionForm(TaskForm):
         self.name = 'feature_selection_form'
 
         add_attr(self.fields['dataset'], 'class', 'form-select')
+        add_attr(self.fields['transfer_function'], 'class', 'form-select')
 
     dataset = forms.ModelChoiceField(
         label='Base de Dados',
@@ -68,4 +71,12 @@ class FeatureSelectionForm(TaskForm):
         empty_label=None
     )
 
+    transfer_function = forms.ModelChoiceField(
+        label='Função de Transferência',
+        queryset=TransferFunction.objects.all(),
+        to_field_name='name',
+        empty_label=None
+    )
+
+    field_order = ['optimizer', 'dataset', 'transfer_function', 'agents', 'iterations']
     

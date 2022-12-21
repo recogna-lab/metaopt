@@ -54,6 +54,19 @@ class Dataset(models.Model):
     class Meta:
         ordering = ('name', )
 
+class TransferFunction(models.Model):
+
+    name = models.CharField(
+        max_length=50,
+        verbose_name='Name',
+        help_text='Name of the Transfer Function'
+    )
+    
+    def __str__(self):
+        return f'{self.name}'
+    
+    class Meta:
+        ordering = ('name', )
 
 class Function(models.Model):
     
