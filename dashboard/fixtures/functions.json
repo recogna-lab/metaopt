@@ -5,7 +5,9 @@
     "fields": {
         "short_name": "Ackley2",
         "name": "Função Ackley 2",
-        "latex_expression": "f(x_1, x_2) = -200e^{-0.2\\sqrt{x_1^2+x_2^2}}"
+        "latex_expression": "f(x_1, x_2) = -200e^{-0.2\\sqrt{x_1^2+x_2^2}}",
+        "search_space": "{\"dimension\": 2, \"lower_bound\": [-32, -32], \"upper_bound\": [32, 32]}",
+        "optimal_result": "{\"optimal_solution\": [0, 0], \"optimal_value\": -200}"
     }
 },
 {
@@ -14,7 +16,9 @@
     "fields": {
         "short_name": "Adjiman",
         "name": "Função Adjiman",
-        "latex_expression": "f(x_1, x_2) = cos(x_1) sin(x_2) - \\\\frac{x_1}{x_2^2+1}"
+        "latex_expression": "f(x_1, x_2) = cos(x_1) sin(x_2) - \\\\frac{x_1}{x_2^2+1}",
+        "search_space": "{\"dimension\": 2, \"lower_bound\": [-1, -1], \"upper_bound\": [2, 1]}",
+        "optimal_result": "{\"optimal_solution\": [2, 0.10578], \"optimal_value\": -2.02181}"
     }
 },
 {
@@ -23,7 +27,9 @@
     "fields": {
         "short_name": "Beale",
         "name": "Função Beale",
-        "latex_expression": "f(x_1, x_2) = (1.5-x_1+x_1x_2)^2 + (2.25-x_1+x_1x_2^2)^2 + (2.625-x_1+x_1x_2^3)^2"
+        "latex_expression": "f(x_1, x_2) = (1.5-x_1+x_1x_2)^2 + (2.25-x_1+x_1x_2^2)^2 + (2.625-x_1+x_1x_2^3)^2",
+        "search_space": "{\"dimension\": 2, \"lower_bound\": [-4.5, -4.5], \"upper_bound\": [4.5, 4.5]}",
+        "optimal_result": "{\"optimal_solution\": [3, 0.5], \"optimal_value\": 0}"
     }
 }
 ]

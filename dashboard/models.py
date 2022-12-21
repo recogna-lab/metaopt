@@ -47,7 +47,17 @@ class Function(models.Model):
         verbose_name='Latex Expression',
         help_text='Latex expression for the function'
     )
-        
+    
+    search_space = models.TextField(
+        verbose_name='Search Space',
+        help_text='JSON representation of the search space'
+    )
+    
+    optimal_result = models.TextField(
+        verbose_name='Optimal Result',
+        help_text='JSON representation of the optimal result'
+    )
+    
     def __str__(self):
         return f'{self.name}'
     
