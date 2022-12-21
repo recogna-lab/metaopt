@@ -134,12 +134,20 @@ body {
 #BACKGROUND
 ========================================================================== */
 
-.gradient {
+.gradient-v{
 	background: rgb(34,193,195);
 	background: -moz-linear-gradient(var(--gradient-options));
 	background: -webkit-linear-gradient(var(--gradient-options));
 	background: linear-gradient(var(--gradient-options));
 }
+
+.gradient-h{
+	background: rgb(34,193,195);
+	background: -moz-linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(45,58,253,1) 100%);
+	background: -webkit-linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(45,58,253,1) 100%);
+	background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(45,58,253,1) 100%);
+}
+
   
 /* ==========================================================================
 #SPACING
@@ -635,4 +643,34 @@ h6 {
 
 .progress {
 	height: 30px;
+}
+
+/* ==========================================================================
+#TASK TABLE
+========================================================================== */
+
+.sucess {
+	color: green;
+}
+
+.inprogress{
+	
+	color: orange;
+}
+
+/* ==========================================================================
+# NAVIGATOR
+========================================================================== */
+
+.nav-font{
+	font-size: large;
+	color: white;
+}
+
+.nav-logout{
+	color: white;
+}
+
+.brand-font{
+	font-size: x-large;
 }
