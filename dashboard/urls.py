@@ -17,16 +17,6 @@ urlpatterns = [
         name='start_opt_task'
     ),
     path(
-        'task/<uuid:task_id>/', 
-        views.task_detail, 
-        name='task_detail'
-    ),
-    path(
-        'progress/<uuid:task_id>/', 
-        views.task_progress, 
-        name='task_progress'
-    ),
-    path(
         'fs/new/',
         views.new_feature_selection_task,
         name='new_fs_task'
@@ -36,4 +26,14 @@ urlpatterns = [
         views.start_feature_selection_task,
         name='start_fs_task'
     ),
+    path(
+        'task/<uuid:task_id>/', 
+        views.task_detail, 
+        name='task_detail'
+    ),
+    path(
+        'progress/<uuid:task_id>/', 
+        views.task_progress, 
+        name='task_progress'
+    )
 ]
