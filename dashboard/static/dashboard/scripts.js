@@ -67,6 +67,7 @@ const initializeProgressBar = (progressURL) => {
             progressBarMessageId: 'progress-bar-status',
             resultElementId: 'task-result',
             defaultMessages: defaultPBarMessages,
+            pollInterval: 400,
             onProgress: onProgress,
             onError: onError,
             onRetry: onRetry,
