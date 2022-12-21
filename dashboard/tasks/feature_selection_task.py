@@ -1,15 +1,13 @@
 import os
-from opfython.models.supervised import SupervisedOPF
+
 import opfython.math.general as g
 import opfython.stream.loader as l
 import opfython.stream.parser as p
 import opfython.stream.splitter as sp
+from opfython.models.supervised import SupervisedOPF
+
 import utils.transfer_functions as tf
-import numpy as np
-import os
-
 from metaopt.celery import app
-
 
 from .optimization_task import _OptimizationTask
 
@@ -21,7 +19,7 @@ class _FeatureSelectionTask(_OptimizationTask):
         # Transform the continuous solution in boolean solution (feature array) by applying the transfer function
         features = tf.s1(opytimizer)
 
-        # Remaking training and validation subgraphs with selected features
+        # Remake training and validation subgraphs with selected features
         X_train_selected = self.X_train[:, features]
         X_val_selected = self.X_val[:, features]
 
@@ -50,12 +48,17 @@ class _FeatureSelectionTask(_OptimizationTask):
 
         return error
 
-    def optimize(self, optimizer, agents, iterations):
-        # Set optimizer    
-        super().optimize(optimizer, self.supervised_opf_feature_selection, agents, iterations)
+    def optimize(self, optimizer, function, agents, iterations):
+        # Set optimizer
+        super().optimize(
+            optimizer,
+            self.supervised_opf_feature_selection,
+            agents,
+            iterations
+        )
 
     def testing_task(self, opf):
-        # Remaking training and tests subgraphs with selected features
+        # Remake training and tests subgraphs with selected features
         X_train_selected = self.X_train[:, self.best_selected_features]
         X_test_selected = self.X_test[:, self.best_selected_features]
 
@@ -91,7 +94,7 @@ def feature_selection(self, user_id, optimizer, dataset, agents, iterations):
         X_train, Y_train, percentage = 0.2, random_state=1
     )
 
-    result = self.optimize(optimizer, agents, iterations)
+    result = self.optimize(optimizer, None, agents, iterations)
 
     opf = SupervisedOPF(
         distance='log_squared_euclidean',

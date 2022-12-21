@@ -28,46 +28,6 @@ class Optimizer(models.Model):
     class Meta:
         ordering = ('name', )
 
-class Dataset(models.Model):
-    
-    name = models.CharField(
-        max_length=50,
-        verbose_name='Name',
-        help_text='Name of the dataset'
-    )
-
-    file_name = models.CharField(
-        max_length=50,
-        verbose_name='File Name',
-        help_text='File name of the dataset'
-    )
-
-    features = models.CharField(
-        max_length=3,
-        verbose_name='Amount of features',
-        help_text='Amount of features of the dataset'
-    )
-    
-    def __str__(self):
-        return f'{self.name}'
-    
-    class Meta:
-        ordering = ('name', )
-
-class TransferFunction(models.Model):
-
-    name = models.CharField(
-        max_length=50,
-        verbose_name='Name',
-        help_text='Name of the Transfer Function'
-    )
-    
-    def __str__(self):
-        return f'{self.name}'
-    
-    class Meta:
-        ordering = ('name', )
-
 class Function(models.Model):
     
     short_name = models.CharField(
@@ -112,6 +72,20 @@ class Dataset(models.Model):
         max_length=3,
         verbose_name='Amount of features',
         help_text='Amount of features of the dataset'
+    )
+    
+    def __str__(self):
+        return f'{self.name}'
+    
+    class Meta:
+        ordering = ('name', )
+
+class TransferFunction(models.Model):
+
+    name = models.CharField(
+        max_length=50,
+        verbose_name='Name',
+        help_text='Name of the Transfer Function'
     )
     
     def __str__(self):

@@ -2,7 +2,7 @@ from django import forms
 
 from utils.django_forms import add_attr
 
-from .models import Function, Optimizer, Dataset, TransferFunction
+from .models import Dataset, Function, Optimizer, TransferFunction
 
 
 class _TaskForm(forms.Form):
@@ -53,7 +53,6 @@ class OptimizationForm(_TaskForm):
     )
 
     field_order = ['optimizer', 'function', 'agents', 'iterations']
-    
 
 class FeatureSelectionForm(_TaskForm):
     
@@ -79,5 +78,10 @@ class FeatureSelectionForm(_TaskForm):
         empty_label=None
     )
 
-    field_order = ['optimizer', 'dataset', 'transfer_function', 'agents', 'iterations']
-    
+    field_order = [
+        'optimizer',
+        'dataset',
+        'transfer_function',
+        'agents',
+        'iterations'
+    ]
