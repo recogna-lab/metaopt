@@ -25,7 +25,7 @@ def plot_convergence(error_values):
             rangemode='tozero',
         ),
         yaxis=dict(
-            title='Erro',
+            title='Valor da função',
             showgrid=False,
             tickformat='.2e',
         ),
