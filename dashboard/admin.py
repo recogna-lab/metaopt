@@ -4,7 +4,7 @@ from django.template.defaultfilters import truncatechars
 from django_celery_results.admin import GroupResult, TaskResultAdmin
 from django_celery_results.models import TaskResult
 
-from .models import Function, Optimizer, UserTask, Dataset, TransferFunction
+from .models import Dataset, Function, Optimizer, TransferFunction, UserTask
 
 
 class CustomTaskResultAdmin(TaskResultAdmin):
@@ -96,6 +96,9 @@ class UserTaskAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         return False
 
+class FunctionAdmin(admin.ModelAdmin):
+    list_display = ('short_name', 'name', 'optimal_result')
+
 admin.site.unregister(GroupResult)
 admin.site.unregister(TaskResult)
 
@@ -103,6 +106,6 @@ admin.site.register(TaskResult, CustomTaskResultAdmin)
 admin.site.register(UserTask, UserTaskAdmin)
 
 admin.site.register(Optimizer)
-admin.site.register(Function)
+admin.site.register(Function, FunctionAdmin)
 admin.site.register(Dataset)
 admin.site.register(TransferFunction)
