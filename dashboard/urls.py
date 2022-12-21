@@ -5,7 +5,11 @@ from . import views
 app_name = 'dashboard'
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path(
+        '', 
+        views.index, 
+        name='index'
+    ),
     path(
         'opt/new/', 
          views.new_optimization_task, 
@@ -17,13 +21,23 @@ urlpatterns = [
         name='start_opt_task'
     ),
     path(
-        'opt/<uuid:task_id>/', 
-        views.optimization_task, 
-        name='opt_task'
+        'task/<uuid:task_id>/', 
+        views.task_detail, 
+        name='task_detail'
     ),
     path(
         'progress/<uuid:task_id>/', 
         views.task_progress, 
         name='task_progress'
+    ),
+    path(
+        'fs/new/',
+        views.new_feature_selection_task,
+        name='new_fs_task'
+    ),
+    path(
+        'fs/new/start',
+        views.start_feature_selection_task,
+        name='start_fs_task'
     ),
 ]
