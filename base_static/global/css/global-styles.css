@@ -88,21 +88,23 @@ body {
 .page-wrapper-column {
 	min-height: 100vh;
 	display: flex;
-	align-items: center;
 }
 
 .page-wrapper {
 	justify-content: center;
+	align-items: center;
 }
 
 .page-wrapper-column {
 	flex-direction: column;
 	justify-content: space-around;
+	align-items: flex-start;
 	width: 85vw;
 	margin: 0 auto;
 }
 
-.page-wrapper-column div {
+#progress-bar-wrapper,
+#task-result {
 	width: 100%;
 }
 
