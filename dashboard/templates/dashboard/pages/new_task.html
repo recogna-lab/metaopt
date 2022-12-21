@@ -5,7 +5,7 @@
 {% block content %}
 
     <div class="font-robo">
-        <form action="{% url 'dashboard:start_opt_task' %}" method="post">
+        <form action="{{form_action}}" method="post">
             {% csrf_token %}
 
             {% for field in form %}

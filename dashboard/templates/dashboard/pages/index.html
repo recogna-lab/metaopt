@@ -13,15 +13,17 @@
             <a href="{% url 'dashboard:new_opt_task' %}">
                 Nova tarefa de otimização
             </a>
+            <br>
+            <a href="{% url 'dashboard:new_fs_task' %}">
+                Nova tarefa de seleção de características
+            </a>
         </div>
         <div>
             <h2>Suas tarefas:</h2>
             <ul>
                 {% for task in tasks %}
                     <li>
-                        {% if task.task_name == 'optimization' %}
-                            <a href="{% url 'dashboard:opt_task' task.task_id %}">{{ task.task_id }}</a>
-                        {% endif %}
+                        <a href="{% url 'dashboard:task_detail' task.task_id %}">{{ task.task_id }}</a>
                     </li>
                 {% empty %}
                     <span>Você ainda não possui tarefas.</span>
