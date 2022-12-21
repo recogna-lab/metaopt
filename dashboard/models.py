@@ -123,6 +123,19 @@ class UserTask(models.Model):
     class Meta:
         ordering = ('-task__date_created', )
 
+# Get task via user task
+def get_task(user_id, task_id):
+    try:
+        UserTask.objects.get(
+            user__id=user_id, 
+            task__task_id=task_id
+        )
+        
+        return TaskResult.objects.get(
+            task_id=task_id
+        )
+    except UserTask.DoesNotExist:
+        return None
 
 # Before saving a task result instance
 @receiver(pre_save, sender=TaskResult)

@@ -1,7 +1,8 @@
 from celery_progress.views import get_progress
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect, render
+from django.http import Http404
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django_celery_results.models import TaskResult
 
@@ -9,7 +10,7 @@ from utils import get_task_type, load_json_data
 from utils.plots import plot_convergence
 
 from .forms import FeatureSelectionForm, OptimizationForm
-from .models import UserTask
+from .models import UserTask, get_task
 from .tasks import feature_selection, optimization
 
 # Dashboard page
@@ -107,16 +108,10 @@ def start_feature_selection_task(request):
 
 @login_required
 def task_detail(request, task_id):
-    get_object_or_404(
-        UserTask, 
-        user__id=request.user.id, 
-        task__task_id=task_id
-    )
+    task = get_task(request.user.id, task_id)
     
-    # Use this task obj to pass more information
-    task = TaskResult.objects.get(
-        task_id=task_id
-    )
+    if task is None:
+        raise Http404()
 
     task_type = get_task_type(task.task_name)
     
@@ -129,11 +124,10 @@ def task_detail(request, task_id):
 
 @login_required
 def task_progress(request, task_id):
-    get_object_or_404(
-        UserTask, 
-        user__id=request.user.id, 
-        task__task_id=task_id
-    )
+    task = get_task(request.user.id, task_id)
+    
+    if task is None:
+        raise Http404()
     
     return get_progress(request, task_id)
 
@@ -141,15 +135,10 @@ def task_progress(request, task_id):
 
 @login_required
 def convergence_plot(request, task_id):
-    get_object_or_404(
-        UserTask, 
-        user__id=request.user.id, 
-        task__task_id=task_id
-    )
+    task = get_task(request.user.id, task_id)
     
-    task = TaskResult.objects.get(
-        task_id=task_id
-    )
+    if task is None:
+        raise Http404()
     
     conv_plot_div = (
         '<div>Gráficos de convergência são '
