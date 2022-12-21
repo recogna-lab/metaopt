@@ -21,6 +21,7 @@ Django==4.1.2
 django-celery-results==2.4.0
 django-widget-tweaks==1.4.12
 filelock==3.8.0
+fontawesomefree==6.2.1
 fonttools==4.38.0
 identify==2.5.8
 iniconfig==1.1.1
@@ -28,10 +29,12 @@ isort==5.10.1
 kiwisolver==1.4.4
 kombu==5.2.4
 lazy-object-proxy==1.8.0
+llvmlite==0.39.1
 matplotlib==3.6.2
 mccabe==0.7.0
 networkx==2.8.8
 nodeenv==1.7.0
+numba==0.56.4
 numpy==1.23.4
 opfython==1.0.11
 opytimark==1.0.8
@@ -62,4 +65,3 @@ vine==5.0.0
 virtualenv==20.16.6
 wcwidth==0.2.5
 wrapt==1.14.1
-
