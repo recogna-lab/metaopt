@@ -5,7 +5,7 @@
     "fields": {
         "name": "Heart Statlog",
         "file_name": "heart.txt",
-        "features": "13"
+        "features": 13
     }
 },
 {
@@ -14,7 +14,7 @@
     "fields": {
         "name": "Sonar",
         "file_name": "sonar.txt",
-        "features": "60"
+        "features": 60
     }
 },
 {
@@ -23,7 +23,7 @@
     "fields": {
         "name": "Vehicle",
         "file_name": "vehicle.txt",
-        "features": "18"
+        "features": 18
     }
 },
 {
@@ -32,7 +32,7 @@
     "fields": {
         "name": "Spambase",
         "file_name": "spambase.txt",
-        "features": "57"
+        "features": 57
     }
 }
 ]
