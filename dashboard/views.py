@@ -3,10 +3,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django_celery_results.models import TaskResult
+from django.urls import reverse
 
-from .forms import OptimizationForm
+from .forms import OptimizationForm, FeatureSelectionForm
 from .models import UserTask
-from .tasks import optimization
+from .tasks import optimization, feature_selection
 
 
 @login_required
@@ -21,13 +22,19 @@ def index(request):
         'tasks': tasks
     })
 
+#------------------------------Optimization------------------------------#
+
 @login_required
 def new_optimization_task(request):
     optimization_form = OptimizationForm()
     
+    form_action_url = 'dashboard:start_opt_task'
+    form_action = reverse(form_action_url)
+    
     return render(request, 'dashboard/pages/new_task.html', context={
-        'task_type': 'Otimização',
-        'form': optimization_form
+        'task_type': 'Seleção de Características',
+        'form': optimization_form,
+        'form_action': form_action
     })
 
 @login_required
@@ -53,10 +60,53 @@ def start_optimization_task(request):
         iterations=form_data['iterations']
     )
 
-    return redirect('dashboard:opt_task', task_id=opt_task.task_id)
+    return redirect('dashboard:task_detail', task_id=opt_task.task_id)
+
+#------------------------------Feature Selection------------------------------#
 
 @login_required
-def optimization_task(request, task_id):
+def new_feature_selection_task(request):
+    feature_selection_form = FeatureSelectionForm()
+
+    form_action_url = 'dashboard:start_fs_task'
+    form_action = reverse(form_action_url)
+    
+    return render(request, 'dashboard/pages/new_task.html', context={
+        'task_type': 'Seleção de Características',
+        'form': feature_selection_form,
+        'form_action': form_action
+    })
+
+@login_required
+def start_feature_selection_task(request):
+    new_fs_url = 'dashboard:new_fs_task'
+    
+    if not request.POST:
+        return redirect(new_fs_url)
+    
+    feature_selection_form = FeatureSelectionForm(request.POST)
+    
+    if not feature_selection_form.is_valid():
+        messages.error(request, 'Por favor, selecione as opções desejadas.')
+        return redirect(new_fs_url)
+    
+    form_data = feature_selection_form.cleaned_data
+    
+    opt_task = feature_selection.delay(
+        user_id=request.user.id,
+        optimizer=form_data['optimizer'].acronym, 
+        database=form_data['dataset'].file_name,
+        agents=form_data['agents'], 
+        iterations=form_data['iterations']
+    )
+
+    return redirect('dashboard:task_detail', task_id=opt_task.task_id)
+
+
+#------------------------------Commom------------------------------#
+
+@login_required
+def task_detail(request, task_id):
     get_object_or_404(
         UserTask, 
         user__id=request.user.id, 
@@ -67,11 +117,17 @@ def optimization_task(request, task_id):
     task = TaskResult.objects.get(
         task_id=task_id
     )
+
+    if task.task_name == 'optimization':
+        task_type = 'Otimização'
+    else:
+        task_type = 'Seleção de Características'
     
-    return render(request, 'dashboard/pages/task_result.html', context={
-        'task_type': 'Otimização',
+    return render(request, 'dashboard/pages/task_detail.html', context={
+        'task_type': task_type,
         'task_id': task_id
     })
+
 
 @login_required
 def task_progress(request, task_id):
@@ -82,3 +138,4 @@ def task_progress(request, task_id):
     )
     
     return get_progress(request, task_id)
+
