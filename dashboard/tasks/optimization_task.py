@@ -20,15 +20,15 @@ class _OptimizationTask(app.Task):
         self.start(iterations)
         
         # Get optimum value and function on optimum
-        optimum_value, function_value = self.get_results()
+        best_solution, best_value = self.get_results()
         
         # Get errors (for convergence plot)
         error_values = self.get_errors()
         
         # Add results and errors to the output        
         return {
-            'optimum_value': optimum_value,
-            'function_value': function_value,
+            'best_solution': best_solution,
+            'best_value': best_value,
             'error_values': error_values
         }
         

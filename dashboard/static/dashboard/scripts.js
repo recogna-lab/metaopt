@@ -56,10 +56,10 @@ const initializeProgressBar = (progressURL) => {
     }
 
     const onResult = (resultElement, result) => {
-        optimum_value = 'Ponto ótimo = ' + result.optimum_value
-        function_value = 'Função no ponto ótimo = ' + result.function_value
+        best_solution = 'Melhor solução = ' + result.best_solution
+        best_value = 'Melhor valor da função = ' + result.best_value
 
-        resultElement.innerHTML = optimum_value + '</br>' + function_value
+        resultElement.innerHTML = best_solution + '</br>' + best_value
     }
     
     document.addEventListener('DOMContentLoaded', function () {
