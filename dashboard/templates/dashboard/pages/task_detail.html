@@ -4,16 +4,20 @@
 
 {% block content %}
 
-    <div class="font-robo">
-        <h1>Tarefa de {{ task_type }}: {{ task_id }}</h1>
-
-        <div class="progress">
-            <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar">&nbsp;</div>
+    <div class="page-wrapper-column font-robo">
+        <div>
+            <h1>Tarefa de {{ task_type }}: {{ task_id }}</h1>
+        </div>
+        
+        <div>
+            <div class="progress">
+                <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar">&nbsp;</div>
+            </div>
+    
+            <div id="progress-bar-status">Esperando a tarefa iniciar...</div>
         </div>
 
-        <div id="progress-bar-status"></div>
-
-        <div id="task-result"></div>
+        <div id="task-result">Após a execução, resultados aparecem aqui!</div>
     </div>
 
 {% endblock content %}

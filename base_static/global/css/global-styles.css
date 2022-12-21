@@ -84,11 +84,26 @@ body {
 	font-size: 14px;
 }
 
-.page-wrapper {
+.page-wrapper,
+.page-wrapper-column {
 	min-height: 100vh;
 	display: flex;
-	justify-content: center;
 	align-items: center;
+}
+
+.page-wrapper {
+	justify-content: center;
+}
+
+.page-wrapper-column {
+	flex-direction: column;
+	justify-content: space-around;
+	width: 85vw;
+	margin: 0 auto;
+}
+
+.page-wrapper-column div {
+	width: 100%;
 }
 
 /* ==========================================================================
