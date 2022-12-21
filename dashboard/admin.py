@@ -4,7 +4,7 @@ from django.template.defaultfilters import truncatechars
 from django_celery_results.admin import GroupResult, TaskResultAdmin
 from django_celery_results.models import TaskResult
 
-from .models import Function, Optimizer, UserTask
+from .models import Function, Optimizer, UserTask, Dataset
 
 
 class CustomTaskResultAdmin(TaskResultAdmin):
@@ -104,3 +104,4 @@ admin.site.register(UserTask, UserTaskAdmin)
 
 admin.site.register(Optimizer)
 admin.site.register(Function)
+admin.site.register(Dataset)
