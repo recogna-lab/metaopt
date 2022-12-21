@@ -1,0 +1,38 @@
+[
+{
+    "model": "dashboard.dataset",
+    "pk": 1,
+    "fields": {
+        "name": "Heart Statlog",
+        "file_name": "heart.txt",
+        "features": "13"
+    }
+},
+{
+    "model": "dashboard.dataset",
+    "pk": 2,
+    "fields": {
+        "name": "Sonar",
+        "file_name": "sonar.txt",
+        "features": "60"
+    }
+},
+{
+    "model": "dashboard.dataset",
+    "pk": 3,
+    "fields": {
+        "name": "Vehicle",
+        "file_name": "vehicle.txt",
+        "features": "18"
+    }
+},
+{
+    "model": "dashboard.dataset",
+    "pk": 4,
+    "fields": {
+        "name": "Spambase",
+        "file_name": "spambase.txt",
+        "features": "57"
+    }
+}
+]
