@@ -35,5 +35,10 @@ urlpatterns = [
         'progress/<uuid:task_id>/', 
         views.task_progress, 
         name='task_progress'
+    ),
+    path(
+        'convplot/<uuid:task_id>/',
+        views.convergence_plot,
+        name='convergence_plot'
     )
 ]

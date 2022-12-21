@@ -5,7 +5,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django_celery_results.models import TaskResult
 
-from utils import load_json_data
+from utils import get_task_type, load_json_data
+from utils.plots import plot_convergence
 
 from .forms import FeatureSelectionForm, OptimizationForm
 from .models import UserTask
@@ -117,10 +118,7 @@ def task_detail(request, task_id):
         task_id=task_id
     )
 
-    if task.task_name == 'optimization':
-        task_type = 'Otimização'
-    else:
-        task_type = 'Seleção de Características'
+    task_type = get_task_type(task.task_name)
     
     return render(request, 'dashboard/pages/task_detail.html', context={
         'task_type': task_type,
@@ -138,3 +136,35 @@ def task_progress(request, task_id):
     )
     
     return get_progress(request, task_id)
+
+# Convergence plot
+
+@login_required
+def convergence_plot(request, task_id):
+    get_object_or_404(
+        UserTask, 
+        user__id=request.user.id, 
+        task__task_id=task_id
+    )
+    
+    task = TaskResult.objects.get(
+        task_id=task_id
+    )
+    
+    conv_plot_div = (
+        '<div>Gráficos de convergência são '
+        'para tarefas de otimização.</div>'
+    )
+    
+    if task.task_name == 'optimization':
+        task_result = load_json_data(task.result)
+        
+        if 'progress' in task.result:
+            redirect('dashboard:task_detail', task_id=task_id)
+        
+        conv_plot_div = plot_convergence(task_result['error_values'])
+
+    return render(request, 'dashboard/pages/plot.html', context={
+        'task_id': task_id,
+        'conv_plot_div': conv_plot_div
+    })
