@@ -4,6 +4,8 @@
 
 {% block content %}
 
+    {% include 'dashboard/partials/navbar.html' %}
+
     <div class="page-wrapper font-robo">
         <form action="{{form_action}}" method="post">
             {% csrf_token %}
