@@ -87,7 +87,7 @@ def start_feature_selection_task(request):
     
     form_data = feature_selection_form.cleaned_data
     
-    opt_task = feature_selection.delay(
+    fs_task = feature_selection.delay(
         user_id=request.user.id,
         optimizer=form_data['optimizer'].acronym, 
         database=form_data['dataset'].file_name,
@@ -95,7 +95,7 @@ def start_feature_selection_task(request):
         iterations=form_data['iterations']
     )
 
-    return redirect('dashboard:task_detail', task_id=opt_task.task_id)
+    return redirect('dashboard:task_detail', task_id=fs_task.task_id)
 
 # Task related views
 
