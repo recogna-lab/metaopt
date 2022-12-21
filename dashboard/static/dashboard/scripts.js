@@ -1,4 +1,4 @@
-const initializeProgressBar = (progressURL) => {
+const initializeProgressBar = (progressURL, plotsURL) => {
     const defaultBarColors = {
         success: '#76ce60',
         progress: '#68a9ef',
@@ -61,7 +61,19 @@ const initializeProgressBar = (progressURL) => {
         bestSolution = 'Melhor solução = ' + result.best_solution
         bestValue = 'Melhor valor da função = ' + result.best_value
 
-        resultElement.innerHTML = bestSolution + '</br>' + bestValue
+        resultHTML = `
+            <div>
+                <span>${bestSolution}</span></br>
+                <span>${bestValue}</span>
+            </div>
+            <div>
+                <a href="${plotsURL}">
+                    Mostrar gráficos
+                </a>
+            </div>
+        `
+
+        resultElement.innerHTML = resultHTML
     }
     
     document.addEventListener('DOMContentLoaded', function () {
