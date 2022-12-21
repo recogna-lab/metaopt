@@ -7,6 +7,8 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django_celery_results.models import TaskResult
 
+from utils import dump_json_data, load_json_data
+
 
 class Optimizer(models.Model):
     
@@ -125,13 +127,17 @@ class UserTask(models.Model):
 # Before saving a task result instance
 @receiver(pre_save, sender=TaskResult)
 def format_task_kwargs(sender, instance, **kwargs):
+    # If instance already exists, no need to format again
+    if instance.pk is not None:
+        return
+        
     # Retrieve task named arguments as dict 
     task_kwargs_dict = literal_eval(instance.task_kwargs)
     task_kwargs_dict = task_kwargs_dict.replace('\'', '"')
-    task_kwargs_dict = json.loads(task_kwargs_dict)
+    task_kwargs_dict = load_json_data(task_kwargs_dict)
 
     # Correctly save named arguments as json 
-    instance.task_kwargs = json.dumps(task_kwargs_dict)
+    instance.task_kwargs = dump_json_data(task_kwargs_dict)
 
 # After saving a task result instance
 @receiver(post_save, sender=TaskResult)
@@ -141,7 +147,7 @@ def save_user_task(sender, instance, created, **kwargs):
         return
 
     # Retrieve task named arguments
-    task_kwargs_dict = json.loads(instance.task_kwargs)
+    task_kwargs_dict = load_json_data(instance.task_kwargs)
     
     # Get the user id
     user_id = task_kwargs_dict['user_id']
