@@ -5,7 +5,7 @@ from utils.django_forms import add_attr
 from .models import Dataset, Function, Optimizer
 
 
-class TaskForm(forms.Form):
+class _TaskForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -36,7 +36,7 @@ class TaskForm(forms.Form):
         step_size=10
     )
 
-class OptimizationForm(TaskForm):
+class OptimizationForm(_TaskForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -52,7 +52,7 @@ class OptimizationForm(TaskForm):
         empty_label=None
     )
 
-class FeatureSelectionForm(TaskForm):
+class FeatureSelectionForm(_TaskForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
