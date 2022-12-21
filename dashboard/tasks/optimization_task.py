@@ -3,6 +3,7 @@ from opytimizer.core import Function
 from opytimizer.spaces import SearchSpace
 
 from metaopt.celery import app
+from utils import delete_logs
 from utils.benchmark_functions import get_function
 from utils.callbacks import ProgressCallback
 from utils.optimizers import get_optimizer
@@ -76,7 +77,11 @@ class _OptimizationTask(app.Task):
         _, e = self.opytimizer.history.get_convergence('best_agent')
         
         return e.tolist()
-        
+    
+    def after_return(self, *args, **kwargs):
+        # Delete logs created during the execution
+        delete_logs()
+
 @app.task(name='optimization', base=_OptimizationTask, bind=True)
 def optimization(self, user_id, optimizer, function, agents, iterations):
     return self.optimize(optimizer, function, agents, iterations)
