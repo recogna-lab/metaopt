@@ -7,9 +7,6 @@ import utils.transfer_functions as tf
 import numpy as np
 import os
 
-from opytimizer.spaces import SearchSpace
-from opytimizer.optimizers.swarm import PSO
-
 from metaopt.celery import app
 from .optimization_task import _OptimizationTask
 
