@@ -78,14 +78,11 @@ button {
 #PAGE WRAPPER
 ========================================================================== */
 
-html, body {
-	width: 100vmax;
-}
-
 body {
 	font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
 	font-weight: 400;
 	font-size: 14px;
+	overflow-x: hidden;
 }
 
 .page-wrapper,
