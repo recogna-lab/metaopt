@@ -27,18 +27,18 @@ urlpatterns = [
         name='start_fs_task'
     ),
     path(
-        'task/<uuid:task_id>/', 
+        'detail/<uuid:task_id>/', 
         views.task_detail, 
         name='task_detail'
+    ),
+    path(
+        'result/<uuid:task_id>/',
+        views.task_result,
+        name='task_result'
     ),
     path(
         'progress/<uuid:task_id>/', 
         views.task_progress, 
         name='task_progress'
-    ),
-    path(
-        'convplot/<uuid:task_id>/',
-        views.convergence_plot,
-        name='conv_plot'
     )
 ]
