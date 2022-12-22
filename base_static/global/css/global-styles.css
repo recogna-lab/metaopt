@@ -78,6 +78,10 @@ button {
 #PAGE WRAPPER
 ========================================================================== */
 
+html, body {
+	width: 100vmax;
+}
+
 body {
 	font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
 	font-weight: 400;
@@ -303,7 +307,7 @@ fieldset .button-wrapper {
 	-moz-transition: all 0.4s ease;
 	transition: all 0.4s ease;
 	cursor: pointer;
-	font-size: 18px;
+	font-size: 16px;
 	color: #fff;
 	font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
 }
@@ -326,39 +330,32 @@ fieldset .button-wrapper {
 #TITLE
 ========================================================================== */
 
-.title {
-	font-size: 24px;
-	color: #525252;
-	font-weight: 400;
-	margin-bottom: 40px;
-}
-
 h1, h2, h3, h4, h5, h6 {
 	font-weight: 400;
 }
 
 h1 {
-	font-size: 36px;
+	font-size: 2em;
 }
 
 h2 {
-	font-size: 30px;
+	font-size: 1.5em;
 }
 
 h3 {
-	font-size: 24px;
+	font-size: 1.17em;
 }
 
 h4 {
-	font-size: 18px;
+	font-size: 1em;
 }
 
 h5 {
-	font-size: 15px;
+	font-size: .83em;
 }
 
 h6 {
-	font-size: 13px;
+	font-size: .67em;
 }
 
 /* ==========================================================================
@@ -383,9 +380,14 @@ h6 {
 	box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
 }
 
-.account-form-card .card-body {
+.form-card .card-body {
 	padding: 57px 65px;
 	padding-bottom: 65px;
+}
+
+.card-body h2 {
+	color: #525252;
+	margin-bottom: 3vmax;
 }
 
 .task-card {
@@ -451,6 +453,7 @@ h6 {
 
 .search-button .btn-basic {
 	padding: 0 25px;
+	line-height: 40px;
 }
 
 .new-task-dpdwn {
@@ -469,6 +472,7 @@ h6 {
 ========================================================================== */
 
 header {
+	min-width: 100vw;
 	width: 100vw;
 }
 
@@ -482,17 +486,29 @@ header {
 .navbar-content {
 	display: flex;
 	justify-content: space-between;
-	width: 85vmax;
+	align-items: center;
+	width: 85vw;
 	padding: 2vmin;
+}
+
+.navbar-content a {
+	display: flex;
+	align-items: center;
+	color: #e5e4e2;
+	text-decoration: none;
+}
+
+.navbar-content a:hover {
+	color: #fff;
 }
 
 .nav-logout{
 	display: flex;
-	align-items: center;
+	align-items: baseline;
 	justify-content: flex-end;
 	width: 400px;
 }
 
-.brand-font{
-	font-size: xx-large;
+.nav-logout a > i {
+	margin-right: 0.5vmin;
 }
