@@ -1,4 +1,5 @@
 import os
+import numpy as np
 
 import opfython.math.general as g
 import opfython.stream.loader as l
@@ -84,16 +85,20 @@ class _FeatureSelectionTask(_OptimizationTask):
 
         space = {'dimension': dimension, 'lower_bound': lower_bound, 'upper_bound': upper_bound}
 
-        result = self.optimize(optimizer, None, space, agents, iterations)
+        result_opt = self.optimize(optimizer, None, space, agents, iterations)
 
         opf = SupervisedOPF(
             distance='log_squared_euclidean',
             pre_computed_distance=None
         )
 
-        acc, confusion_matrix = self.testing_task(opf)
+        result_fs = self.testing_task(opf)
 
-        return (acc, confusion_matrix)
+        metrics = self.metrics(result_fs['confusion_matrix']) 
+        
+        result = self.concatenate_results(result_opt, result_fs, metrics)
+
+        return result
 
     def dataset_split(self, dataset):
         # Take the path of dataset
@@ -127,16 +132,56 @@ class _FeatureSelectionTask(_OptimizationTask):
         preds = opf.predict(X_test_selected)
 
         confusion_matrix = g.confusion_matrix(self.Y_test, preds)
+        confusion_matrix = confusion_matrix[1:, 1:]
+
         accuracy = g.opf_accuracy(self.Y_test, preds)
 
-        return (accuracy, confusion_matrix)
+        return {
+            'best_selected_features' : self.best_selected_features.tolist(), 
+            'accuracy': accuracy, 
+            'confusion_matrix': confusion_matrix.tolist()
+        }
+
+    def concatenate_results(self, *results):
+
+        result = {}
+
+        for r in results:
+            result.update(r)
+
+        return result
+    
+    def metrics(self, confusion_matrix):
+        
+        confusion_matrix = np.array(confusion_matrix)
+        rows, _ = confusion_matrix.shape
+
+        precision = []
+        recall = []
+        f1_score = []
+
+        sum_cols = np.sum(confusion_matrix, axis=0)
+        sum_rows = np.sum(confusion_matrix, axis=1)
+
+        for clss in range(rows):
+            p = confusion_matrix[clss, clss] / sum_cols[clss]
+            r = confusion_matrix[clss, clss] / sum_rows[clss]
+            f1 = 2 * (p * r) / (p + r)
+
+            precision.append(p)
+            recall.append(r)
+            f1_score.append(f1)
+
+        return {
+            'precision': precision,
+            'recall': recall,
+            'f1-score': f1_score
+        }
 
 @app.task(name='feature_selection', base=_FeatureSelectionTask, bind=True)
 def feature_selection(self, user_id, optimizer, dataset, transfer_function, dimension, agents, iterations):
 
-    acc, confusion_matrix = self.select_features(optimizer, dataset, transfer_function, dimension, agents, iterations)
-
-    print(f'A acurácia é igual a {acc}')
+    result = self.select_features(optimizer, dataset, transfer_function, dimension, agents, iterations)
 
     # Return None (just to have a value)
-    return None
+    return result
