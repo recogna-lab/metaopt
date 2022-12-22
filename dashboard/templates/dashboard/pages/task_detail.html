@@ -32,8 +32,8 @@
 
     <script>
         let progressURL = "{% url 'dashboard:task_progress' task_id %}"
-        let plotsURL = "{% url 'dashboard:conv_plot' task_id %}"
-        initializeProgressBar(progressURL, plotsURL)
+        let resultURL = "{% url 'dashboard:task_result' task_id %}"
+        initializeProgressBar(progressURL, resultURL)
     </script>
 
 {% endblock scripts %}

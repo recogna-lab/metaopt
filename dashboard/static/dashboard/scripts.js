@@ -1,4 +1,4 @@
-const initializeProgressBar = (progressURL, plotsURL) => {
+const initializeProgressBar = (progressURL, resultURL) => {
     const defaultBarColors = {
         success: '#76ce60',
         progress: '#68a9ef',
@@ -56,19 +56,20 @@ const initializeProgressBar = (progressURL, plotsURL) => {
         pBarElement.style.backgroundColor = defaultBarColors.success
         pBarMessageElement.textContent = 'Tarefa concluída com sucesso!'
     }
-
+    
     const onResult = (resultElement, result) => {
         bestSolution = 'Melhor solução = ' + result.best_solution
         bestValue = 'Melhor valor da função = ' + result.best_value
 
         resultHTML = `
             <div>
-                <span>${bestSolution}</span></br>
-                <span>${bestValue}</span>
+                <div><span>${bestSolution}</span></div>
+                <div><span>${bestValue}</span></div>
             </div>
+
             <div>
-                <a href="${plotsURL}">
-                    Mostrar gráficos
+                <a href="${resultURL}">
+                    Ver mais resultados
                 </a>
             </div>
         `

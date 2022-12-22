@@ -120,6 +120,29 @@ def task_detail(request, task_id):
         'task_id': task_id
     })
 
+@login_required
+def task_result(request, task_id):
+    task = get_task(request.user.id, task_id)
+    
+    if task is None:
+        raise Http404()
+    
+    task_result = load_json_data(task.result)
+    
+    if 'progress' in task.result:
+        redirect('dashboard:task_detail', task_id=task_id)
+    
+    task_result['conv_plot_div'] = None
+    
+    if task.task_name == 'optimization':
+        fitness_values = task_result['fitness_values']
+        task_result['conv_plot_div'] = plot_convergence(fitness_values)
+
+    return render(request, 'dashboard/pages/task_result.html', context={
+        'task_id': task_id,
+        'task_result': task_result
+    })
+
 # Endpoint for retrieving progress
 
 @login_required
@@ -130,30 +153,3 @@ def task_progress(request, task_id):
         raise Http404()
     
     return get_progress(request, task_id)
-
-# Convergence plot
-
-@login_required
-def convergence_plot(request, task_id):
-    task = get_task(request.user.id, task_id)
-    
-    if task is None:
-        raise Http404()
-    
-    conv_plot_div = (
-        '<div>Gráficos de convergência são '
-        'para tarefas de otimização.</div>'
-    )
-    
-    if task.task_name == 'optimization':
-        task_result = load_json_data(task.result)
-        
-        if 'progress' in task.result:
-            redirect('dashboard:task_detail', task_id=task_id)
-        
-        conv_plot_div = plot_convergence(task_result['error_values'])
-
-    return render(request, 'dashboard/pages/plots.html', context={
-        'task_id': task_id,
-        'conv_plot_div': conv_plot_div
-    })
