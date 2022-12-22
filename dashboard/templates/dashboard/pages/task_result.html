@@ -2,10 +2,14 @@
 
 {% block title %}Resultados da tarefa {{ task_id }} |{% endblock title %}
 
-{% block content %}
-
+{% block header %}
+    
     {% include 'dashboard/partials/navbar.html' %}
+    
+{% endblock header %}
 
+{% block content %}
+    
     <div class="page-wrapper-column font-robo">
         <div>
             <h1>Resultados da tarefa {{ task_id }}</h1>

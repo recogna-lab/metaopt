@@ -2,10 +2,14 @@
 
 {% block title %}Nova Tarefa de {{ task_type }} |{% endblock title %}
 
-{% block content %}
-
+{% block header %}
+    
     {% include 'dashboard/partials/navbar.html' %}
+    
+{% endblock header %}
 
+{% block content %}
+    
     <div class="page-wrapper font-robo">
         <form action="{{form_action}}" method="post">
             {% csrf_token %}
