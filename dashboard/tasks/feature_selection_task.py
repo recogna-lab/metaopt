@@ -180,8 +180,4 @@ class _FeatureSelectionTask(_OptimizationTask):
 
 @app.task(name='feature_selection', base=_FeatureSelectionTask, bind=True)
 def feature_selection(self, user_id, optimizer, dataset, transfer_function, dimension, agents, iterations):
-
-    result = self.select_features(optimizer, dataset, transfer_function, dimension, agents, iterations)
-
-    # Return None (just to have a value)
-    return result
+    return self.select_features(optimizer, dataset, transfer_function, dimension, agents, iterations)
