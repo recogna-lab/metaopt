@@ -411,15 +411,6 @@ h6 {
 #TASK TABLE
 ========================================================================== */
 
-.success {
-	color: green;
-}
-
-.inprogress {
-	
-	color: orange;
-}
-
 .dash-container{
 	width: 85vmax;
 	margin: 0 auto;
@@ -436,32 +427,34 @@ h6 {
 .dash-task {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-around;
-	align-items: baseline;
+	justify-content: space-between;
+	align-items: center;
 	width: 100%;
 	padding: 2vmin 0;
 }
 
 .search-form {
-	width: 30vmax;
-	margin: 0 auto;
+	width: fit-content;
 	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
 	justify-content: space-between;
-	align-items: baseline;
+	align-items: center;
 }
 
 .search-text {
 	width: 24.5vmax;
+	margin-right: 2vmin;
 }
 
 .search-button {
 	width: 5vmax;
 }
 
+.search-button .btn-basic {
+	padding: 0 25px;
+}
+
 .new-task-dpdwn {
-	width: 55vmax;
+	width: fit-content;
 	text-align: right;
 }
 
