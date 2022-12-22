@@ -1,15 +1,16 @@
-<nav class="navbar navbar-expand-lg navbar-light gradient-h h-25">
-    <a class="navbar-brand pt-3 h1 px-4 brand-font" href="{% url 'dashboard:index' %}">
-      {% load static %}
-      <img src="{% static 'global/images/meta.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
-      MetaOPT
-    </a>
-    
-    
-
-    <span class="mr-sm-2">
-        <a href="{% url 'accounts:logout' %}" class="mr-sm-2 px-5 nav-font">
-            <i class="fa fa-sign-out fa-2x" aria-hidden="true"></i>Logout
+<nav class="navbar navbar-expand-lg navbar-light gradient-h">
+    <div class="navbar-content">
+        <a class="navbar-brand brand-font" href="{% url 'dashboard:index' %}">
+            {% load static %}
+            <img src="{% static 'global/images/meta.png' %}" width="30" height="30" class="d-inline-block align-top" alt="logo">
+            <span>MetaOPT</span>
         </a>
-    </span>
+        
+        <span class="nav-logout">
+            <a href="{% url 'accounts:logout' %}" class="nav-font">
+                <i class="fa fa-sign-out fa-2x" aria-hidden="true"></i>
+                Logout
+            </a>
+        </span>
+    </div>
  </nav>

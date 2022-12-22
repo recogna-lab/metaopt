@@ -2,63 +2,46 @@
 
 {% block title %}Dashboard |{% endblock title %}
 
-{% block content %}
+{% block header %}
     
     {% include 'dashboard/partials/navbar.html' %}
+    
+{% endblock header %}
+
+{% block content %}
 
     <div class="font-robo dash-container">
-        <h1>DASHBOARD</h1>
         <div class="dash-content">
+            <h1>Dashboard</h1>
+            
             <div class="dash-task">
+                <form class="form-inline my-2 my-sm-2">
+                    <div class="search-form">
+                        <div class="search-text"><input class="form-control mr-sm-2 search-text" type="search" placeholder="Pesquisar" aria-label="Search" maxlenght="30"></div>
+                        <div class="search-button"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button></div>
+                    </div>
+                </form>
                 
-                    <form class="form-inline my-2 my-sm-2">
-                        <div class="search-form">
-                            <div class="search-text"><input class="form-control mr-sm-2 search-text" type="search" placeholder="Pesquisar" aria-label="Search" maxlenght="30"></div>
-                            <div class="search-button"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button></div>
-                        </div>
-                    </form>
-                
-                <div class="dropdown show new-task-dpdwn">
-                    <a class="btn btn-basic btn-primary btn-radius dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Nova tarefa
-                    </a>
-                
+                <div class="dropdown new-task-dpdwn">
+                    <button class="btn btn-basic btn-primary btn-radius dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Nova tarefa
+                    </button>
+                    
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{% url 'dashboard:new_opt_task' %}">Otimização</a>
-                    <a class="dropdown-item" href="{% url 'dashboard:new_fs_task' %}">Seleção de Características</a>
+                        <a class="dropdown-item" href="{% url 'dashboard:new_opt_task' %}">
+                            Otimização
+                        </a>
+                        <a class="dropdown-item" href="{% url 'dashboard:new_fs_task' %}">
+                            Seleção de Características
+                        </a>
                     </div>
                 </div>
             </div>
-            <div class="dash-tabela-task">
+
+            <div class="dash-tasks-table">
                 <h2>Suas Tarefas</h2>
-                <ul>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Tipo</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Criada</th>
-                                <th scope="col">Finalizada</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for task in tasks %}
-                                <tr>
-                                    <th scope="row"><a href="{% url 'dashboard:task_detail' task.task_id %}">{{ task.task_id }}</a></th>
-                                    <td>{{task.task_name}}</td>
-                                    <td>
-                                        <span class="{% if task.status == 'SUCCESS' %}sucess{% else %}inprogress{% endif %}">{{task.status}}</span>                
-                                    </td>
-                                    <td>{{task.date_created}}</td>
-                                    <td>{{task.date_done}}</td>
-                                </tr>
-                            {% empty %}
-                                <span>Você ainda não possui tarefas.</span>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </ul>
+
+                {% include 'dashboard/partials/tasks_table.html' %}
             </div>
         </div>
     </div>

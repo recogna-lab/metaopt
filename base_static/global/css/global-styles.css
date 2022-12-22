@@ -411,7 +411,7 @@ h6 {
 #TASK TABLE
 ========================================================================== */
 
-.sucess {
+.success {
 	color: green;
 }
 
@@ -421,30 +421,25 @@ h6 {
 }
 
 .dash-container{
-	width: 100vmax;
-	padding: 2vmin;
+	width: 85vmax;
 	margin: 0 auto;
 }
 
 .dash-content {
 	display: flex;
 	flex-direction: column;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	align-items: baseline;
-	
-	margin: 0 auto;
+	justify-content: flex-start;
+	align-items: flex-start;
+	padding: 2vmin;
 }
 
 .dash-task {
 	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
 	justify-content: space-around;
 	align-items: baseline;
-	margin: 0 auto;
+	width: 100%;
 	padding: 2vmin 0;
-	width: 85vmax;
 }
 
 .search-form {
@@ -468,29 +463,41 @@ h6 {
 .new-task-dpdwn {
 	width: 55vmax;
 	text-align: right;
-	margin: 0 auto;
 }
 
-.dash-tabela-task {
-	width: 85vmax;
+.dash-tasks-table {
+	width: 100%;
 	padding: 2vmin 0;
 	margin: 0 auto;
 }
-
-
 
 /* ==========================================================================
 # NAVIGATOR
 ========================================================================== */
 
-.nav-font{
-	font-size: large;
-	color: white;
+header {
+	width: 100vw;
+}
+
+.navbar {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	padding: 0;
+}
+
+.navbar-content {
+	display: flex;
+	justify-content: space-between;
+	width: 85vmax;
+	padding: 2vmin;
 }
 
 .nav-logout{
-	color: white;
-	float: right;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	width: 400px;
 }
 
 .brand-font{
