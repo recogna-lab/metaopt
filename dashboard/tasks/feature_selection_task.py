@@ -20,7 +20,7 @@ class _FeatureSelectionTask(_OptimizationTask):
     
     abstract = True
 
-    def supervised_opf_feature_selection(self, opytimizer):
+    def supervised_opf(self, opytimizer):
         # Transform the continuous solution in boolean solution (feature array) by applying the transfer function
         features = self.transfer_function(opytimizer)
 
@@ -57,7 +57,7 @@ class _FeatureSelectionTask(_OptimizationTask):
         # Set optimizer
         return super().optimize(
             optimizer,
-            self.supervised_opf_feature_selection,
+            self.supervised_opf,
             space,
             agents,
             iterations
@@ -72,6 +72,48 @@ class _FeatureSelectionTask(_OptimizationTask):
 
         # Configure the search space
         self.setup_space(agents, space)
+
+    def select_features(self, optimizer, dataset, transfer_function, dimension, agents, iterations):
+
+        self.dataset_split(dataset)
+
+        self.transfer_function = get_transfer_function(transfer_function)
+
+        lower_bound = [0] * dimension
+        upper_bound = [1] * dimension
+
+        space = {'dimension': dimension, 'lower_bound': lower_bound, 'upper_bound': upper_bound}
+
+        result = self.optimize(optimizer, None, space, agents, iterations)
+
+        opf = SupervisedOPF(
+            distance='log_squared_euclidean',
+            pre_computed_distance=None
+        )
+
+        acc, confusion_matrix = self.testing_task(opf)
+
+        return (acc, confusion_matrix)
+
+    def dataset_split(self, dataset):
+        # Take the path of dataset
+        dir = os.path.join(BASE_DIR, 'dashboard/static/dashboard/datasets', dataset)
+        
+        # Loading a .txt file to a numpy array
+        txt = l.load_txt(dir)
+
+        # Parsing a pre-loaded numpy array
+        X, Y = p.parse_loader(txt)
+
+        # Split data into training and test sets
+        self.X_train, self.X_test, self.Y_train, self.Y_test = sp.split(
+            X, Y, percentage=0.5, random_state=1
+        )
+
+        # Training set will be splited into training and validation sets
+        self.X_train, self.X_val, self.Y_train, self.Y_val = sp.split(
+            self.X_train, self.Y_train, percentage = 0.2, random_state=1
+        )
 
     def testing_task(self, opf):
         # Remake training and tests subgraphs with selected features
@@ -92,40 +134,9 @@ class _FeatureSelectionTask(_OptimizationTask):
 @app.task(name='feature_selection', base=_FeatureSelectionTask, bind=True)
 def feature_selection(self, user_id, optimizer, dataset, transfer_function, dimension, agents, iterations):
 
-    # Take the path of dataset
-    dir = os.path.join(BASE_DIR, 'dashboard/static/dashboard/datasets', dataset)
-    
-    # Loading a .txt file to a numpy array
-    txt = l.load_txt(dir)
+    acc, confusion_matrix = self.select_features(optimizer, dataset, transfer_function, dimension, agents, iterations)
 
-    # Parsing a pre-loaded numpy array
-    X, Y = p.parse_loader(txt)
-
-    # Split data into training and test sets
-    self.X_train, self.X_test, self.Y_train, self.Y_test = sp.split(
-        X, Y, percentage=0.5, random_state=1
-    )
-
-    # Training set will be splited into training and validation sets
-    self.X_train, self.X_val, self.Y_train, self.Y_val = sp.split(
-        self.X_train, self.Y_train, percentage = 0.2, random_state=1
-    )
-
-    self.transfer_function = get_transfer_function(transfer_function)
-
-    lower_bound = [0] * dimension
-    upper_bound = [1] * dimension
-
-    space = {'dimension': dimension, 'lower_bound': lower_bound, 'upper_bound': upper_bound}
-
-    result = self.optimize(optimizer, None, space, agents, iterations)
-
-    opf = SupervisedOPF(
-        distance='log_squared_euclidean',
-        pre_computed_distance=None
-    )
-
-    acc, confusion_matrix = self.testing_task(opf)
+    print(f'A acurácia é igual a {acc}')
 
     # Return None (just to have a value)
     return None
