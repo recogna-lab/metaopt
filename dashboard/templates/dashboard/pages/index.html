@@ -15,27 +15,9 @@
             <h1>Dashboard</h1>
             
             <div class="dash-task">
-                <form class="form-inline my-2 my-sm-2">
-                    <div class="search-form">
-                        <div class="search-text"><input class="form-control mr-sm-2 search-text" type="search" placeholder="Pesquisar" aria-label="Search" maxlenght="30"></div>
-                        <div class="search-button"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button></div>
-                    </div>
-                </form>
+                {% include 'dashboard/partials/search_form.html' %}
                 
-                <div class="dropdown new-task-dpdwn">
-                    <button class="btn btn-basic btn-primary btn-radius dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Nova tarefa
-                    </button>
-                    
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="{% url 'dashboard:new_opt_task' %}">
-                            Otimização
-                        </a>
-                        <a class="dropdown-item" href="{% url 'dashboard:new_fs_task' %}">
-                            Seleção de Características
-                        </a>
-                    </div>
-                </div>
+                {% include 'dashboard/partials/task_dropdown.html' %}
             </div>
 
             <div class="dash-tasks-table">
