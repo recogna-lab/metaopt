@@ -2,15 +2,15 @@ import plotly.graph_objs as go
 from plotly.offline import plot
 
 
-def plot_convergence(error_values):
+def plot_convergence(fitness_values):
     # Create a list with the iterations
-    iterations = list(range(1, len(error_values) + 1))
+    iterations = list(range(1, len(fitness_values) + 1))
     
     # Set up the plot
     fig = go.Figure()
     scatter = go.Scatter(
         x=iterations,
-        y=error_values,
+        y=fitness_values,
         mode='lines',
         opacity=0.8,
         marker_color='blue')
