@@ -478,7 +478,7 @@ header {
 	justify-content: space-between;
 	align-items: center;
 	width: 85vw;
-	padding: 2vmin 2vmax 2vmin 2vmax;
+	padding: 1.5vmax 2vmax 1.5vmax 2vmax;
 }
 
 .navbar-content a {
@@ -488,6 +488,7 @@ header {
 }
 
 .navbar-content a,
+.left-nav,
 .right-nav {
 	color: #e5e4e2;
 }
@@ -496,13 +497,25 @@ header {
 	color: #fff;
 }
 
+.left-nav,
 .right-nav {
 	display: flex;
 	align-items: center;
+}
+
+.left-nav {
+	justify-content: flex-start;
+}
+
+.right-nav {
 	justify-content: flex-end;
 }
 
 .right-nav i {
 	margin-left: 2vmax;
 	margin-right: 0.5vmin;
+}
+
+.navbar-logo {
+	margin-right: 2vmax;
 }
