@@ -97,7 +97,9 @@ def start_feature_selection_task(request):
     fs_task = feature_selection.delay(
         user_id=request.user.id,
         optimizer=form_data['optimizer'].acronym, 
-        database=form_data['dataset'].file_name,
+        dataset=form_data['dataset'].file_name,
+        transfer_function=form_data['transfer_function'].name.lower(),
+        dimension=form_data['dataset'].features,
         agents=form_data['agents'], 
         iterations=form_data['iterations']
     )
