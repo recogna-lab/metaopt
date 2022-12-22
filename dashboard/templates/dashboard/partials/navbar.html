@@ -4,21 +4,8 @@
       <img src="{% static 'global/images/meta.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
       MetaOPT
     </a>
-
-    <div class="collapse navbar-collapse" id="navbarNav">
-        
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link nav-font" href="{% url 'dashboard:index' %}">Dashboard <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link nav-font" href="{% url 'dashboard:new_opt_task' %}">Otimização <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link nav-font" href="{% url 'dashboard:new_fs_task' %}">Seleção de Características<span class="sr-only">(current)</span></a>
-          </li>
-        </ul>
-    </div>
+    
+    
 
     <span class="mr-sm-2">
         <a href="{% url 'accounts:logout' %}" class="mr-sm-2 px-5 nav-font">
