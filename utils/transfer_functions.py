@@ -119,3 +119,7 @@ def v4(sol):
             features.append(0)
 
     return np.asarray(features).astype(bool)
+
+def get_transfer_function(transfer_function):
+    transfer_functions = globals()[transfer_function]
+    return transfer_functions
