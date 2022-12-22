@@ -2,9 +2,15 @@
 
 {% block title %}{{ page_title }} |{% endblock title %}
 
+{% block header %}
+
+    {% include 'global/partials/navbar.html' %}
+    
+{% endblock header %}
+
 {% block content %}
     
-    <div class="page-wrapper gradient-v font-poppins">
+    <div class="page-wrapper font-poppins">
         <div class="account-card form-card wrapper-w{% if form.name == 'signup_form' %}680{% else %}480{% endif %}">
             <div class="card-body">
                 <h2>{{ form_title }}</h2>
