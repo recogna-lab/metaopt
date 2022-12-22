@@ -294,7 +294,7 @@ fieldset .button-wrapper {
 #BUTTON
 ========================================================================== */
 
-.btn-account {
+.btn-basic {
 	display: inline-block;
 	line-height: 40px;
 	padding: 0 50px;
@@ -314,11 +314,11 @@ fieldset .button-wrapper {
 	border-radius: 5px;
 }
 
-.btn-blue {
+.btn-primary {
 	background: #4272d7;
 }
 
-.btn-blue:hover {
+.btn-primary:hover {
 	background: #3868cd;
 }
  
@@ -454,6 +454,7 @@ h6 {
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: space-between;
+	align-items: baseline;
 }
 
 .search-text {
