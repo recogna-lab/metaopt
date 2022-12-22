@@ -2,9 +2,13 @@
 
 {% block title %}Tarefa de {{ task_type }} {{ task_id }} |{% endblock title %}
 
-{% block content %}
-
+{% block header %}
+    
     {% include 'dashboard/partials/navbar.html' %}
+
+{% endblock header %}
+
+{% block content %}
 
     <div class="page-wrapper-column font-robo">
         <div>

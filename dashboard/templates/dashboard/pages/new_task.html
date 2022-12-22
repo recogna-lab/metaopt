@@ -2,10 +2,14 @@
 
 {% block title %}Nova Tarefa de {{ task_type }} |{% endblock title %}
 
-{% block content %}
-
+{% block header %}
+    
     {% include 'dashboard/partials/navbar.html' %}
+    
+{% endblock header %}
 
+{% block content %}
+    
     <div class="page-wrapper font-robo">
         <form action="{{form_action}}" method="post">
             {% csrf_token %}
@@ -18,7 +22,7 @@
             {% endfor %}
             
             <div class="button-div p-t-15 a-right">
-                <button class="btn btn-radius btn-blue" type="submit">
+                <button class="btn btn-basic btn-primary btn-radius" type="submit">
                     Iniciar
                 </button>
             </div>

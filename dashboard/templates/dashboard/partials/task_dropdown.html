@@ -1,0 +1,14 @@
+<div class="dropdown new-task-dpdwn">
+    <button class="btn btn-basic btn-primary btn-radius dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Nova tarefa
+    </button>
+    
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="{% url 'dashboard:new_opt_task' %}">
+            Otimização
+        </a>
+        <a class="dropdown-item" href="{% url 'dashboard:new_fs_task' %}">
+            Seleção de Características
+        </a>
+    </div>
+</div>

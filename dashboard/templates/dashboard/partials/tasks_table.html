@@ -1,0 +1,40 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Identificador</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Criada em</th>
+            <th scope="col">Concluída em</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        {% for task in tasks %}
+            <tr>
+                <th scope="row">
+                    <a href="{% url 'dashboard:task_detail' task.task_id %}">
+                        {{ task.task_id }}
+                    </a>
+                </th>
+
+                <td>{{ task.task_name }}</td>
+
+                <td>
+                    <span class="{% if task.status == 'SUCCESS' %}text-success{% else %}text-warning{% endif %}">
+                        {{ task.status }}
+                    </span>
+                </td>
+                
+                <td>{{ task.date_created }}</td>
+                <td>{{ task.date_done }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="100">
+                    Você ainda não possui tarefas.
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
