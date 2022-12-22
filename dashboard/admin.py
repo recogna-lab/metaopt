@@ -12,8 +12,8 @@ class CustomTaskResultAdmin(TaskResultAdmin):
         'task_id',
         'status',
         'task_name', 
-        'task_kwargs', 
-        'short_result', 
+        'task_arguments',
+        'result_data', 
         'date_created',
         'date_done'
     )
@@ -21,8 +21,12 @@ class CustomTaskResultAdmin(TaskResultAdmin):
     ordering = ('-date_created', )
     
     # Shorten result
-    def short_result(self, obj):
+    def result_data(self, obj):
         return truncatechars(obj.result, 80)
+
+    # Shorten result
+    def task_arguments(self, obj):
+        return truncatechars(obj.task_kwargs, 80)
 
     # Remove permissions
     def has_add_permission(self, request, obj=None):
