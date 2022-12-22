@@ -21,7 +21,7 @@
                 <td>{{ task.task_name }}</td>
 
                 <td>
-                    <span class="{% if task.status == 'SUCCESS' %}success{% else %}inprogress{% endif %}">
+                    <span class="{% if task.status == 'SUCCESS' %}text-success{% else %}text-warning{% endif %}">
                         {{ task.status }}
                     </span>
                 </td>
