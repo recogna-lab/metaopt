@@ -1,9 +1,14 @@
 <nav class="navbar gradient-h">
     <div class="navbar-content">
-        <a href="{% url 'dashboard:index' %}" class="navbar-brand">
-            MetaOPT
-        </a>
+        <div class="left-nav">
+            <a href="{% url 'dashboard:index' %}">
+                <h2 class="navbar-logo">MetaOPT</h2>
+            </a>
+
+            <h3 class="fw-bold">{{ title }}</h3>
+        </div>
         
+
         <div class="right-nav">
             {% if user.is_authenticated %}
                 <span>
