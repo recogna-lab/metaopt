@@ -4,11 +4,21 @@
             MetaOPT
         </a>
         
-        <span class="nav-logout">
-            <a href="{% url 'accounts:logout' %}">
-                <i class="fa fa-sign-out fa-2x" aria-hidden="true"></i>
-                <span>Logout</span>
-            </a>
-        </span>
+        <div class="right-nav">
+            {% if user.is_authenticated %}
+                <span>
+                    Bem-vindo, {{ user.first_name }}!
+                </span>
+
+                <a href="{% url 'accounts:logout' %}">
+                    <i class="fa fa-sign-out fa-2x" aria-hidden="true"></i>
+                    <span>Logout</span>
+                </a>
+            {% else %}
+                <span>
+                    Bem-vindo, visitante!
+                </span>
+            {% endif %}
+        </div>
     </div>
  </nav>

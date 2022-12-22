@@ -484,21 +484,25 @@ header {
 .navbar-content a {
 	display: flex;
 	align-items: center;
-	color: #e5e4e2;
 	text-decoration: none;
+}
+
+.navbar-content a,
+.right-nav {
+	color: #e5e4e2;
 }
 
 .navbar-content a:hover {
 	color: #fff;
 }
 
-.nav-logout{
+.right-nav {
 	display: flex;
-	align-items: baseline;
+	align-items: center;
 	justify-content: flex-end;
-	width: 400px;
 }
 
-.nav-logout a > i {
+.right-nav i {
+	margin-left: 2vmax;
 	margin-right: 0.5vmin;
 }
