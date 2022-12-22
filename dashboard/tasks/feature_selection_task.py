@@ -2,22 +2,27 @@ import os
 
 import opfython.math.general as g
 import opfython.stream.loader as l
-import opfython.stream.parser as p
 import opfython.stream.splitter as sp
 from opfython.models.supervised import SupervisedOPF
 
-import utils.transfer_functions as tf
+from utils.transfer_functions import get_transfer_function
+from utils.optimizers import get_optimizer
+import utils.parser as p
+
 from metaopt.celery import app
 
 from .optimization_task import _OptimizationTask
+from opytimizer.core import Function
 
+from metaopt.settings.environment import BASE_DIR
 
 class _FeatureSelectionTask(_OptimizationTask):
+    
     abstract = True
 
     def supervised_opf_feature_selection(self, opytimizer):
         # Transform the continuous solution in boolean solution (feature array) by applying the transfer function
-        features = tf.s1(opytimizer)
+        features = self.transfer_function(opytimizer)
 
         # Remake training and validation subgraphs with selected features
         X_train_selected = self.X_train[:, features]
@@ -32,7 +37,7 @@ class _FeatureSelectionTask(_OptimizationTask):
         # Fit training data into the classifier
         opf.fit(X_train_selected, self.Y_train)
 
-        # Predict new data from validate set
+        # Predict new data frnp.max(Y) + 1
         preds = opf.predict(X_val_selected)
 
         # Calculate accuracy
@@ -48,14 +53,25 @@ class _FeatureSelectionTask(_OptimizationTask):
 
         return error
 
-    def optimize(self, optimizer, function, agents, iterations):
+    def optimize(self, optimizer, function, space, agents, iterations):
         # Set optimizer
-        super().optimize(
+        return super().optimize(
             optimizer,
             self.supervised_opf_feature_selection,
+            space,
             agents,
             iterations
         )
+    
+    def setup(self, optimizer, function, space, agents):
+        # Get and set the optimizer object    
+        self.optimizer = get_optimizer(optimizer)
+        
+        # Set the cost function
+        self.function = Function(function)
+
+        # Configure the search space
+        self.setup_space(agents, space)
 
     def testing_task(self, opf):
         # Remake training and tests subgraphs with selected features
@@ -74,9 +90,10 @@ class _FeatureSelectionTask(_OptimizationTask):
         return (accuracy, confusion_matrix)
 
 @app.task(name='feature_selection', base=_FeatureSelectionTask, bind=True)
-def feature_selection(self, user_id, optimizer, dataset, agents, iterations):
+def feature_selection(self, user_id, optimizer, dataset, transfer_function, dimension, agents, iterations):
+
     # Take the path of dataset
-    dir = os.path.join('datasets', dataset)
+    dir = os.path.join(BASE_DIR, 'dashboard/static/dashboard/datasets', dataset)
     
     # Loading a .txt file to a numpy array
     txt = l.load_txt(dir)
@@ -85,16 +102,23 @@ def feature_selection(self, user_id, optimizer, dataset, agents, iterations):
     X, Y = p.parse_loader(txt)
 
     # Split data into training and test sets
-    X_train, X_test, Y_train, Y_test = sp.split(
+    self.X_train, self.X_test, self.Y_train, self.Y_test = sp.split(
         X, Y, percentage=0.5, random_state=1
     )
 
     # Training set will be splited into training and validation sets
     self.X_train, self.X_val, self.Y_train, self.Y_val = sp.split(
-        X_train, Y_train, percentage = 0.2, random_state=1
+        self.X_train, self.Y_train, percentage = 0.2, random_state=1
     )
 
-    result = self.optimize(optimizer, None, agents, iterations)
+    self.transfer_function = get_transfer_function(transfer_function)
+
+    lower_bound = [0] * dimension
+    upper_bound = [1] * dimension
+
+    space = {'dimension': dimension, 'lower_bound': lower_bound, 'upper_bound': upper_bound}
+
+    result = self.optimize(optimizer, None, space, agents, iterations)
 
     opf = SupervisedOPF(
         distance='log_squared_euclidean',
