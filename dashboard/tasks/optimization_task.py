@@ -22,14 +22,14 @@ class _OptimizationTask(app.Task):
         # Get optimum value and function on optimum
         best_solution, best_value = self.get_results()
         
-        # Get errors (for convergence plot)
-        error_values = self.get_errors()
+        # Get fitness values (for convergence plot)
+        fitness_values = self.get_fitness_values()
         
-        # Add results and errors to the output        
+        # Add results and fitness values to the output        
         return {
             'best_solution': best_solution,
             'best_value': best_value,
-            'error_values': error_values
+            'fitness_values': fitness_values
         }
         
     def setup(self, optimizer, function, space, agents):
@@ -77,10 +77,10 @@ class _OptimizationTask(app.Task):
         
         return x, y
 
-    def get_errors(self):
-        _, e = self.opytimizer.history.get_convergence('best_agent')
+    def get_fitness_values(self):
+        _, f = self.opytimizer.history.get_convergence('best_agent')
         
-        return e.tolist()
+        return f.tolist()
     
     def after_return(self, *args, **kwargs):
         # Delete logs created during the execution
