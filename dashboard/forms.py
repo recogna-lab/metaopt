@@ -12,7 +12,8 @@ class _TaskForm(forms.Form):
         add_attr(self.fields['optimizer'], 'class', 'form-select')
         add_attr(self.fields['agents'], 'class', 'form-control')
         add_attr(self.fields['iterations'], 'class', 'form-control')
-
+        add_attr(self.fields['executions'], 'class', 'form-control')
+    
     optimizer = forms.ModelChoiceField(
         label='Otimizador',
         queryset=Optimizer.objects.all(),
@@ -31,9 +32,16 @@ class _TaskForm(forms.Form):
     iterations = forms.IntegerField(
         label='Número de Iterações',
         initial=100,
-        min_value=10, 
-        max_value=500, 
+        min_value=10,
+        max_value=500,
         step_size=10
+    )
+    
+    executions = forms.IntegerField(
+        label='Número de Execuções',
+        initial=1,
+        min_value=1,
+        max_value=5
     )
 
 class OptimizationForm(_TaskForm):
