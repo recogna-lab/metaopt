@@ -8,10 +8,10 @@
         <div class="dash-content">
             <div class="custom-card">
                 <h1>Dados Gerais</h1>
-
+                
                 <ul style=" list-style-type: none;">
-                    <li><span>Identificador: {{ task_id }}</span></li>
-                    <li><span>Tipo: {{ task_type }}</span></li>
+                    <li><span>Identificador: {{ task.task_id }}</span></li>
+                    <li><span>Tipo: {{ task.task_name }}</span></li>
                 </ul>
             </div>
             
@@ -21,7 +21,7 @@
                 <div class="progress">
                     <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar">&nbsp;</div>
                 </div>
-        
+                
                 <div id="progress-bar-status">
                     Esperando a tarefa iniciar...
                 </div>
@@ -46,8 +46,8 @@
     <script src="{% static 'dashboard/js/scripts.js' %}"></script>
 
     <script>
-        let progressURL = "{% url 'dashboard:task_progress' task_id %}"
-        let resultURL = "{% url 'dashboard:task_result' task_id %}"
+        let progressURL = "{% url 'dashboard:task_progress' task.task_id %}"
+        let resultURL = "{% url 'dashboard:task_result' task.task_id %}"
         initializeProgressBar(progressURL, resultURL)
     </script>
 

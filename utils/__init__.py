@@ -1,5 +1,5 @@
-from json import dumps as dump_json_data
-from json import loads as load_json_data
+from json import dumps as dump_json
+from json import loads as load_json
 from os import listdir, remove
 
 from metaopt.settings.environment import BASE_DIR
@@ -9,9 +9,3 @@ def delete_logs():
     for file in listdir(BASE_DIR):
         if '.log' in file:
             remove(file)
-
-def get_task_type(task_name):
-    if task_name == 'optimization':
-        return 'Otimização'
-    else:
-        return 'Seleção de Características'
