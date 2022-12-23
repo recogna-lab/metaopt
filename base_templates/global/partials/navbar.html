@@ -12,7 +12,12 @@
         <div class="right-nav">
             {% if user.is_authenticated %}
                 <span>
-                    Bem-vindo, {{ user.first_name }}!
+                    Bem-vindo, 
+                    {% if user.first_name %} 
+                        {{ user.first_name }}!
+                    {% else %}
+                        {{ user.username }}
+                    {% endif %}
                 </span>
 
                 <a href="{% url 'accounts:logout' %}">
