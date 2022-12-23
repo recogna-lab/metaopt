@@ -1,21 +1,20 @@
 import os
-import numpy as np
 
+import numpy as np
 import opfython.math.general as g
 import opfython.stream.loader as l
 import opfython.stream.splitter as sp
 from opfython.models.supervised import SupervisedOPF
-
-from utils.transfer_functions import get_transfer_function
-from utils.optimizers import get_optimizer
-import utils.parser as p
-
-from metaopt.celery import app
-
-from .optimization_task import _OptimizationTask
 from opytimizer.core import Function
 
+import utils.parser as p
+from metaopt.celery import app
 from metaopt.settings.environment import BASE_DIR
+from utils.optimizers import get_optimizer
+from utils.transfer_functions import get_transfer_function
+
+from .optimization_task import _OptimizationTask
+
 
 class _FeatureSelectionTask(_OptimizationTask):
     
@@ -75,7 +74,6 @@ class _FeatureSelectionTask(_OptimizationTask):
         self.setup_space(agents, space)
 
     def select_features(self, optimizer, dataset, transfer_function, dimension, agents, iterations):
-
         self.dataset_split(dataset)
 
         self.transfer_function = get_transfer_function(transfer_function)
@@ -143,7 +141,6 @@ class _FeatureSelectionTask(_OptimizationTask):
         }
 
     def concatenate_results(self, *results):
-
         result = {}
 
         for r in results:
@@ -152,7 +149,6 @@ class _FeatureSelectionTask(_OptimizationTask):
         return result
     
     def metrics(self, confusion_matrix):
-        
         confusion_matrix = np.array(confusion_matrix)
         rows, _ = confusion_matrix.shape
 
