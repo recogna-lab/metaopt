@@ -219,15 +219,14 @@ input {
 	-moz-box-shadow: none;
 	box-shadow: none;
 	width: 100%;
-	font-size: 14px;
 	font-family: inherit;
 }
 
 .form-control {
-	line-height: 40px;
+	line-height: 2.75vmax;
 	background: #fafafa;
+	font-size: 14px;
 	padding: 0 20px;
-	font-size: 16px;
 	color: #666;
 }
 
@@ -291,14 +290,14 @@ fieldset .button-wrapper {
 
 .btn-basic {
 	display: inline-block;
-	line-height: 40px;
-	padding: 0 50px;
+	line-height: 2.75vmax;
+	padding: 0 2vmax;
 	-webkit-transition: all 0.4s ease;
 	-o-transition: all 0.4s ease;
 	-moz-transition: all 0.4s ease;
 	transition: all 0.4s ease;
 	cursor: pointer;
-	font-size: 16px;
+	font-size: 14px;
 	color: #fff;
 	font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
 }
@@ -440,11 +439,6 @@ h6 {
 
 .search-button {
 	width: 5vmax;
-}
-
-.search-button .btn-basic {
-	padding: 0 25px;
-	line-height: 40px;
 }
 
 .new-task-dpdwn {
