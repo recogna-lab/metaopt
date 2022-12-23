@@ -18,11 +18,11 @@
                     </a>
                 </th>
 
-                <td>{{ task.task_name }}</td>
+                <td>{% if task.task_name == 'optimization' %}{{ 'Otimização' }}{% else %}{{'Seleção de Características'}}{% endif %}</td>
 
                 <td>
-                    <span class="{% if task.status == 'SUCCESS' %}text-success{% else %}text-warning{% endif %}">
-                        {{ task.status }}
+                    <span class="{% if task.status == 'SUCCESS' %}text-success{% elif task.status == 'PROGRESS' %}text-warning{% else %}text-danger{% endif %}">
+                        {% if task.status == 'SUCCESS' %}SUCESSO{% elif task.status == 'PROGRESS' %}PROGRESSO{% else %}FALHA{% endif %}
                     </span>
                 </td>
                 
