@@ -1,0 +1,18 @@
+<form class="task-form" action="{{form_action}}" method="post">
+    {% csrf_token %}
+    
+    <fieldset>
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label }}
+                {{ field }}
+            </div>
+        {% endfor %}
+    </fieldset>
+    
+    <div class="button-div p-t-15 a-right">
+        <button class="btn btn-basic btn-success btn-radius" type="submit">
+            Executar
+        </button>
+    </div>
+</form>
