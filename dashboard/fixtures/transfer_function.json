@@ -1,0 +1,58 @@
+[
+{
+    "model": "dashboard.transferfunction",
+    "pk": 1,
+    "fields": {
+        "name": "S1"
+    }
+},
+{
+    "model": "dashboard.transferfunction",
+    "pk": 2,
+    "fields": {
+        "name": "S2"
+    }
+},
+{
+    "model": "dashboard.transferfunction",
+    "pk": 3,
+    "fields": {
+        "name": "S3"
+    }
+},
+{
+    "model": "dashboard.transferfunction",
+    "pk": 4,
+    "fields": {
+        "name": "S4"
+    }
+},
+{
+    "model": "dashboard.transferfunction",
+    "pk": 5,
+    "fields": {
+        "name": "V1"
+    }
+},
+{
+    "model": "dashboard.transferfunction",
+    "pk": 6,
+    "fields": {
+        "name": "V2"
+    }
+},
+{
+    "model": "dashboard.transferfunction",
+    "pk": 7,
+    "fields": {
+        "name": "V3"
+    }
+},
+{
+    "model": "dashboard.transferfunction",
+    "pk": 8,
+    "fields": {
+        "name": "V4"
+    }
+}
+]
