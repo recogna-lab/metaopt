@@ -78,15 +78,12 @@ button {
 #PAGE WRAPPER
 ========================================================================== */
 
-main {
-	background-color: rgba(235, 237, 239, 1);
-}
-
 body {
 	font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
 	font-weight: 400;
 	font-size: 14px;
 	overflow-x: hidden;
+	background-color: rgba(235, 237, 239, 1);
 }
 
 .page-wrapper,
@@ -401,9 +398,9 @@ h6 {
 ========================================================================== */
 
 .dash-container{
-	width: 85vmax;
-	min-height: 100vh;
-	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	width: 100vw;
 }
 
 .dash-content {
@@ -411,8 +408,10 @@ h6 {
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: flex-start;
-	padding: 2vmin;
-	padding-top: 2vmax;
+	width: 85vw;
+	padding-top: 4vmax;
+	padding-left: 2vmax;
+	padding-right: 2vmax;
 }
 
 .dash-content .custom-card {
@@ -468,9 +467,10 @@ header {
 
 .navbar {
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
 	width: 100%;
 	padding: 0;
+	margin: 0;
 }
 
 .navbar-content {
@@ -481,20 +481,25 @@ header {
 	padding: 1.5vmax 2vmax 1.5vmax 2vmax;
 }
 
-.navbar-content a {
-	display: flex;
-	align-items: center;
-	text-decoration: none;
-}
-
-.navbar-content a,
-.left-nav,
-.right-nav {
+.navbar-content .right-nav .logout-nav,
+.navbar-content {
 	color: #e5e4e2;
 }
 
-.navbar-content a:hover {
+.navbar-content .right-nav .nav-link,
+.navbar-content .right-nav .logout-nav { 
+	margin-left: 2vmax;
+}
+
+.navbar-content .nav-link:hover,
+.navbar-content .logout-nav:hover {
 	color: #fff;
+}
+
+.navbar-content .logout-nav {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
 }
 
 .left-nav,
@@ -513,9 +518,24 @@ header {
 
 .right-nav i {
 	margin-left: 2vmax;
-	margin-right: 0.5vmin;
+	margin-right: 0.5vmax;
 }
 
-.navbar-logo {
-	margin-right: 2vmax;
+.subnavbar {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	background: #dcdcdc;
+}
+
+.subnavbar-content {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 85vw;
+	padding: 0.5vmax 2vmax 0.5vmax 2vmax;
+}
+
+.subnavbar-content .left-nav h3 {
+	font-weight: 600;
 }

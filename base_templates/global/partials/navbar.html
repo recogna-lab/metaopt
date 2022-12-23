@@ -1,34 +1,55 @@
 <nav class="navbar gradient-h">
     <div class="navbar-content">
         <div class="left-nav">
-            <a href="{% url 'dashboard:index' %}">
-                <h2 class="navbar-logo">MetaOPT</h2>
+            <a href="{% url 'dashboard:index' %}" class="nav-link">
+                <h2>MetaOPT</h2>
             </a>
-
-            <h3 class="fw-bold">{{ title }}</h3>
         </div>
-        
 
         <div class="right-nav">
             {% if user.is_authenticated %}
-                <span>
-                    Bem-vindo, 
-                    {% if user.first_name %} 
-                        {{ user.first_name }}!
-                    {% else %}
-                        {{ user.username }}
-                    {% endif %}
-                </span>
+                <a class="nav-link" href="{% url 'dashboard:index' %}">
+                    Dashboard
+                </a>
 
-                <a href="{% url 'accounts:logout' %}">
+                <a class="nav-link" href="{% url 'dashboard:new_opt_task' %}">
+                    Otimização
+                </a>
+
+                <a class="nav-link" href="{% url 'dashboard:new_fs_task' %}">
+                    Seleção de Características
+                </a>
+
+                <a href="{% url 'accounts:logout' %}" class="logout-nav">
                     <i class="fa fa-sign-out fa-2x" aria-hidden="true"></i>
                     <span>Logout</span>
                 </a>
-            {% else %}
-                <span>
-                    Bem-vindo, visitante!
-                </span>
             {% endif %}
+        </div>
+    </div>
+
+    <div class="subnavbar">
+        <div class="subnavbar-content">
+            <div class="left-nav">
+                <h3>{{ title }}</h3>
+            </div>
+            
+            <div class="right-nav">
+                {% if user.is_authenticated %}
+                    <span>
+                        Bem-vindo, 
+                        {% if user.first_name %} 
+                            {{ user.first_name }}!
+                        {% else %}
+                            {{ user.username }}
+                        {% endif %}
+                    </span>
+                {% else %}
+                    <span>
+                        Bem-vindo, visitante!
+                    </span>
+                {% endif %}
+            </div>
         </div>
     </div>
  </nav>
