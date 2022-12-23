@@ -499,15 +499,16 @@ header {
 .left-nav,
 .right-nav {
 	display: flex;
-	align-items: center;
 }
 
 .left-nav {
 	justify-content: flex-start;
+	align-items: baseline;
 }
 
 .right-nav {
 	justify-content: flex-end;
+	align-items: center;
 }
 
 .right-nav i {
@@ -532,4 +533,17 @@ header {
 
 .subnavbar-content .left-nav h3 {
 	font-weight: 600;
+	margin-right: 2vmax;
+}
+
+.subnavbar-content .left-nav > span {
+	margin-right: 2vmax;
+}
+
+.subnavbar-content .left-nav a {
+	color: #198754;
+}
+
+.subnavbar-content .left-nav a:hover {
+	color: #157347;
 }

@@ -58,9 +58,10 @@ def logout_view(request):
 def signup(request):
     signup_data = request.session.get('signup_data', None)
     signup_form = SignupForm(signup_data)
-
+    
     return render(request, 'accounts/pages/form_page.html', context={
         'title': 'Cadastro',
+        'return_to': reverse('accounts:login'),
         'form_title': 'Crie uma conta',
         'form': signup_form,
         'form_action': reverse('accounts:perform_signup'),
@@ -99,6 +100,7 @@ def password_reset(request):
     
     return render(request, 'accounts/pages/form_page.html', context={
         'title': 'Redefinição de Senha',
+        'return_to': reverse('accounts:login'),
         'form_title': 'Peça uma nova senha',
         'form': password_reset_form,
         'form_action': reverse('accounts:send_password_reset'),
@@ -137,6 +139,7 @@ def send_password_reset(request):
 
     return render(request, 'accounts/pages/form_page.html', context={
         'title': 'Redefinição de Senha',
+        'return_to': reverse('accounts:login'),
         'form_title': 'Pedido enviado',
         'static_message': True,
         'more_details': (

@@ -36,6 +36,7 @@ def new_optimization_task(request):
     
     return render(request, 'dashboard/pages/new_task.html', context={
         'title': 'Otimização',
+        'return_to': reverse('dashboard:index'),
         'form': optimization_form,
         'form_action': reverse('dashboard:start_opt_task')
     })
@@ -76,6 +77,7 @@ def new_feature_selection_task(request):
     
     return render(request, 'dashboard/pages/new_task.html', context={
         'title': 'Seleção de Características',
+        'return_to': reverse('dashboard:index'),
         'form': feature_selection_form,
         'form_action': reverse('dashboard:start_fs_task')
     })
@@ -120,6 +122,7 @@ def task_detail(request, task_id):
     
     return render(request, 'dashboard/pages/task_detail.html', context={
         'title': 'Detalhes da Tarefa',
+        'return_to': reverse('dashboard:index'),
         'task_type': task_type,
         'task_id': task_id
     })
@@ -141,6 +144,7 @@ def task_result(request, task_id):
 
     return render(request, 'dashboard/pages/task_result.html', context={
         'title': 'Resultado da Tarefa',
+        'return_to': reverse('dashboard:task_detail', args=(task_id,)),
         'task_id': task_id,
         'task_result': task_result
     })

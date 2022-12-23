@@ -32,6 +32,14 @@
         <div class="subnavbar-content">
             <div class="left-nav">
                 <h3>{{ title }}</h3>
+
+                {% if return_to %}
+                    <span>|</span>
+
+                    <a href="{{ return_to }}" class="nav-link">
+                        <span>Retornar</span>
+                    </a>
+                {% endif %}
             </div>
             
             <div class="right-nav">
