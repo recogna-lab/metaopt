@@ -134,6 +134,7 @@ def task_result(request, task_id):
     if task is None:
         raise Http404()
     
+    task_type = get_task_type(task.task_name)
     task_result = load_json_data(task.result)
     
     if 'progress' in task.result:
@@ -146,6 +147,7 @@ def task_result(request, task_id):
         'title': 'Resultado da Tarefa',
         'return_to': reverse('dashboard:task_detail', args=(task_id,)),
         'task_id': task_id,
+        'task_type': task_type,
         'task_result': task_result
     })
 

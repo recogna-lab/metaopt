@@ -10,22 +10,36 @@
 
 {% block content %}
     
-    <div class="page-wrapper-column font-robo">
-        <div>
-            <h1>{{ task_id }}</h1>
-        </div>
+    <div class="font-robo dash-container">
+        <div class="dash-content">
+            <div class="custom-card">
+                <h1>Resultados Gerais</h1>
 
-        <div>
-            <span>Melhor solução = {{ task_result.best_solution }}</span>
-        </div>
+                <ul style=" list-style-type: none;">
+                    <li><span>Identificador: {{ task_id }}</span></li>
+                    <li><span>Tipo: {{ task_type }}</span></li>
+                    <li>
+                        <span>
+                            Melhor solução: {{ task_result.best_solution }}
+                        </span>
+                    </li>
 
-        <div>
-            <span>Melhor valor da função = {{ task_result.best_value }}</span>
+                    <li>
+                        <span>
+                            Melhor valor da função: {{ task_result.best_value }}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="custom-card">
+                <h1>Gráficos</h1>
+                
+                {% if task_result.conv_plot_div %}
+                    {{ task_result.conv_plot_div|safe }}
+                {% endif %}
+            </div>
         </div>
-
-        {% if task_result.conv_plot_div %}
-            {{ task_result.conv_plot_div|safe }}
-        {% endif %}
     </div>
 
 {% endblock content %}
