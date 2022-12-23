@@ -10,23 +10,27 @@
 
 {% block content %}
     
-    <div class="page-wrapper font-robo">
-        <form action="{{form_action}}" method="post">
-            {% csrf_token %}
-
-            {% for field in form %}
-                <div class="form-group">
-                    {{ field.label }}
-                    {{ field }}
-                </div>
-            {% endfor %}
-            
-            <div class="button-div p-t-15 a-right">
-                <button class="btn btn-basic btn-success btn-radius" type="submit">
-                    Executar
-                </button>
+    <div class="font-robo dash-container">
+        <div class="dash-content">
+            <div class="custom-card">
+                <form action="{{form_action}}" method="post">
+                    {% csrf_token %}
+        
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{ field.label }}
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    
+                    <div class="button-div p-t-15 a-right">
+                        <button class="btn btn-basic btn-success btn-radius" type="submit">
+                            Executar
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 
 {% endblock content %}
