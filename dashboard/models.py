@@ -1,4 +1,3 @@
-import json
 from ast import literal_eval
 
 from django.contrib.auth.models import User
@@ -7,7 +6,8 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django_celery_results.models import TaskResult
 
-from utils import dump_json_data, load_json_data
+from utils import dump_json, load_json
+from utils.translate import translate_task_name, translate_task_status
 
 
 class Optimizer(models.Model):
@@ -123,7 +123,7 @@ class UserTask(models.Model):
     class Meta:
         ordering = ('-task__date_created', )
 
-# Get task via user task
+# Get a single task via user task
 def get_task(user_id, task_id):
     try:
         UserTask.objects.get(
@@ -131,11 +131,34 @@ def get_task(user_id, task_id):
             task__task_id=task_id
         )
         
-        return TaskResult.objects.get(
+        task = TaskResult.objects.get(
             task_id=task_id
         )
+        
+        return format_task(task=task)
     except UserTask.DoesNotExist:
         return None
+
+# Get all tasks via user task
+def get_all_tasks(user_id):
+    user_tasks = UserTask.objects.filter(user__id=user_id)
+    user_tasks = user_tasks.values_list('task__task_id')
+    
+    tasks = TaskResult.objects.filter(task_id__in=user_tasks)
+    tasks = tasks.order_by('-date_created')
+    
+    for task in tasks:
+        task = format_task(task)
+    
+    return tasks
+    
+# Format task before getting it
+def format_task(task):
+    task.task_name = translate_task_name(task.task_name)
+    task.status = translate_task_status(task.status)
+    task.task_kwargs = load_json(task.task_kwargs)
+    task.result = load_json(task.result)
+    return task
 
 # Before saving a task result instance
 @receiver(pre_save, sender=TaskResult)
@@ -147,10 +170,10 @@ def format_task_kwargs(sender, instance, **kwargs):
     # Retrieve task named arguments as dict 
     task_kwargs_dict = literal_eval(instance.task_kwargs)
     task_kwargs_dict = task_kwargs_dict.replace('\'', '"')
-    task_kwargs_dict = load_json_data(task_kwargs_dict)
+    task_kwargs_dict = load_json(task_kwargs_dict)
 
     # Correctly save named arguments as json 
-    instance.task_kwargs = dump_json_data(task_kwargs_dict)
+    instance.task_kwargs = dump_json(task_kwargs_dict)
 
 # After saving a task result instance
 @receiver(post_save, sender=TaskResult)
@@ -160,7 +183,7 @@ def save_user_task(sender, instance, created, **kwargs):
         return
 
     # Retrieve task named arguments
-    task_kwargs_dict = load_json_data(instance.task_kwargs)
+    task_kwargs_dict = load_json(instance.task_kwargs)
     
     # Get the user id
     user_id = task_kwargs_dict['user_id']
