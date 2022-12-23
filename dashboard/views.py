@@ -56,10 +56,11 @@ def start_optimization_task(request):
         optimizer=form_data['optimizer'].acronym,
         function=form_data['function'].short_name,
         space=load_json(form_data['function'].search_space),
-        agents=form_data['agents'], 
-        iterations=form_data['iterations']
+        agents=form_data['agents'],
+        iterations=form_data['iterations'],
+        executions=form_data['executions']
     )
-
+    
     return redirect('dashboard:task_detail', task_id=opt_task.task_id)
 
 # Feature selection related views
@@ -97,7 +98,8 @@ def start_feature_selection_task(request):
         transfer_function=form_data['transfer_function'].name.lower(),
         dimension=form_data['dataset'].features,
         agents=form_data['agents'], 
-        iterations=form_data['iterations']
+        iterations=form_data['iterations'],
+        executions=form_data['executions']
     )
 
     return redirect('dashboard:task_detail', task_id=fs_task.task_id)
