@@ -1,11 +1,12 @@
-import json
-
 from celery import signals, states
 from django_celery_results.models import TaskResult
 
+from utils import dump_json
+
 # Import tasks so they can be easily accessed
-from .optimization_task import optimization
 from .feature_selection_task import feature_selection
+from .optimization_task import optimization
+
 
 @signals.before_task_publish.connect
 def create_pending_task(headers=None, body=None, **kwargs):
@@ -23,7 +24,7 @@ def create_pending_task(headers=None, body=None, **kwargs):
         status = states.PENDING,
         result = None,
         task_name = headers['task'],
-        task_args = json.dumps(headers['argsrepr']),
-        task_kwargs = json.dumps(headers['kwargsrepr']),
+        task_args = dump_json(headers['argsrepr']),
+        task_kwargs = dump_json(headers['kwargsrepr']),
         worker = f'celery@{hostname}'
     )
