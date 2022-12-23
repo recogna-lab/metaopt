@@ -1,6 +1,6 @@
 {% extends 'global/pages/base.html' %}
 
-{% block title %}{{ error_type }} |{% endblock title %}
+{% block title %}{{ title }} |{% endblock title %}
 
 {% block header %}
     
@@ -13,7 +13,7 @@
     <div class="page-wrapper font-robo">
         <div class="custom-card">
             <h1 class="fw-bold">{{ status_code }}!</h1>
-            <h2 class="fw-bold">{{ error_type }}.</h2>
+            <h2 class="fw-bold">{{ title }}.</h2>
             <h4>{{ error_message }}</h4>
             <a href="{% url 'dashboard:index' %}">
                 Retorne à página inicial.

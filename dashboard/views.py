@@ -24,6 +24,7 @@ def index(request):
     tasks = tasks.order_by('-date_created')
     
     return render(request, 'dashboard/pages/index.html', context={
+        'title': 'Dashboard',
         'tasks': tasks
     })
 
@@ -34,7 +35,7 @@ def new_optimization_task(request):
     optimization_form = OptimizationForm()
     
     return render(request, 'dashboard/pages/new_task.html', context={
-        'task_type': 'Seleção de Características',
+        'title': 'Otimização',
         'form': optimization_form,
         'form_action': reverse('dashboard:start_opt_task')
     })
@@ -74,7 +75,7 @@ def new_feature_selection_task(request):
     feature_selection_form = FeatureSelectionForm()
     
     return render(request, 'dashboard/pages/new_task.html', context={
-        'task_type': 'Seleção de Características',
+        'title': 'Seleção de Características',
         'form': feature_selection_form,
         'form_action': reverse('dashboard:start_fs_task')
     })
@@ -118,6 +119,7 @@ def task_detail(request, task_id):
     task_type = get_task_type(task.task_name)
     
     return render(request, 'dashboard/pages/task_detail.html', context={
+        'title': 'Detalhes da Tarefa',
         'task_type': task_type,
         'task_id': task_id
     })
@@ -134,13 +136,11 @@ def task_result(request, task_id):
     if 'progress' in task.result:
         redirect('dashboard:task_detail', task_id=task_id)
     
-    task_result['conv_plot_div'] = None
-    
-    if task.task_name == 'optimization':
-        fitness_values = task_result['fitness_values']
-        task_result['conv_plot_div'] = plot_convergence(fitness_values)
+    fitness_values = task_result['fitness_values']
+    task_result['conv_plot_div'] = plot_convergence(fitness_values)
 
     return render(request, 'dashboard/pages/task_result.html', context={
+        'title': 'Resultado da Tarefa',
         'task_id': task_id,
         'task_result': task_result
     })
