@@ -79,11 +79,26 @@ button {
 ========================================================================== */
 
 body {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 100vh;
 	font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
 	font-weight: 400;
 	font-size: 14px;
 	overflow-x: hidden;
 	background-color: rgba(235, 237, 239, 1);
+}
+
+header,
+footer {
+	min-width: 100vw;
+	width: 100vw;
+}
+
+main {
+	margin-top: 4vmax;
+	margin-bottom: 4vmax;
 }
 
 .custom-container{
@@ -100,7 +115,6 @@ body {
 	flex-direction: column;
 	justify-content: flex-start;
 	width: 85vw;
-	padding-top: 4vmax;
 	padding-left: 2vmax;
 	padding-right: 2vmax
 }
@@ -119,6 +133,11 @@ body {
 
 .dash-content h1 {
 	margin-bottom: 2vmax;
+}
+
+footer {
+	color: #e5e4e2;
+	padding: 1.5vmax 2vmax 1.5vmax 2vmax;
 }
 
 /* ==========================================================================
@@ -143,11 +162,6 @@ body {
 /* ==========================================================================
 # NAVIGATOR
 ========================================================================== */
-
-header {
-	min-width: 100vw;
-	width: 100vw;
-}
 
 .navbar {
 	display: flex;

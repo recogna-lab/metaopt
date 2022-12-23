@@ -17,6 +17,12 @@
     <main>
         {% block content %}{% endblock content %}
     </main>
+
+    {% block foooter %}
+
+        {% include 'global/partials/footer.html' %}
+        
+    {% endblock foooter %}
 </body>
 {% block scripts %}{% endblock scripts %}
 </html>
