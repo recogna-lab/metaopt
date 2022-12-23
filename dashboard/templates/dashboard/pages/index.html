@@ -12,14 +12,18 @@
 
     <div class="font-robo custom-container">
         <div class="dash-content">
-            <div class="dash-task custom-card">
-                {% include 'dashboard/partials/search_form.html' %}
-                
-                {% include 'dashboard/partials/task_dropdown.html' %}
+            <div class="custom-card">
+                <h1>Ações Rápidas</h1>
+
+                <div class="dash-task">
+                    {% include 'dashboard/partials/search_form.html' %}
+                    
+                    {% include 'dashboard/partials/task_dropdown.html' %}
+                </div>
             </div>
 
             <div class="dash-tasks-table custom-card">
-                <h2>Suas Tarefas</h2>
+                <h1>Suas Tarefas</h1>
 
                 {% include 'dashboard/partials/tasks_table.html' %}
             </div>
