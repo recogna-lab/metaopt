@@ -7,13 +7,16 @@
 </head>
 <body>
     <header>
-        {% block header %}{% endblock header %}
+        {% block header %}
+
+            {% include 'global/partials/navbar.html' %}
+
+        {% endblock header %}
     </header>
     
     <main>
         {% block content %}{% endblock content %}
     </main>
 </body>
-
 {% block scripts %}{% endblock scripts %}
 </html>
