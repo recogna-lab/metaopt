@@ -58,8 +58,8 @@ const initializeProgressBar = (progressURL, resultURL) => {
     }
     
     const onResult = (resultElement, result) => {
-        bestSolution = 'Melhor solução = ' + result.best_solution
-        bestValue = 'Melhor valor da função = ' + result.best_value
+        bestSolution = 'Melhor solução: ' + result.best_solution
+        bestValue = 'Melhor valor da função: ' + result.best_value
 
         resultHTML = `
             <div>
