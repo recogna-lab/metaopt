@@ -10,6 +10,7 @@ from utils.optimizers import get_optimizer
 
 
 class _OptimizationTask(app.Task):
+    
     abstract = True
     
     def optimize(self, optimizer, function, space, agents, iterations):
