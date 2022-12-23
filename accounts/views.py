@@ -17,7 +17,7 @@ def login_view(request):
     request.session['next'] = next or 'dashboard:index'
             
     return render(request, 'accounts/pages/form_page.html', context={
-        'page_title': 'Login',
+        'title': 'Login',
         'form_title': 'Entre em sua conta',
         'form': LoginForm(),
         'form_action': reverse('accounts:perform_login'),
@@ -60,7 +60,7 @@ def signup(request):
     signup_form = SignupForm(signup_data)
 
     return render(request, 'accounts/pages/form_page.html', context={
-        'page_title': 'Cadastro',
+        'title': 'Cadastro',
         'form_title': 'Crie uma conta',
         'form': signup_form,
         'form_action': reverse('accounts:perform_signup'),
@@ -98,7 +98,7 @@ def password_reset(request):
     password_reset_form = PasswordResetForm(password_reset_data)
     
     return render(request, 'accounts/pages/form_page.html', context={
-        'page_title': 'Pedido de Redefinição de Senha',
+        'title': 'Redefinição de Senha',
         'form_title': 'Peça uma nova senha',
         'form': password_reset_form,
         'form_action': reverse('accounts:send_password_reset'),
@@ -136,7 +136,7 @@ def send_password_reset(request):
     del request.session['password_reset_data'] 
 
     return render(request, 'accounts/pages/form_page.html', context={
-        'page_title': 'Pedido de Redefinição de Senha',
+        'title': 'Redefinição de Senha',
         'form_title': 'Pedido enviado',
         'static_message': True,
         'more_details': (
@@ -152,7 +152,7 @@ def confirm_password_reset(request, uidb64, token):
     if not set_password_form.check_user_and_token(uidb64, token):
         response = render(request, 'global/pages/error.html', context={
             'status_code': 498,
-            'error_type': 'Token inválido',
+            'title': 'Token inválido',
             'error_message': (
                 'Parece que você já recuperou sua conta. '
                 'Se preciso, solicite outra redefinição de senha.'
@@ -165,7 +165,7 @@ def confirm_password_reset(request, uidb64, token):
     request.session['token'] = token
 
     return render(request, 'accounts/pages/form_page.html', context={
-        'page_title': 'Redefinição de Senha',
+        'title': 'Redefinição de Senha',
         'form_title': 'Redefina sua senha',
         'form': set_password_form,
         'form_action': reverse('accounts:complete_reset'),
