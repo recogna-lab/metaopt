@@ -68,7 +68,7 @@ const initializeProgressBar = (progressURL, resultURL) => {
             </div>
 
             <div>
-                <a href="${resultURL}">
+                <a href="${resultURL}" class="btn btn-basic btn-success btn-radius">
                     Ver mais resultados
                 </a>
             </div>
