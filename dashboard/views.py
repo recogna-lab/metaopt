@@ -4,24 +4,19 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from django_celery_results.models import TaskResult
 
-from utils import get_task_type, load_json_data
+from utils import load_json
 from utils.plots import plot_convergence
 
 from .forms import FeatureSelectionForm, OptimizationForm
-from .models import UserTask, get_task
+from .models import get_all_tasks, get_task
 from .tasks import feature_selection, optimization
 
 # Dashboard page
 
 @login_required
 def index(request):
-    user_tasks = UserTask.objects.filter(user__id=request.user.id)
-    user_tasks = user_tasks.values_list('task__task_id')
-    
-    tasks = TaskResult.objects.filter(task_id__in=user_tasks)
-    tasks = tasks.order_by('-date_created')
+    tasks = get_all_tasks(user_id=request.user.id)
     
     return render(request, 'dashboard/pages/index.html', context={
         'title': 'Dashboard',
@@ -56,7 +51,7 @@ def start_optimization_task(request):
     
     form_data = optimization_form.cleaned_data
     
-    space = load_json_data(form_data['function'].search_space)
+    space = load_json(form_data['function'].search_space)
     
     opt_task = optimization.delay(
         user_id=request.user.id,
@@ -118,13 +113,10 @@ def task_detail(request, task_id):
     if task is None:
         raise Http404()
 
-    task_type = get_task_type(task.task_name)
-    
     return render(request, 'dashboard/pages/task_detail.html', context={
         'title': 'Detalhes da Tarefa',
         'return_to': reverse('dashboard:index'),
-        'task_type': task_type,
-        'task_id': task_id
+        'task': task
     })
 
 @login_required
@@ -134,21 +126,17 @@ def task_result(request, task_id):
     if task is None:
         raise Http404()
     
-    task_type = get_task_type(task.task_name)
-    task_result = load_json_data(task.result)
-    
     if 'progress' in task.result:
         redirect('dashboard:task_detail', task_id=task_id)
     
-    fitness_values = task_result['fitness_values']
-    task_result['conv_plot_div'] = plot_convergence(fitness_values)
+    fitness_values = task.result['fitness_values']
+    conv_plot_div = plot_convergence(fitness_values)
 
     return render(request, 'dashboard/pages/task_result.html', context={
         'title': 'Resultado da Tarefa',
         'return_to': reverse('dashboard:task_detail', args=(task_id,)),
-        'task_id': task_id,
-        'task_type': task_type,
-        'task_result': task_result
+        'task': task,
+        'conv_plot_div': conv_plot_div
     })
 
 # Endpoint for retrieving progress

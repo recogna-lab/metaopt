@@ -3,7 +3,7 @@
         <tr>
             <th scope="col">Identificador</th>
             <th scope="col">Tipo</th>
-            <th scope="col">Estado</th>
+            <th scope="col">Status</th>
             <th scope="col">Criada em</th>
             <th scope="col">Concluída em</th>
         </tr>
@@ -17,12 +17,12 @@
                         {{ task.task_id }}
                     </a>
                 </th>
-
-                <td>{% if task.task_name == 'optimization' %}{{ 'Otimização' }}{% else %}{{'Seleção de Características'}}{% endif %}</td>
+                
+                <td>{{ task.task_name }}</td>
 
                 <td>
-                    <span class="{% if task.status == 'SUCCESS' %}text-success{% elif task.status == 'PROGRESS' %}text-warning{% else %}text-danger{% endif %}">
-                        {% if task.status == 'SUCCESS' %}SUCESSO{% elif task.status == 'PROGRESS' %}PROGRESSO{% else %}FALHA{% endif %}
+                    <span class="{% if task.status == 'Sucesso' %}text-success{% elif task.status == 'Em Progresso' %}text-primary{% elif task.status == 'Falha' %}text-danger{% else %}{% endif %}">
+                        {{ task.status }}
                     </span>
                 </td>
                 

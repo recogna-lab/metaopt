@@ -10,17 +10,17 @@
                 <h1>Resultados</h1>
 
                 <ul style=" list-style-type: none;">
-                    <li><span>Identificador: {{ task_id }}</span></li>
-                    <li><span>Tipo: {{ task_type }}</span></li>
+                    <li><span>Identificador: {{ task.task_id }}</span></li>
+                    <li><span>Tipo: {{ task.task_name }}</span></li>
                     <li>
                         <span>
-                            Melhor solução: {{ task_result.best_solution }}
+                            Melhor solução: {{ task.result.best_solution }}
                         </span>
                     </li>
 
                     <li>
                         <span>
-                            Melhor valor da função: {{ task_result.best_value }}
+                            Melhor valor da função: {{ task.result.best_value }}
                         </span>
                     </li>
                 </ul>
@@ -29,8 +29,8 @@
             <div class="custom-card">
                 <h1>Gráficos</h1>
                 
-                {% if task_result.conv_plot_div %}
-                    {{ task_result.conv_plot_div|safe }}
+                {% if conv_plot_div %}
+                    {{ conv_plot_div|safe }}
                 {% endif %}
             </div>
         </div>
