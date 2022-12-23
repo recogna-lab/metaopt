@@ -105,19 +105,20 @@ body {
 	padding-right: 2vmax
 }
 
+.dash-content,
+.error-content,
 .account-content {
 	align-items: center;
-}
-
-.dash-content,
-.error-content {
-	align-items: flex-start;
 }
 
 .dash-content .custom-card,
 .error-content .custom-card {
 	margin-bottom: 2vmax;
 	width: 100%;
+}
+
+.dash-content h1 {
+	margin-bottom: 2vmax;
 }
 
 /* ==========================================================================
@@ -129,6 +130,14 @@ body {
 	background: -moz-linear-gradient(var(--gradient-options));
 	background: -webkit-linear-gradient(var(--gradient-options));
 	background: linear-gradient(var(--gradient-options));
+}
+
+/* ==========================================================================
+#SPACING
+========================================================================== */
+
+.p-t-15 {
+	padding-top: 15px;
 }
 
 /* ==========================================================================
@@ -477,4 +486,18 @@ h6 {
 
 .dash-tasks-table a {
 	text-decoration: none;
+}
+
+/* ==========================================================================
+#TASK FORM
+========================================================================== */
+
+.task-card {
+	width: 680px !important;
+}
+
+.task-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }

@@ -12,23 +12,10 @@
     
     <div class="font-robo custom-container">
         <div class="dash-content">
-            <div class="custom-card">
-                <form action="{{form_action}}" method="post">
-                    {% csrf_token %}
-        
-                    {% for field in form %}
-                        <div class="form-group">
-                            {{ field.label }}
-                            {{ field }}
-                        </div>
-                    {% endfor %}
-                    
-                    <div class="button-div p-t-15 a-right">
-                        <button class="btn btn-basic btn-success btn-radius" type="submit">
-                            Executar
-                        </button>
-                    </div>
-                </form>
+            <div class="custom-card task-card">
+                <h1>Configure sua tarefa</h1>
+
+                {% include 'dashboard/partials/task_form.html' %}
             </div>
         </div>
     </div>
