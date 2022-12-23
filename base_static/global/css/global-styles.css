@@ -127,8 +127,11 @@ main {
 
 .dash-content .custom-card,
 .error-content .custom-card {
-	margin-bottom: 2vmax;
 	width: 100%;
+}
+
+.dash-content .custom-card:not(:last-child) {
+	margin-bottom: 2vmax;
 }
 
 .dash-content h1 {
