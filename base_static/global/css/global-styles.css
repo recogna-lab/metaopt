@@ -125,8 +125,7 @@ main {
 	align-items: center;
 }
 
-.dash-content .custom-card,
-.error-content .custom-card {
+.dash-content .custom-card {
 	width: 100%;
 }
 
