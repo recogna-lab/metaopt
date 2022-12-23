@@ -49,7 +49,7 @@
 
     {% load static %}
     <script src="{% static 'celery_progress/celery_progress.js' %}"></script>
-    <script src="{% static 'dashboard/scripts.js' %}"></script>
+    <script src="{% static 'dashboard/js/scripts.js' %}"></script>
 
     <script>
         let progressURL = "{% url 'dashboard:task_progress' task_id %}"
