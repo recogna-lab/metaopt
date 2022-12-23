@@ -51,13 +51,11 @@ def start_optimization_task(request):
     
     form_data = optimization_form.cleaned_data
     
-    space = load_json(form_data['function'].search_space)
-    
     opt_task = optimization.delay(
         user_id=request.user.id,
         optimizer=form_data['optimizer'].acronym,
         function=form_data['function'].short_name,
-        space=space,
+        space=load_json(form_data['function'].search_space),
         agents=form_data['agents'], 
         iterations=form_data['iterations']
     )
