@@ -1,6 +1,6 @@
 {% extends 'global/pages/base.html' %}
 
-{% block title %}Tarefa de {{ task_type }} {{ task_id }} |{% endblock title %}
+{% block title %}{{ title }} |{% endblock title %}
 
 {% block header %}
     
@@ -12,7 +12,7 @@
 
     <div class="page-wrapper-column font-robo">
         <div>
-            <h1>Tarefa de {{ task_type }} {{ task_id }}</h1>
+            <h1>{{ task_type }} {{ task_id }}</h1>
         </div>
         
         <div id='progress-bar-wrapper'>

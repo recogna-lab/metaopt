@@ -1,6 +1,6 @@
 {% extends 'global/pages/base.html' %}
 
-{% block title %}Dashboard |{% endblock title %}
+{% block title %}{{ title }} |{% endblock title %}
 
 {% block header %}
     
@@ -12,8 +12,6 @@
 
     <div class="font-robo dash-container">
         <div class="dash-content">
-            <h1>Dashboard</h1>
-            
             <div class="dash-task custom-card">
                 {% include 'dashboard/partials/search_form.html' %}
                 
