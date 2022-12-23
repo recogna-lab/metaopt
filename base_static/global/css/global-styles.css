@@ -398,7 +398,8 @@ h6 {
 
 .dash-container{
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 	width: 100vw;
 }
 
@@ -415,6 +416,7 @@ h6 {
 
 .dash-content .custom-card {
 	margin-bottom: 2vmax;
+	width: 100%;
 }
 
 .dash-task {
@@ -422,7 +424,6 @@ h6 {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	width: 100%;
 }
 
 .search-form {
@@ -444,10 +445,6 @@ h6 {
 .new-task-dpdwn {
 	width: fit-content;
 	text-align: right;
-}
-
-.dash-tasks-table {
-	width: 100%;
 }
 
 /* ==========================================================================

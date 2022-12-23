@@ -10,20 +10,37 @@
 
 {% block content %}
 
-    <div class="page-wrapper-column font-robo">
-        <div>
-            <h1>{{ task_type }} {{ task_id }}</h1>
-        </div>
-        
-        <div id='progress-bar-wrapper'>
-            <div class="progress">
-                <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar">&nbsp;</div>
-            </div>
-    
-            <div id="progress-bar-status">Esperando a tarefa iniciar...</div>
-        </div>
+    <div class="font-robo dash-container">
+        <div class="dash-content">
+            <div class="custom-card">
+                <h1>Dados Gerais</h1>
 
-        <div id="task-result">Após a execução, resultados aparecem aqui!</div>
+                <ul style=" list-style-type: none;">
+                    <li><span>Identificador: {{ task_id }}</span></li>
+                    <li><span>Tipo: {{ task_type }}</span></li>
+                </ul>
+            </div>
+            
+            <div id="progress-bar-wrapper" class="custom-card">
+                <h1>Progresso</h1>
+
+                <div class="progress">
+                    <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar">&nbsp;</div>
+                </div>
+        
+                <div id="progress-bar-status">
+                    Esperando a tarefa iniciar...
+                </div>
+            </div>
+            
+            <div class="custom-card">
+                <h1>Resultados</h1>
+
+                <div id="task-result">
+                    <span>Após a execução, resultados aparecem aqui!</span>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock content %}
