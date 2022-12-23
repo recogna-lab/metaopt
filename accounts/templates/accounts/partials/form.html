@@ -38,6 +38,15 @@
                         </a>  
                     </div>
                 {% endif %}
+
+                {% if form.name == 'signup_form' %}
+                    <div>
+                        <span>
+                            Guarde bem suas informações cadastrais.
+                        </span>  
+                    </div>
+                {% endif %}
+
                 <button id="show-btn" type="button" onclick="showPassword()">
                     Mostrar senha
                 </button>

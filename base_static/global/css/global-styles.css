@@ -370,13 +370,13 @@ h6 {
 }
 
 .account-card .card-body {
+	color: #525252;
 	padding: 57px 65px;
 	padding-bottom: 65px;
 }
 
 .card-body h2 {
-	color: #525252;
-	margin-bottom: 3vmax;
+	margin-bottom: 2.75vmax;
 }
 
 /* ==========================================================================
