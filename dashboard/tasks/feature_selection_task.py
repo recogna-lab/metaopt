@@ -73,16 +73,26 @@ class _FeatureSelectionTask(_OptimizationTask):
         # Configure the search space
         self.setup_space(agents, space)
 
-    def select_features(self, optimizer, dataset, transfer_function, dimension, agents, iterations):
+    def select_features(self, optimizer, dataset, transfer_function, 
+                        dimension, agents, iterations):
+        # Split dataset
         self.dataset_split(dataset)
 
+        # Get transfer function
         self.transfer_function = get_transfer_function(transfer_function)
 
+        # Set lower and upper bound
         lower_bound = [0] * dimension
         upper_bound = [1] * dimension
 
-        space = {'dimension': dimension, 'lower_bound': lower_bound, 'upper_bound': upper_bound}
+        # Set space dict
+        space = {
+            'dimension': dimension, 
+            'lower_bound': lower_bound, 
+            'upper_bound': upper_bound
+        }
 
+        # Run optimize method
         result_opt = self.optimize(optimizer, None, space, agents, iterations)
 
         opf = SupervisedOPF(
@@ -94,17 +104,17 @@ class _FeatureSelectionTask(_OptimizationTask):
 
         metrics = self.metrics(result_fs['confusion_matrix']) 
         
-        result = self.concatenate_results(result_opt, result_fs, metrics)
-
-        return result
+        return self.concatenate_results(result_opt, result_fs, metrics)
 
     def dataset_split(self, dataset):
         # Take the path of dataset
-        dir = os.path.join(BASE_DIR, 'dashboard/static/dashboard/datasets', dataset)
+        dir = os.path.join(
+            BASE_DIR, 'dashboard/static/dashboard/datasets', dataset
+        )
         
         # Loading a .txt file to a numpy array
         txt = l.load_txt(dir)
-
+        
         # Parsing a pre-loaded numpy array
         X, Y = p.parse_loader(txt)
 
@@ -175,5 +185,14 @@ class _FeatureSelectionTask(_OptimizationTask):
         }
 
 @app.task(name='feature_selection', base=_FeatureSelectionTask, bind=True)
-def feature_selection(self, user_id, optimizer, dataset, transfer_function, dimension, agents, iterations):
-    return self.select_features(optimizer, dataset, transfer_function, dimension, agents, iterations)
+def feature_selection(self, user_id, optimizer, dataset, transfer_function,
+                      dimension, agents, iterations, executions):
+    # Run base class method
+    return self.select_features(
+        optimizer, 
+        dataset, 
+        transfer_function, 
+        dimension, 
+        agents, 
+        iterations
+    )
