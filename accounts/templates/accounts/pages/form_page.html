@@ -10,9 +10,9 @@
 
 {% block content %}
     
-    <div class="page-wrapper font-poppins">
-        <div class="custom-card account-card wrapper-w{% if form.name == 'signup_form' %}680{% else %}480{% endif %}">
-            <div class="card-body">
+    <div class="font-poppins custom-container">
+        <div class="account-content">
+            <div class="custom-card account-card {% if form.name == 'signup_form' %}account-card-wider{% endif %}">
                 <h2>{{ form_title }}</h2>
                 
                 {% include 'global/partials/messages.html' %}
