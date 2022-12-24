@@ -73,11 +73,11 @@ const initializeProgressBar = (progressURL, resultURL) => {
                     <tbody>
                         <tr class="col-sm">
                             <th scope="row" class="sm">Melhor solução</th>
-                            <td>${ result.best_solution }</td>
+                            <td>${result.best_solution}</td>
                         </tr>
                         <tr class="col-sm">
                             <th scope="row" class="sm">Melhor valor da função</th>
-                            <td>${ result.best_value }</td>
+                            <td>${result.best_value}</td>
                         </tr>
                     </tbody>
                 </table>
