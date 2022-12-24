@@ -157,16 +157,15 @@ def format_task(task):
     task.task_name = translate_task_name(task.task_name)
     task.status = translate_task_status(task.status)
     task.task_kwargs = load_json(task.task_kwargs)
-    task.result = load_json(task.result)
+
+    if task.result is not None:
+        task.result = load_json(task.result)
+        
     return task
 
 # Before saving a task result instance
 @receiver(pre_save, sender=TaskResult)
-def format_task_kwargs(sender, instance, **kwargs):
-    # If instance already exists, no need to format again
-    if instance.pk is not None:
-        return
-        
+def format_task_kwargs(sender, instance, **kwargs):        
     # Retrieve task named arguments as dict 
     task_kwargs_dict = literal_eval(instance.task_kwargs)
     task_kwargs_dict = task_kwargs_dict.replace('\'', '"')
