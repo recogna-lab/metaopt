@@ -1,21 +1,20 @@
 import os
-import numpy as np
 
+import numpy as np
 import opfython.math.general as g
 import opfython.stream.loader as l
 import opfython.stream.splitter as sp
 from opfython.models.supervised import SupervisedOPF
-
-from utils.transfer_functions import get_transfer_function
-from utils.optimizers import get_optimizer
-import utils.parser as p
-
-from metaopt.celery import app
-
-from .optimization_task import _OptimizationTask
 from opytimizer.core import Function
 
+import utils.parser as p
+from metaopt.celery import app
 from metaopt.settings.environment import BASE_DIR
+from utils.optimizers import get_optimizer
+from utils.transfer_functions import get_transfer_function
+
+from .optimization_task import _OptimizationTask
+
 
 class _FeatureSelectionTask(_OptimizationTask):
     
@@ -74,17 +73,26 @@ class _FeatureSelectionTask(_OptimizationTask):
         # Configure the search space
         self.setup_space(agents, space)
 
-    def select_features(self, optimizer, dataset, transfer_function, dimension, agents, iterations):
-
+    def select_features(self, optimizer, dataset, transfer_function, 
+                        dimension, agents, iterations):
+        # Split dataset
         self.dataset_split(dataset)
 
+        # Get transfer function
         self.transfer_function = get_transfer_function(transfer_function)
 
+        # Set lower and upper bound
         lower_bound = [0] * dimension
         upper_bound = [1] * dimension
 
-        space = {'dimension': dimension, 'lower_bound': lower_bound, 'upper_bound': upper_bound}
+        # Set space dict
+        space = {
+            'dimension': dimension, 
+            'lower_bound': lower_bound, 
+            'upper_bound': upper_bound
+        }
 
+        # Run optimize method
         result_opt = self.optimize(optimizer, None, space, agents, iterations)
 
         opf = SupervisedOPF(
@@ -96,17 +104,17 @@ class _FeatureSelectionTask(_OptimizationTask):
 
         metrics = self.metrics(result_fs['confusion_matrix']) 
         
-        result = self.concatenate_results(result_opt, result_fs, metrics)
-
-        return result
+        return self.concatenate_results(result_opt, result_fs, metrics)
 
     def dataset_split(self, dataset):
         # Take the path of dataset
-        dir = os.path.join(BASE_DIR, 'dashboard/static/dashboard/datasets', dataset)
+        dir = os.path.join(
+            BASE_DIR, 'dashboard/static/dashboard/datasets', dataset
+        )
         
         # Loading a .txt file to a numpy array
         txt = l.load_txt(dir)
-
+        
         # Parsing a pre-loaded numpy array
         X, Y = p.parse_loader(txt)
 
@@ -143,7 +151,6 @@ class _FeatureSelectionTask(_OptimizationTask):
         }
 
     def concatenate_results(self, *results):
-
         result = {}
 
         for r in results:
@@ -152,7 +159,6 @@ class _FeatureSelectionTask(_OptimizationTask):
         return result
     
     def metrics(self, confusion_matrix):
-        
         confusion_matrix = np.array(confusion_matrix)
         rows, _ = confusion_matrix.shape
 
@@ -179,5 +185,14 @@ class _FeatureSelectionTask(_OptimizationTask):
         }
 
 @app.task(name='feature_selection', base=_FeatureSelectionTask, bind=True)
-def feature_selection(self, user_id, optimizer, dataset, transfer_function, dimension, agents, iterations):
-    return self.select_features(optimizer, dataset, transfer_function, dimension, agents, iterations)
+def feature_selection(self, user_id, optimizer, dataset, transfer_function,
+                      dimension, agents, iterations, executions):
+    # Run base class method
+    return self.select_features(
+        optimizer, 
+        dataset, 
+        transfer_function, 
+        dimension, 
+        agents, 
+        iterations
+    )
