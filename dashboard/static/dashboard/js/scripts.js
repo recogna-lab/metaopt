@@ -58,15 +58,31 @@ const initializeProgressBar = (progressURL, resultURL) => {
     }
     
     const onResult = (resultElement, result) => {
-        bestSolution = 'Melhor solução: ' + result.best_solution
-        bestValue = 'Melhor valor da função: ' + result.best_value
+        //bestSolution = 'Melhor solução: ' + result.best_solution
+        //bestValue = 'Melhor valor da função: ' + result.best_value
 
         resultHTML = `
             <div>
-                <div><span>${bestSolution}</span></div>
-                <div><span>${bestValue}</span></div>
+                <table class="table table-striped table-nowrap">
+                    <thead>
+                        <tr>
+                            <th class="th-sm"></th>
+                            <th class="th-sm"></th>     
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="col-sm">
+                            <th scope="row" class="sm">Melhor solução</th>
+                            <td>${ result.best_solution }</td>
+                        </tr>
+                        <tr class="col-sm">
+                            <th scope="row" class="sm">Melhor valor da função</th>
+                            <td>${ result.best_value }</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-
+            <br>
             <div>
                 <a href="${resultURL}" class="btn btn-basic btn-success btn-radius">
                     Ver mais
