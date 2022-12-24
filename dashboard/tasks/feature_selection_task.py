@@ -181,7 +181,7 @@ class _FeatureSelectionTask(_OptimizationTask):
         return {
             'precision': precision,
             'recall': recall,
-            'f1-score': f1_score
+            'f1_score': f1_score
         }
 
 @app.task(name='feature_selection', base=_FeatureSelectionTask, bind=True)

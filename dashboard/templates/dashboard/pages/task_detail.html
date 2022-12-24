@@ -7,12 +7,7 @@
     <div class="font-robo custom-container">
         <div class="dash-content">
             <div class="custom-card">
-                <h1>Dados Gerais</h1>
-                
-                <ul style=" list-style-type: none;">
-                    <li><span>Identificador: {{ task.task_id }}</span></li>
-                    <li><span>Tipo: {{ task.task_name }}</span></li>
-                </ul>
+                {% include 'dashboard/partials/task_details_card.html' %}
             </div>
             
             <div id="progress-bar-wrapper" class="custom-card">
