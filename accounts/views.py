@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from utils.django_auth import is_anonymous
+from utils.django.auth import is_anonymous
 
 from .forms import LoginForm, PasswordResetForm, SetPasswordForm, SignupForm
 

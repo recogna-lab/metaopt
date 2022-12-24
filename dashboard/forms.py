@@ -1,6 +1,6 @@
 from django import forms
 
-from utils.django_forms import add_attr
+from utils.django.forms import add_attr
 
 from .models import Dataset, Function, Optimizer, TransferFunction
 

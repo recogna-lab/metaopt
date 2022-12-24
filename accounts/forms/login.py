@@ -1,6 +1,6 @@
 from django import forms
 
-from utils.django_forms import add_attr, add_placeholder
+from utils.django.forms import add_attr, add_placeholder
 
 
 class LoginForm(forms.Form):

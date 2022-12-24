@@ -8,7 +8,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
 from metaopt.settings.mail import EMAIL_HOST_PASSWORD, EMAIL_HOST_USER
-from utils.django_forms import add_attr, add_placeholder
+from utils.django.forms import add_attr, add_placeholder
 
 
 class PasswordResetForm(forms.Form):

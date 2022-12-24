@@ -4,7 +4,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.exceptions import ValidationError
 from django.utils.http import urlsafe_base64_decode
 
-from utils.django_forms import add_attr, add_placeholder, strong_password
+from utils.django.forms import add_attr, add_placeholder, strong_password
 
 
 class SetPasswordForm(forms.Form):
