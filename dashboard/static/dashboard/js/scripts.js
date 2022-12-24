@@ -58,8 +58,7 @@ const initializeProgressBar = (progressURL, resultURL) => {
     }
     
     const onResult = (resultElement, result) => {
-        //bestSolution = 'Melhor solução: ' + result.best_solution
-        //bestValue = 'Melhor valor da função: ' + result.best_value
+        bestSolution = `[${result.best_solution}]`.replace(/,/g, ', ')
 
         resultHTML = `
             <div>
@@ -73,7 +72,7 @@ const initializeProgressBar = (progressURL, resultURL) => {
                     <tbody>
                         <tr class="col-sm">
                             <th scope="row" class="sm">Melhor solução</th>
-                            <td>${result.best_solution}</td>
+                            <td>${bestSolution}</td>
                         </tr>
                         <tr class="col-sm">
                             <th scope="row" class="sm">Melhor valor da função</th>
