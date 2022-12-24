@@ -7,7 +7,7 @@ from django.dispatch import receiver
 from django_celery_results.models import TaskResult
 
 from utils import dump_json, load_json
-from utils.translate import translate_task_name, translate_task_status
+from utils.tasks import translate
 
 
 class Optimizer(models.Model):
@@ -154,8 +154,8 @@ def get_all_tasks(user_id):
     
 # Format task before getting it
 def format_task(task):
-    task.task_name = translate_task_name(task.task_name)
-    task.status = translate_task_status(task.status)
+    task.task_name = translate.task_name(task.task_name)
+    task.status = translate.task_status(task.status)
     task.task_kwargs = load_json(task.task_kwargs)
 
     if task.result is not None:
