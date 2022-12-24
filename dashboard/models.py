@@ -160,7 +160,7 @@ def format_task(task):
 
     if task.result is not None:
         task.result = load_json(task.result)
-        
+    
     return task
 
 # Before saving a task result instance
