@@ -7,11 +7,11 @@ import opfython.stream.splitter as sp
 from opfython.models.supervised import SupervisedOPF
 from opytimizer.core import Function
 
-import utils.feature_selection as p
+import utils.tasks.feature_selection as p
 from metaopt.celery import app
 from metaopt.settings.environment import BASE_DIR
-from utils.feature_selection import get_transfer_function
-from utils.optimization import get_optimizer
+from utils.tasks.feature_selection import get_transfer_function
+from utils.tasks.optimization import get_optimizer
 
 from .optimization_task import _OptimizationTask
 
