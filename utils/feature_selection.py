@@ -158,6 +158,8 @@ def v4(sol):
 
     return np.asarray(features).astype(bool)
 
+
+# Get one of the available transfer functions through its name
 def get_transfer_function(transfer_function):
     transfer_functions = globals()[transfer_function]
     return transfer_functions
