@@ -54,7 +54,7 @@ class _FeatureSelectionTask(_OptimizationTask):
         return error
 
     def optimize(self, optimizer, function, space, agents, iterations):
-        # Set optimizer
+        # Run super class method with desired function
         return super().optimize(
             optimizer,
             self.supervised_opf,
