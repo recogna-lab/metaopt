@@ -58,6 +58,7 @@ const initializeProgressBar = (progressURL, resultURL) => {
     }
     
     const onResult = (resultElement, result) => {
+        // Add space between elements
         bestSolution = `[${result.best_solution}]`.replace(/,/g, ', ')
 
         resultHTML = `
