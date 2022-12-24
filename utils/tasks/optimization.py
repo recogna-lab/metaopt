@@ -1,3 +1,6 @@
+from statistics import stdev
+
+import numpy as np
 from opytimark.markers.two_dimensional import *
 from opytimizer.optimizers.evolutionary import *
 from opytimizer.optimizers.science import *
@@ -9,31 +12,38 @@ from opytimizer.optimizers.swarm import *
 class Result:
     
     def __init__(self):
-        self.x = None
-        self.y = None
-        self.f = None
-        
-        self.exec_data = None
+        # Just to know if result was not initialized
+        self.best_solution = None
     
     def update(self, x, y, f):
-        if self.x is None:
+        if self.best_solution is None:
             self._initialize(x, y, f)
         else:
             self._update(x, y, f)
     
     def _initialize(self, x, y, f):
-        self.x = x
-        self.y = y
-        self.f = f
+        self.best_solution = np.array(x)
+        self.fitness_values = np.array(f)
+        
+        self.best_value = y
+        self.min_value = y
+        self.max_value = y
+        
+        self.values = [y]
         
         self.exec_data = [
             self._get_exec_dict(x, y, f)
         ]
     
     def _update(self, x, y, f):
-        self.x += x
-        self.y += y
-        self.f += f
+        self.best_solution += np.array(x)
+        self.fitness_values += np.array(f)
+        
+        self.best_value += y
+        self.min_value = min(self.min_value, y)
+        self.max_value = max(self.max_value, y)
+        
+        self.values.append(y)
         
         self.exec_data.append(
             self._get_exec_dict(x, y, f)
@@ -41,9 +51,9 @@ class Result:
     
     def _get_exec_dict(self, x, y, f):
         return {
-            'best_solution': x.tolist(),
-            'best_value': y.item(),
-            'fitness_values': f.tolist()
+            'best_solution': x,
+            'best_value': y,
+            'fitness_values': f
         }
     
     def as_dict(self):
@@ -51,10 +61,14 @@ class Result:
         count = len(self.exec_data)
         
         # Add average values to results dict
+        # Remeber that standard deviation requires count > 1
         results_dict = {
-            'best_solution': (self.x / count).tolist(),
-            'best_value': (self.y / count).item(),
-            'fitness_values': (self.f / count).tolist()
+            'best_solution': (self.best_solution / count).tolist(),
+            'best_value': self.best_value / count,
+            'min_value': self.min_value,
+            'max_value': self.max_value,
+            'stdev_value': stdev(self.values) if count > 1 else None,
+            'fitness_values': (self.fitness_values / count).tolist()
         }
         
         # If it has more than one execution
