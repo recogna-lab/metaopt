@@ -1,0 +1,42 @@
+<h1>Detalhes da Tarefa</h1>
+<h2>Descrição</h2>
+
+<table class="table table-striped table-nowrap">
+    <thead>
+        <tr>
+            <th class="th-sm"></th>
+            <th class="th-sm"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="col-sm">
+            <th scope="row" class="sm">Identificadores</th>
+            <td>{{task.task_id}}</td>
+        </tr>
+        <tr class="col-sm">
+            <th scope="row" class="sm">Tipo</th>
+            <td>{{task.task_name}}</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<br>
+<h2> Parâmetros de Execução </h2>
+<table class="table table-striped table-nowrap">
+    <thead>
+        <tr>
+            <th class="th-sm"></th>
+            <th class="th-sm"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for key, value in task.task_kwargs.items %}
+            {% if key != 'user_id' and key != 'dimension' %}
+            <tr class="col-sm">
+                <th scope="row" class="sm">{{key}}</th>
+                <td>{{value|upper}}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
