@@ -4,14 +4,48 @@ from opytimizer.spaces import SearchSpace
 
 from metaopt.celery import app
 from utils import delete_logs
-from utils.benchmark_functions import get_function
-from utils.callbacks import ProgressCallback
-from utils.optimizers import get_optimizer
+from utils.tasks.callback import ProgressCallback
+from utils.tasks.optimization import Result, get_function, get_optimizer
 
 
+# This is the base class for the optimization task
 class _OptimizationTask(app.Task):
     
     abstract = True
+    
+    def run_optimization(self, optimizer, function, space, agents, 
+                         iterations, executions):
+        # Create results object
+        results = Result()
+        
+        # Save the number of executions
+        self.executions = executions
+        
+        # Run the optimization method n times:
+        for curr_exec in range(self.executions):
+            # Set progress description
+            self.set_progress_description(curr_exec + 1)
+            
+            # Get best solution, best value and fitness values
+            execution_data = self.optimize(
+                optimizer, function, space, agents, iterations
+            )
+            
+            # Update the results object
+            results.update(
+                execution_data['best_solution'], 
+                execution_data['best_value'], 
+                execution_data['fitness_values']
+            )
+        
+        # Return the results object as a dict
+        return results.as_dict()
+    
+    def set_progress_description(self, curr_exec):
+        if self.executions > 1:
+            self.progress_description = f'Execução {curr_exec}...'
+        else:
+            self.progress_description = None
     
     def optimize(self, optimizer, function, space, agents, iterations):
         # Set optimizer, function and search space
@@ -20,19 +54,16 @@ class _OptimizationTask(app.Task):
         # Start the optimization
         self.start(iterations)
         
-        # Get optimum value and function on optimum
-        best_solution, best_value = self.get_results()
+        # Get best solution, best value and fitness values        
+        best_solution, best_value, fitness_values = self.get_result()
         
-        # Get fitness values (for convergence plot)
-        fitness_values = self.get_fitness_values()
-        
-        # Add results and fitness values to the output        
+        # Return execution data 
         return {
             'best_solution': best_solution,
             'best_value': best_value,
             'fitness_values': fitness_values
         }
-        
+    
     def setup(self, optimizer, function, space, agents):
         # Get and set the optimizer object    
         self.optimizer = get_optimizer(optimizer)
@@ -60,7 +91,7 @@ class _OptimizationTask(app.Task):
         self.opytimizer = Opytimizer(self.space, self.optimizer, self.function)
         
         # Create progress callback
-        progress_callback = self.create_progress_callback(total=iterations)
+        progress_callback = self.get_progress_callback(total=iterations)
         
         # Start optimization
         self.opytimizer.start(
@@ -68,25 +99,42 @@ class _OptimizationTask(app.Task):
             callbacks=[progress_callback]
         )
     
-    def create_progress_callback(self, total):
-        # Return progress callback instance
-        return ProgressCallback(self, total)
-    
-    def get_results(self):
+    def get_result(self):
+        # Get best solution
         x =  self.opytimizer.space.best_agent.position.flatten().tolist()
+        
+        # Get best value
         y = self.opytimizer.space.best_agent.fit.item()
         
-        return x, y
+        # Get fitness values (for convergence plot)
+        f = self.get_fitness_values()
+
+        return x, y, f
 
     def get_fitness_values(self):
         _, f = self.opytimizer.history.get_convergence('best_agent')
         
         return f.tolist()
     
+    def get_progress_callback(self, total):
+        # Return progress callback instance
+        return ProgressCallback(self, total, self.progress_description)
+    
     def after_return(self, *args, **kwargs):
         # Delete logs created during the execution
         delete_logs()
 
+
+# This is the optimization task
 @app.task(name='optimization', base=_OptimizationTask, bind=True)
-def optimization(self, user_id, optimizer, function, space, agents, iterations):
-    return self.optimize(optimizer, function, space, agents, iterations)
+def optimization(self, user_id, optimizer, function, space, agents, 
+                 iterations, executions):
+    # Run the optimization task as specified by the following arguments
+    return self.run_optimization(
+        optimizer, 
+        function, 
+        space, 
+        agents, 
+        iterations,
+        executions
+    )
