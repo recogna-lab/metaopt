@@ -9,7 +9,7 @@ from utils import load_json
 from utils.plots import plot_convergence
 
 from .forms import FeatureSelectionForm, OptimizationForm
-from .models import get_all_tasks, get_task, get_dataset_info
+from .models import get_all_tasks, get_task, get_dataset_info, get_all_datasets_names
 from .tasks import feature_selection, optimization
 
 # Dashboard page
@@ -17,10 +17,13 @@ from .tasks import feature_selection, optimization
 @login_required
 def index(request):
     tasks = get_all_tasks(user_id=request.user.id)
-    
+
+    datasets_name = get_all_datasets_names()
+
     return render(request, 'dashboard/pages/index.html', context={
         'title': 'Dashboard',
-        'tasks': tasks
+        'tasks': tasks,
+        'datasets_name': datasets_name
     })
 
 # Optimization related views

@@ -135,6 +135,16 @@ def get_dataset_info(filename):
     except Dataset.DoesNotExist:
         return None
 
+def get_all_datasets_names():
+
+    try:
+        dataset = Dataset.objects.all()
+        return dataset
+    
+    except Dataset.DoesNotExist:
+        return None
+            
+
 # Get a single task via user task
 def get_task(user_id, task_id):
     try:
