@@ -1,4 +1,5 @@
 import math as m
+from statistics import stdev
 
 import numpy as np
 import opfython.utils.exception as e
@@ -12,7 +13,7 @@ logger = log.get_logger(__name__)
 
 class ResultFS(Result):
     def __init__(self):
-        super().__init__(self)
+        super().__init__()
 
     def update(self, result):
         if self.best_solution is None:
@@ -21,41 +22,48 @@ class ResultFS(Result):
             self._update(result)
 
     def _initialize(self, result):
-        
-        super()._initialize(self, result)
+        super()._initialize(result)
 
-        self.best_selected_features = np.array(result['best_selected_features'])
-        self.accuracy = result['accuracy']
-        self.confusion_matrix = np.array(result['confusion_matrix'])
         self.precision = np.array(result['precision'])
         self.recall = np.array(result['recall'])
         self.f1_score = np.array(result['f1_score'])
 
-        self.exec_data = [
-            self._get_exec_dict
-        ]
+        self.acc_values = [result['accuracy']]
+        self.bsf_list = [result['best_selected_features']]
+    
+    def _update(self, result):
+        super()._update(result)
 
+        self.bsf_list.append(result['best_selected_features'])
+        self.acc_values.append(result['accuracy'])
 
-    def _get_exec_dict(self, dict):
-        return {
-            'best_solution': dict['best_solution'],
-            'best_value': dict['best_value'],
-            'fitness_values': dict['fitness_values']
-        }
+        self.precision += np.array(result['precision'])
+        self.recall += np.array(result['recall'])
+        self.f1_score += np.array(result['f1_score'])
 
     def as_dict(self):
         # Get the number of executions
         count = len(self.exec_data)
+
+        best_acc_index = self.acc_values.index(max(self.acc_values))
         
         # Add average values to results dict
         # Remeber that standard deviation requires count > 1
         results_dict = {
             'best_solution': (self.best_solution / count).tolist(),
-            'best_value': self.best_value / count,
-            'min_value': self.min_value,
-            'max_value': self.max_value,
-            'stdev_value': m.stdev(self.values) if count > 1 else None,
-            'fitness_values': (self.fitness_values / count).tolist()
+            'best_value': sum(self.values) / count,
+            'min_value': min(self.values),
+            'max_value': max(self.values),
+            'stdev_value': stdev(self.values) if count > 1 else None,
+            'fitness_values': (self.fitness_values / count).tolist(),
+            'best_features_vector': self.bsf_list[best_acc_index],
+            'accuracy': sum(self.acc_values) / count,
+            'min_acc': min(self.acc_values),
+            'max_acc': max(self.acc_values),
+            'stdev_acc': stdev(self.acc_values) if count > 1 else None,
+            'precision': (self.precision / count).tolist(),
+            'recall': (self.recall / count).tolist(),
+            'f1_score': (self.f1_score / count).tolist()
         }
         
         # If it has more than one execution
@@ -68,9 +76,6 @@ class ResultFS(Result):
         
         # Return results dict
         return results_dict
-
-
-
 
 # Create a custom parser function based on 
 # the function extracted from Opfython
