@@ -1,0 +1,47 @@
+<div class="custom-card">
+    <h1>Otimização</h1>
+
+    <table class="table table-striped table-nowrap">
+        <thead>
+            <tr>
+                <th class="th-sm"></th>
+                <th class="th-sm"></th>     
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="col-sm">
+                <th scope="row" class="sm">Melhor Solução</th>
+                
+                {% load dashboard_extras %}
+                <td>{{ task.result.best_solution|listformat:3 }}</td>
+            </tr>
+            <tr class="col-sm">
+                <th scope="row" class="sm">Valor da Função</th>
+                <td>
+                    {% if task.task_kwargs.executions > 1 %}
+                        <div>
+                            <b>Mínimo:</b> 
+                            {{ task.result.min_value|floatformat:3 }}
+                        </div>
+                        <div>
+                            <b>Médio:</b> 
+                            {{ task.result.best_value|floatformat:3 }}
+                        </div>
+                        <div>
+                            <b>Máximo:</b> 
+                            {{ task.result.max_value|floatformat:3 }}
+                        </div>
+                    {% else %}
+                        {{ task.result.best_value|floatformat:3 }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% if task.task_kwargs.executions > 1 %}
+                <tr class="col-sm">
+                    <th scope="row" class="sm">Desvio Padrão</th>
+                    <td>{{ task.result.stdev_value|floatformat:3 }}</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>

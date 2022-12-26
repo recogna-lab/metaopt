@@ -6,16 +6,12 @@
     
     <div class="font-robo custom-container">
         <div class="dash-content">
-            <div class="custom-card">
-                <h1>{{ title }}</h1>
-                
-                {% include 'dashboard/partials/opt_card.html' %}
-
-                {% if task.task_name == 'Seleção de Características' %}
-                    {% include 'dashboard/partials/fs_card.html' %}
-                {% endif %}
-            </div>
-                
+            {% include 'dashboard/partials/result_card_opt.html' %}
+             
+            {% if task.task_name == 'Seleção de Características' %}
+                {% include 'dashboard/partials/result_card_fs.html' %}
+            {% endif %}
+            
             <div class="custom-card">
                 <h1>Gráficos</h1>
                 
