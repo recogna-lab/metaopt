@@ -2,6 +2,7 @@ from ast import literal_eval
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Q
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django_celery_results.models import TaskResult
@@ -135,6 +136,15 @@ def get_dataset_info(filename):
     except Dataset.DoesNotExist:
         return None
 
+def get_all_datasets_names():
+
+    try:
+        dataset = Dataset.objects.all()
+        return dataset
+    
+    except Dataset.DoesNotExist:
+        return None
+
 # Get a single task via user task
 def get_task(user_id, task_id):
     try:
@@ -163,6 +173,26 @@ def get_all_tasks(user_id):
         task = format_task(task)
     
     return tasks
+
+# Get all tasks that contain a certain word
+def get_tasks_filter(user_id, search):
+    user_tasks = UserTask.objects.filter(user__id=user_id)
+    user_tasks = user_tasks.values_list('task__task_id')
+
+    tasks = TaskResult.objects.filter(task_id__in=user_tasks)
+    tasks = tasks.order_by('-date_created')
+    tasks_filtered = tasks.filter(
+        Q(
+            Q(task_name__icontains = search) |
+            Q(status__icontains = search) |
+            Q(task_kwargs__icontains = search)
+        )
+    )
+
+    for task in tasks_filtered:
+        task = format_task(task)
+
+    return tasks_filtered
     
 # Format task before getting it
 def format_task(task):
