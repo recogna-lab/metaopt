@@ -12,6 +12,8 @@ def task_status(status):
     elif status == 'FAILURE':
         status = 'Falha'
     elif status == 'PROGRESS':
-        status = 'Em Progresso'
+        status = 'Progresso'
+    elif status == 'PENDING':
+        status = 'Pendente'
     
     return status
