@@ -15,46 +15,35 @@ class Result:
         # Just to know if result was not initialized
         self.best_solution = None
     
-    def update(self, x, y, f):
+    def update(self, result):
         if self.best_solution is None:
-            self._initialize(x, y, f)
+            self._initialize(result)
         else:
-            self._update(x, y, f)
+            self._update(result)
     
-    def _initialize(self, x, y, f):
-        self.best_solution = np.array(x)
-        self.fitness_values = np.array(f)
+    def _initialize(self, result):
+        self.best_solution = np.array(result['best_solution'])
+        self.fitness_values = np.array(result['fitness_values'])
         
-        self.best_value = y
-        self.min_value = y
-        self.max_value = y
+        self.best_value = result['best_value']
+        self.min_value = result['best_value']
+        self.max_value = result['best_value']
         
-        self.values = [y]
+        self.values = [result['best_value']]
         
-        self.exec_data = [
-            self._get_exec_dict(x, y, f)
-        ]
+        self.exec_data = [result]
     
-    def _update(self, x, y, f):
-        self.best_solution += np.array(x)
-        self.fitness_values += np.array(f)
+    def _update(self, result):
+        self.best_solution += np.array(result['best_solution'])
+        self.fitness_values += np.array(result['fitness_values'])
         
-        self.best_value += y
-        self.min_value = min(self.min_value, y)
-        self.max_value = max(self.max_value, y)
+        self.best_value += result['best_value']
+        self.min_value = min(self.min_value, result['best_value'])
+        self.max_value = max(self.max_value, result['best_value'])
         
-        self.values.append(y)
+        self.values.append(result['best_value'])
         
-        self.exec_data.append(
-            self._get_exec_dict(x, y, f)
-        )
-    
-    def _get_exec_dict(self, x, y, f):
-        return {
-            'best_solution': x,
-            'best_value': y,
-            'fitness_values': f
-        }
+        self.exec_data.append(result)
     
     def as_dict(self):
         # Get the number of executions

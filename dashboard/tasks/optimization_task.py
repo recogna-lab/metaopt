@@ -32,11 +32,7 @@ class _OptimizationTask(app.Task):
             )
             
             # Update the results object
-            results.update(
-                execution_data['best_solution'], 
-                execution_data['best_value'], 
-                execution_data['fitness_values']
-            )
+            results.update(result=execution_data)
         
         # Return the results object as a dict
         return results.as_dict()
