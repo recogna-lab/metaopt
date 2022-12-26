@@ -9,7 +9,9 @@
     <tbody>
         <tr class="col-sm">
             <th scope="row" class="sm">Melhor Solução</th>
-            <td>{{ task.result.best_solution }}</td>
+            
+            {% load dashboard_extras %}
+            <td>{{ task.result.best_solution|listformat:3 }}</td>
         </tr>
         <tr class="col-sm">
             <th scope="row" class="sm">Valor da Função</th>
