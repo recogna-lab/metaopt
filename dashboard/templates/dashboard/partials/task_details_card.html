@@ -34,7 +34,16 @@
             {% if key != 'user_id' and key != 'dimension' %}
             <tr class="col-sm">
                 <th scope="row" class="sm">{{key}}</th>
-                <td>{{value|upper}}</td>
+                <td>
+                {% if key == 'space' %}
+                    {% for k, v in value.items %}
+                        <b>{{k}}:</b> {{v}} <br>
+                    {% endfor %}
+                {% else %}
+                    {{value|upper}}
+                {% endif %}
+                </td>
+                
             </tr>
             {% endif %}
         {% endfor %}
