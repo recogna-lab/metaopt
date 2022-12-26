@@ -58,8 +58,8 @@ const initializeProgressBar = (progressURL, resultURL) => {
     }
     
     const onResult = (resultElement, result) => {
-        // Add space between elements
-        bestSolution = `[${result.best_solution}]`.replace(/,/g, ', ')
+        bestSolution = formatArray(result.best_solution)
+        bestValue = formatNumber(result.best_value)
 
         resultHTML = `
             <table class="table table-striped table-nowrap">
@@ -76,11 +76,11 @@ const initializeProgressBar = (progressURL, resultURL) => {
                     </tr>
                     <tr class="col-sm">
                         <th scope="row" class="sm">Melhor valor da função</th>
-                        <td>${result.best_value}</td>
+                        <td>${bestValue}</td>
                     </tr>
                 </tbody>
             </table>
-
+            
             <div class="a-right p-t-15">
                 <a href="${resultURL}" class="btn btn-basic btn-success btn-radius">
                     Ver mais
@@ -89,6 +89,31 @@ const initializeProgressBar = (progressURL, resultURL) => {
         `
 
         resultElement.innerHTML = resultHTML
+    }
+
+    const formatNumber = (number) => {
+        number = number.toLocaleString('pt-br', options={
+            minimumFractionDigits: 3, 
+            maximumFractionDigits: 3
+        })
+
+        return number
+    }
+
+    const formatArray = (arr) => {
+        let output = '['
+
+        for (let i = 0; i < arr.length; i++) {
+            let formattedNumber = formatNumber(arr[i])
+            
+            output += formattedNumber
+
+            if (i != arr.length - 1) {
+                output += '; '
+            }
+        }
+
+        return output + ']'
     }
     
     document.addEventListener('DOMContentLoaded', function () {
