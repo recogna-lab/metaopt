@@ -35,10 +35,14 @@
             <tr class="col-sm">
                 <th scope="row" class="sm">{{key}}</th>
                 <td>
-                {% if key == 'space' %}
+                {% if key == 'dataset' %}
+                    {{dataset.name}}
+                
+                {% elif key == 'space' %}
                     {% for k, v in value.items %}
                         <b>{{k}}:</b> {{v}} <br>
                     {% endfor %}
+
                 {% else %}
                     {{value|upper}}
                 {% endif %}
