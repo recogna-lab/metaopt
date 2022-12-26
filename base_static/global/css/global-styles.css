@@ -133,6 +133,23 @@ main {
 	margin-bottom: 2vmax;
 }
 
+.custom-card .btn-collapse {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+	color: #212529 !important;
+	height: min-content;
+}
+
+.btn-collapse.collapsed:after {
+	content: "\2304";
+}
+
+.btn-collapse:after {
+	content: "\2303";
+}
+
 .dash-content h1 {
 	margin-bottom: 2vmax;
 }

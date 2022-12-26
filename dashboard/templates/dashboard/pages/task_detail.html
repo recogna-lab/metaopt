@@ -7,10 +7,29 @@
     <div class="font-robo custom-container">
         <div class="dash-content">
             <div class="custom-card">
-                {% include 'dashboard/partials/task_details_card.html' %}
+                <h1>Descrição</h1>
+
+                <table class="table table-striped table-nowrap">
+                    <thead>
+                        <tr>
+                            <th class="th-sm"></th>
+                            <th class="th-sm"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="col-sm">
+                            <th scope="row" class="sm">Identificador</th>
+                            <td>{{ task.task_id }}</td>
+                        </tr>
+                        <tr class="col-sm">
+                            <th scope="row" class="sm">Tipo</th>
+                            <td>{{ task.task_name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             
-            <div id="progress-bar-wrapper" class="custom-card">
+            <div class="custom-card">
                 <h1>Progresso</h1>
 
                 <div class="progress">
@@ -21,7 +40,9 @@
                     Esperando a tarefa iniciar...
                 </div>
             </div>
-            
+
+           {% include 'dashboard/partials/task_parameters_card.html' %}
+
             <div class="custom-card">
                 <h1>Resultados</h1>
 

@@ -62,28 +62,26 @@ const initializeProgressBar = (progressURL, resultURL) => {
         bestSolution = `[${result.best_solution}]`.replace(/,/g, ', ')
 
         resultHTML = `
-            <div>
-                <table class="table table-striped table-nowrap">
-                    <thead>
-                        <tr>
-                            <th class="th-sm"></th>
-                            <th class="th-sm"></th>     
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="col-sm">
-                            <th scope="row" class="sm">Melhor solução</th>
-                            <td>${bestSolution}</td>
-                        </tr>
-                        <tr class="col-sm">
-                            <th scope="row" class="sm">Melhor valor da função</th>
-                            <td>${result.best_value}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <br>
-            <div>
+            <table class="table table-striped table-nowrap">
+                <thead>
+                    <tr>
+                        <th class="th-sm"></th>
+                        <th class="th-sm"></th>     
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="col-sm">
+                        <th scope="row" class="sm">Melhor solução</th>
+                        <td>${bestSolution}</td>
+                    </tr>
+                    <tr class="col-sm">
+                        <th scope="row" class="sm">Melhor valor da função</th>
+                        <td>${result.best_value}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="a-right p-t-15">
                 <a href="${resultURL}" class="btn btn-basic btn-success btn-radius">
                     Ver mais
                 </a>
