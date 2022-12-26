@@ -10,7 +10,7 @@ from opytimizer.core import Function
 import utils.tasks.feature_selection as p
 from metaopt.celery import app
 from metaopt.settings.environment import BASE_DIR
-from utils.tasks.feature_selection import get_transfer_function
+from utils.tasks.feature_selection import get_transfer_function, ResultFS
 from utils.tasks.optimization import get_optimizer
 
 from .optimization_task import _OptimizationTask
@@ -25,7 +25,8 @@ class _FeatureSelectionTask(_OptimizationTask):
                               dimension, agents, iterations, executions):
         # Probrably a good idea to create a results class for fs too
         # It's good to accumulate/average the results
-        # results = Result()
+
+        results = ResultFS()
         
         # Save the number of executions
         self.executions = executions
@@ -44,6 +45,8 @@ class _FeatureSelectionTask(_OptimizationTask):
                 agents, 
                 iterations
             )
+
+            results.update(execution_data)
             
             # An update could be called here
             # args -> execution data elements
