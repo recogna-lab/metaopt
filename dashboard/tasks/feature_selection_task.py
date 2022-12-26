@@ -46,19 +46,9 @@ class _FeatureSelectionTask(_OptimizationTask):
                 iterations
             )
 
-            results.update(execution_data)
-            
-            # An update could be called here
-            # args -> execution data elements
-            # results.update(args)
-        
-        # Return the results (when you have it)
-        # return results
+            results.update(result = execution_data)
 
-        # For now, return the execution data
-        # which has the results from the 
-        # last feature selection execution
-        return execution_data
+        return results.as_dict()
         
     def select_features(self, optimizer, dataset, transfer_function, 
                         dimension, agents, iterations):
