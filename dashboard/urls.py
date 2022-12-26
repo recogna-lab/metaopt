@@ -6,6 +6,7 @@ app_name = 'dashboard'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('search/', views.perform_search, name='search'),
     path(
         'opt/new/', 
          views.new_optimization_task, 
