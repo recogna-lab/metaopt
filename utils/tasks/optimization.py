@@ -25,10 +25,6 @@ class Result:
         self.best_solution = np.array(result['best_solution'])
         self.fitness_values = np.array(result['fitness_values'])
         
-        self.best_value = result['best_value']
-        self.min_value = result['best_value']
-        self.max_value = result['best_value']
-        
         self.values = [result['best_value']]
         
         self.exec_data = [result]
@@ -36,10 +32,6 @@ class Result:
     def _update(self, result):
         self.best_solution += np.array(result['best_solution'])
         self.fitness_values += np.array(result['fitness_values'])
-        
-        self.best_value += result['best_value']
-        self.min_value = min(self.min_value, result['best_value'])
-        self.max_value = max(self.max_value, result['best_value'])
         
         self.values.append(result['best_value'])
         
@@ -53,9 +45,9 @@ class Result:
         # Remeber that standard deviation requires count > 1
         results_dict = {
             'best_solution': (self.best_solution / count).tolist(),
-            'best_value': self.best_value / count,
-            'min_value': self.min_value,
-            'max_value': self.max_value,
+            'best_value': sum(self.values) / count,
+            'min_value': min(self.values),
+            'max_value': max(self.values),
             'stdev_value': stdev(self.values) if count > 1 else None,
             'fitness_values': (self.fitness_values / count).tolist()
         }
