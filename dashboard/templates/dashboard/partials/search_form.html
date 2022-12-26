@@ -1,6 +1,6 @@
-<form class="search-form">
+<form action="{% url 'dashboard:search' %}" class="search-form">
     <div class="search-text">
-        <input class="form-control search-text" type="search" placeholder="Pesquise" aria-label="Search" maxlenght="30">
+        <input class="form-control search-text" type="search" placeholder="Pesquise" aria-label="Search" maxlenght="30" name="filter">
     </div>
     
     <div class="search-button">
