@@ -18,7 +18,7 @@
                     </a>
                 </th>
                 
-                <td>{{ task.task_name }}</td>
+                <td>{{ task.task_name.split.0 }}</td>
 
                 <td>
                     <span class="{% if task.status == 'Sucesso' %}text-success{% elif task.status == 'Em Progresso' %}text-primary{% elif task.status == 'Falha' %}text-danger{% else %}{% endif %}">

@@ -10,12 +10,12 @@
     </thead>
     <tbody>
         <tr class="col-sm">
-            <th scope="row" class="sm">Identificadores</th>
-            <td>{{task.task_id}}</td>
+            <th scope="row" class="sm">Identificador</th>
+            <td>{{ task.task_id }}</td>
         </tr>
         <tr class="col-sm">
             <th scope="row" class="sm">Tipo</th>
-            <td>{{task.task_name}}</td>
+            <td>{{ task.task_name }}</td>
         </tr>
     </tbody>
 </table>
@@ -30,26 +30,91 @@
         </tr>
     </thead>
     <tbody>
-        {% for key, value in task.task_kwargs.items %}
-            {% if key != 'user_id' and key != 'dimension' %}
-            <tr class="col-sm">
-                <th scope="row" class="sm">{{key}}</th>
-                <td>
-                {% if key == 'dataset' %}
-                    {{dataset.name}}
-                
-                {% elif key == 'space' %}
-                    {% for k, v in value.items %}
-                        <b>{{k}}:</b> {{v}} <br>
-                    {% endfor %}
+        <tr class="col-sm">
+            <th scope="row" class="sm">Otimizador</th>
+            <td>
+                {{ task.task_kwargs.optimizer|upper }}
+            </td>
+        </tr>
 
-                {% else %}
-                    {{value|upper}}
-                {% endif %}
+        {% if task.task_name == 'Otimização' %}
+            <tr class="col-sm">
+                <th scope="row" class="sm">Função de benchmark</th>
+                <td>
+                    Função {{ task.task_kwargs.function|title }}
                 </td>
-                
             </tr>
-            {% endif %}
-        {% endfor %}
+            <tr class="col-sm">
+                <th scope="row" class="sm">Espaço de busca</th>
+                <td>
+                <span>
+                    <b>Dimensão:</b>
+                    {{ task.task_kwargs.space.dimension }}
+                </span>
+                </br>
+                <span>
+                    <b>Limite inferior:</b>
+                    {{ task.task_kwargs.space.lower_bound }}
+                </span>
+                </br>
+                <span>
+                    <b>Limite superior:</b>
+                    {{ task.task_kwargs.space.upper_bound }}
+
+                </span>
+                </td>
+            </tr>
+        {% else %}
+            <tr class="col-sm">
+                <th scope="row" class="sm">Base de dados</th>
+                <td>
+                    Base {{ dataset.name }}
+                </td>
+            </tr>
+            <tr class="col-sm">
+                <th scope="row" class="sm">Função de transferência</th>
+                <td>
+                    {{ task.task_kwargs.transfer_function|title }}
+                </td>
+            </tr>
+            <tr class="col-sm">
+                <th scope="row" class="sm">Espaço de busca</th>
+                <td>
+                    <span>
+                        <b>Dimensão:</b>
+                        {{ task.task_kwargs.dimension }}
+                    </span>
+                    </br>
+                    <span>
+                        <b>Limite inferior:</b>
+                        0 para todas as variáveis
+                    </span>
+                    </br>
+                    <span>
+                        <b>Limite superior:</b>
+                        1 ara todas as variáveis
+                    </span>
+                </td>
+            </tr>
+        {% endif %}
+
+        <tr class="col-sm">
+            <th scope="row" class="sm">Número de agentes</th>
+            <td>
+                {{ task.task_kwargs.agents }}
+            </td>
+        </tr>
+        <tr class="col-sm">
+            <th scope="row" class="sm">Número de iterações</th>
+            <td>
+                {{ task.task_kwargs.iterations }}
+            </td>
+        </tr>
+        <tr class="col-sm">
+            <th scope="row" class="sm">Número de execuções</th>
+            <td>
+                {{ task.task_kwargs.executions }}
+            </td>
+        </tr>
     </tbody>
 </table>
