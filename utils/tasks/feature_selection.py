@@ -5,6 +5,7 @@ import numpy as np
 import opfython.utils.exception as e
 import opfython.utils.logging as log
 import opytimizer.math.random as r
+
 from utils.tasks.optimization import Result
 
 # Get logger for the feature selection task
