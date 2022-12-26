@@ -114,7 +114,7 @@ main {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	width: 85vw;
+	width: 90vw;
 	padding-left: 2vmax;
 	padding-right: 2vmax
 }
@@ -194,7 +194,7 @@ footer {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 85vw;
+	width: 90vw;
 	padding: 1.5vmax 2vmax 1.5vmax 2vmax;
 }
 
@@ -250,7 +250,7 @@ footer {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 85vw;
+	width: 90vw;
 	padding: 0.5vmax 2vmax 0.5vmax 2vmax;
 }
 
