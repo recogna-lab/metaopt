@@ -1,0 +1,57 @@
+<br>
+<br>
+<h2>Seleção de Características</h2>
+<table class="table table-striped table-nowrap">
+    <thead>
+        <tr>
+            <th class="th-sm"></th>
+            <th class="th-sm"></th>     
+        </tr>
+    </thead>
+    <tbody>
+        <h2></h2>
+        <tr class="col-sm">
+            <th scope="row" class="sm">Acurácia</th>
+            <td>
+                {% if task.task_kwargs.executions > 1 %}
+                    <b>Médio:</b> {{ task.result.accuracy|floatformat:3 }} <br>
+                    <b>Maior:</b> {{ task.result.max_acc|floatformat:3 }} <br>
+                    <b>Menor:</b> {{ task.result.min_acc|floatformat:3 }} <br>
+                {% else %}
+                    {{ task.result.accuracy|floatformat:3 }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr class="col-sm">
+            <th scope="row" class="sm">Vetor de Características Ótimo</th>
+            <td>{{ task.result.best_features_vector }}</td>
+        </tr>
+        <tr class="col-sm">
+            <th scope="row" class="sm">Precision</th>
+            
+            <td> 
+                {% for p in task.result.precision %}
+                <b>Classe {{forloop.counter}}:</b>  {{ p|floatformat:3 }} <br>
+                {% endfor %}
+            </td>
+        </tr>
+
+        <tr class="col-sm">
+            <th scope="row" class="sm">Recall</th>
+            <td>
+                {% for rec in task.result.recall %}
+                    <b>Classe {{forloop.counter}}:</b>  {{rec|floatformat:3}}  <br>
+                {% endfor %}
+            </td>
+        </tr>
+        <tr class="col-sm">
+            <th scope="row" class="sm">F1-Score</th>
+            <td>
+            {% for f in task.result.f1_score %}
+                <b>Classe {{forloop.counter}}:</b>  {{ f|floatformat:3 }} <br>
+            {% endfor %}
+            
+            </td>
+        </tr>    
+    </tbody>
+</table>
