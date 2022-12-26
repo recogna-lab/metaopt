@@ -9,7 +9,7 @@ from utils import load_json
 from utils.plots import plot_convergence
 
 from .forms import FeatureSelectionForm, OptimizationForm
-from .models import get_all_tasks, get_task
+from .models import get_all_tasks, get_task, get_dataset_info
 from .tasks import feature_selection, optimization
 
 # Dashboard page
@@ -113,10 +113,16 @@ def task_detail(request, task_id):
     if task is None:
         raise Http404()
 
+    dataset = None
+
+    if task.task_name == 'Seleção de Características':
+        dataset = get_dataset_info(task.task_kwargs['dataset'])
+
     return render(request, 'dashboard/pages/task_detail.html', context={
         'title': 'Detalhes da Tarefa',
         'return_to': reverse('dashboard:index'),
-        'task': task
+        'task': task,
+        'dataset': dataset
     })
 
 @login_required
@@ -128,6 +134,11 @@ def task_result(request, task_id):
     
     if 'progress' in task.result:
         redirect('dashboard:task_detail', task_id=task_id)
+
+    dataset = None
+
+    if task.task_name == 'Seleção de Características':
+        dataset = get_dataset_info(task.task_kwargs['dataset'])
     
     fitness_values = task.result['fitness_values']
     conv_plot_div = plot_convergence(fitness_values)
@@ -136,7 +147,8 @@ def task_result(request, task_id):
         'title': 'Resultado da Tarefa',
         'return_to': reverse('dashboard:task_detail', args=(task_id,)),
         'task': task,
-        'conv_plot_div': conv_plot_div
+        'conv_plot_div': conv_plot_div,
+        'dataset': dataset
     })
 
 # Endpoint for retrieving progress
