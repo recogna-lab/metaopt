@@ -123,6 +123,18 @@ class UserTask(models.Model):
     class Meta:
         ordering = ('-task__date_created', )
 
+
+def get_dataset_info(filename):
+    try:
+        dataset = Dataset.objects.get(file_name = filename)
+
+        print(dataset)
+
+        return dataset
+
+    except Dataset.DoesNotExist:
+        return None
+
 # Get a single task via user task
 def get_task(user_id, task_id):
     try:
