@@ -4,9 +4,72 @@ import numpy as np
 import opfython.utils.exception as e
 import opfython.utils.logging as log
 import opytimizer.math.random as r
+from utils.tasks.optimization import Result
 
 # Get logger for the feature selection task
 logger = log.get_logger(__name__)
+
+
+class ResultFS(Result):
+    def __init__(self):
+        super().__init__(self)
+
+    def update(self, result):
+        if self.best_solution is None:
+            self._initialize(result)
+        else:
+            self._update(result)
+
+    def _initialize(self, result):
+        
+        super()._initialize(self, result)
+
+        self.best_selected_features = np.array(result['best_selected_features'])
+        self.accuracy = result['accuracy']
+        self.confusion_matrix = np.array(result['confusion_matrix'])
+        self.precision = np.array(result['precision'])
+        self.recall = np.array(result['recall'])
+        self.f1_score = np.array(result['f1_score'])
+
+        self.exec_data = [
+            self._get_exec_dict
+        ]
+
+
+    def _get_exec_dict(self, dict):
+        return {
+            'best_solution': dict['best_solution'],
+            'best_value': dict['best_value'],
+            'fitness_values': dict['fitness_values']
+        }
+
+    def as_dict(self):
+        # Get the number of executions
+        count = len(self.exec_data)
+        
+        # Add average values to results dict
+        # Remeber that standard deviation requires count > 1
+        results_dict = {
+            'best_solution': (self.best_solution / count).tolist(),
+            'best_value': self.best_value / count,
+            'min_value': self.min_value,
+            'max_value': self.max_value,
+            'stdev_value': m.stdev(self.values) if count > 1 else None,
+            'fitness_values': (self.fitness_values / count).tolist()
+        }
+        
+        # If it has more than one execution
+        if count > 1:
+            # For each execution
+            for i in range(count):
+                # Save execution data to results dict
+                k = f'exec_{i + 1}'
+                results_dict[k] = self.exec_data[i]
+        
+        # Return results dict
+        return results_dict
+
+
 
 
 # Create a custom parser function based on 
