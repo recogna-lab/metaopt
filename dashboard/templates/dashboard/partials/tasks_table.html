@@ -2,11 +2,11 @@
     <thead>
         <tr>
             <th scope="col">Identificador</th>
-            <th scope="col">Tipo</th>
-            <th scope="col">Otimizador</th>
-            <th scope="col">Função Objetivo</th>
-            <th scope="col">Base de Dados</th>
-            <th scope="col">Status</th>
+            <th scope="col" class="text-center">Tipo</th>
+            <th scope="col" class="text-center">Otimizador</th>
+            <th scope="col" class="text-center">Função Custo</th>
+            <th scope="col" class="text-center">Base de Dados</th>
+            <th scope="col" class="text-center">Status</th>
             <th scope="col">Criada em</th>
         </tr>
     </thead>
@@ -20,26 +20,26 @@
                     </a>
                 </th>
                 
-                <td>{{ task.task_name.split.0 }}</td>
+                <td class="text-center">{{ task.task_name.split.0 }}</td>
 
-                <td> {{task.task_kwargs.optimizer}} </td>
+                <td class="text-center">{{task.task_kwargs.optimizer}}</td>
 
                 {% if task.task_name == 'Seleção de Características' %}
-                    <td> Classificador OPF </th>
-                    <td> 
+                    <td class="text-center">OPF</th>
+                    <td class="text-center"> 
                         {% for d in datasets_name %}
                             {% if task.task_kwargs.dataset == d.file_name %}
-                                {{d.name}}
+                                {{ d.name }}
                             {% endif %}
                         {% endfor %}
                     </td>
                 {% else %}
-                    <td> {{task.task_kwargs.function}} </td>
-                    <td>-</td>
+                    <td class="text-center">{{task.task_kwargs.function}}</td>
+                    <td class="text-center text-muted">Não se aplica</td>
                 {% endif %}
 
-                <td>
-                    <span class="{% if task.status == 'Sucesso' %}text-success{% elif task.status == 'Em Progresso' %}text-primary{% elif task.status == 'Falha' %}text-danger{% else %}{% endif %}">
+                <td class="text-center">
+                    <span class="{% if task.status == 'Sucesso' %}text-success{% elif task.status == 'Progresso' %}text-primary{% elif task.status == 'Falha' %}text-danger{% elif task.status == 'Pendente' %}text-warning{% else %}text-dark{% endif %}">
                         {{ task.status }}
                     </span>
                 </td>
