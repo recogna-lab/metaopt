@@ -10,7 +10,7 @@ from opytimizer.core import Function
 import utils.tasks.feature_selection as p
 from metaopt.celery import app
 from metaopt.settings.environment import BASE_DIR
-from utils.tasks.feature_selection import get_transfer_function, ResultFS
+from utils.tasks.feature_selection import ResultFS, get_transfer_function
 from utils.tasks.optimization import get_optimizer
 
 from .optimization_task import _OptimizationTask
@@ -21,11 +21,13 @@ class _FeatureSelectionTask(_OptimizationTask):
     
     abstract = True
 
+    def __init__(self):
+        self.name = 'Seleção de Características'
+        super().__init__()
+    
     def run_feature_selection(self, optimizer, dataset, transfer_function,
                               dimension, agents, iterations, executions):
-        # Probrably a good idea to create a results class for fs too
-        # It's good to accumulate/average the results
-
+        # Create results object
         results = ResultFS()
         
         # Save the number of executions
@@ -46,8 +48,10 @@ class _FeatureSelectionTask(_OptimizationTask):
                 iterations
             )
 
+            # Update the results object
             results.update(result = execution_data)
 
+        # Return the results object as a dict
         return results.as_dict()
         
     def select_features(self, optimizer, dataset, transfer_function, 
@@ -212,7 +216,7 @@ class _FeatureSelectionTask(_OptimizationTask):
 
 
 # This is the feature selection task
-@app.task(name='feature_selection', base=_FeatureSelectionTask, bind=True)
+@app.task(base=_FeatureSelectionTask, bind=True)
 def feature_selection(self, user_id, optimizer, dataset, transfer_function,
                       dimension, agents, iterations, executions):
     # Run the feature selection task as specified by the following arguments
