@@ -21,10 +21,6 @@ from .optimization_task import _OptimizationTask
 class _FeatureSelectionTask(_OptimizationTask):
     
     abstract = True
-
-    def __init__(self):
-        self.name = 'Seleção de Características'
-        super().__init__()
     
     def run_feature_selection(self, optimizer, dataset, transfer_function,
                               dimension, agents, iterations, executions):
@@ -219,7 +215,7 @@ class _FeatureSelectionTask(_OptimizationTask):
 
 
 # This is the feature selection task
-@app.task(base=_FeatureSelectionTask, bind=True)
+@app.task(name='feature_selection', base=_FeatureSelectionTask, bind=True)
 def feature_selection(self, user_id, optimizer, function, dataset,
                       transfer_function, dimension, agents, 
                       iterations, executions):
