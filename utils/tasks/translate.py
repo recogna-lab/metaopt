@@ -18,13 +18,21 @@ def task_status(status):
     
     return status
 
-def icontains_optimization(q):
-    return True if q.lower() in 'otimização' else False
+def task_name_icontains(q):
+    q = q.lower()
+    
+    # names that match condition
+    names = ()
+    
+    if q in 'otimização':
+        names = names + ('optimization', )
+    
+    if q in 'seleção':
+        names = names + ('feature_selection', )
+    
+    return names
 
-def icontains_selection(q):
-    return True if q.lower() in 'seleção' else False
-
-def icontains_status(q):
+def status_icontains(q):
     q = q.lower()
     
     # Status that match condition
@@ -40,3 +48,9 @@ def icontains_status(q):
         status = status + ('PENDING', )
     
     return status
+
+def optimizer_regex(search_term):
+    # Define regex to find optimizer key inside json string
+    # and check if search_term is part of the value
+    optimizer_regex = r'.*"optimizer":\s"[A-Z]*{}[A-Z]*".*'
+    return optimizer_regex.format(search_term.upper())

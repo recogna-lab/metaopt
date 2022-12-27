@@ -127,50 +127,40 @@ class UserTask(models.Model):
 
 # Get all tasks that contain a certain word
 def filter_tasks(user_id, search_term):
-    # Get task_id of all tasks that belong to the user
-    user_tasks = UserTask.objects.filter(user__id=user_id)
-    user_tasks = user_tasks.values_list('task__task_id')
-
-    # Get the task information using task ids
-    tasks = TaskResult.objects.filter(task_id__in=user_tasks)
-    tasks = tasks.order_by('-date_created')
+    # Get the task_id of all of the user tasks
+    task_ids = get_task_ids(user_id)
     
-    # Select the desired fields in a dict
-    tasks = select_task_fields(tasks)
-    
-    # Create query variables (with query that has no matches)
-    opt_query = Q(task_name='batman')
-    selection_query = Q(task_name='batman')
-    status_query = Q(task_name='batman')
-    
-    # If term contains optimization letters, add opt tasks
-    if translate.icontains_optimization(search_term):
-        opt_query = Q(task_name='optimization')
-    
-    # If term contains selection letters, add fs tasks
-    if translate.icontains_selection(search_term):
-        selection_query = Q(task_name='feature_selection')
+    # Get tuple with names that contains search term
+    task_names = translate.task_name_icontains(search_term)
+    task_names_query = Q(task_name__in=task_names)
     
     # Get tuple with status that contains search term
-    status = translate.icontains_status(search_term)
+    status = translate.status_icontains(search_term)
     status_query = Q(status__in=status)
     
-    # Define regex to find optimizer substring and check search term
-    optimizer_regex = r'.*"optimizer":\s"[a-zA-Z]*{}[a-zA-Z]*".*'
-    optimizer_regex = optimizer_regex.format(search_term.upper())
+    # Get optimizer regex to check if search_term is
+    # a substring of the optimizer key inside the 
+    # json string that is in task_kwargs
+    optimizer_regex = translate.optimizer_regex(search_term)
     
     # Create optimizer query
     optimizer_query = Q(task_kwargs__regex=optimizer_regex)
     
-    # Filter tasks using the search word
-    filtered_tasks = tasks.filter(
+    # Filter tasks using task ids and queries
+    filtered_tasks = TaskResult.objects.filter(
+        Q(task_id__in=task_ids),
         Q(
-            opt_query |
-            selection_query |
+            task_names_query |
             status_query |
             optimizer_query
         )
     )
+    
+    # Order filtered tasks
+    filtered_tasks = filtered_tasks.order_by('-date_created')
+    
+    # Select the desired fields in a dict
+    filtered_tasks = select_task_fields(filtered_tasks)
     
     for task in filtered_tasks:
         task = format_task(task)
@@ -179,14 +169,11 @@ def filter_tasks(user_id, search_term):
 
 # Get all tasks via user task
 def get_all_tasks(user_id):
-    # Get user_tasks with user_id
-    user_tasks = UserTask.objects.filter(user__id=user_id)
-    
-    # Get the task_id from all of the user tasks
-    user_tasks = user_tasks.values_list('task__task_id')
+    # Get the task_id of all of the user tasks
+    task_ids = get_task_ids(user_id)
     
     # Get the task information from the tasks with matching id
-    tasks = TaskResult.objects.filter(task_id__in=user_tasks)
+    tasks = TaskResult.objects.filter(task_id__in=task_ids)
     tasks = tasks.order_by('-date_created')
 
     # Select the desired fields in a dict
@@ -198,6 +185,11 @@ def get_all_tasks(user_id):
     
     # Return formatted tasks
     return tasks
+
+def get_task_ids(user_id):
+    # Get task_id of all tasks that belong to the user
+    user_tasks = UserTask.objects.filter(user__id=user_id)
+    return user_tasks.values_list('task__task_id')
 
 # Get a single task via user task
 def get_task(user_id, task_id):
