@@ -22,7 +22,7 @@
                 
                 <td class="text-center">{{ task.task_name.split.0 }}</td>
 
-                <td class="text-center">{{task.task_kwargs.optimizer}}</td>
+                <td class="text-center">{{ task.task_kwargs.optimizer }}</td>
 
                 {% if task.task_name == 'Seleção de Características' %}
                     <td class="text-center">OPF</th>
@@ -34,7 +34,7 @@
                         {% endfor %}
                     </td>
                 {% else %}
-                    <td class="text-center">{{task.task_kwargs.function}}</td>
+                    <td class="text-center">{{ task.task_kwargs.function }}</td>
                     <td class="text-center text-muted">Não se aplica</td>
                 {% endif %}
 
