@@ -530,7 +530,7 @@ h6 {
 	width: fit-content;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: baseline;
 }
 
 .search-text {
@@ -538,13 +538,8 @@ h6 {
 	margin-right: 2vmin;
 }
 
-.search-button {
-	width: 5vmax;
-}
-
 .new-task-dpdwn {
 	width: fit-content;
-	text-align: right;
 }
 
 .dash-tasks-table a {

@@ -41,6 +41,12 @@ def search(request):
         'tasks': tasks
     })
 
+@login_required
+def compare(request):
+    return render(request, 'dashboard/pages/compare_tasks.html', context={
+        'title': 'Comparação de tarefas'
+    })
+
 # Optimization related views
 
 @login_required
