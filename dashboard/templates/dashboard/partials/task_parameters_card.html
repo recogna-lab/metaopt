@@ -20,12 +20,12 @@
                         {{ task.task_kwargs.optimizer|upper }}
                     </td>
                 </tr>
-        
+
                 {% if task.task_name == 'Otimização' %}
                     <tr class="col-sm">
-                        <th scope="row" class="sm">Função de benchmark</th>
+                        <th scope="row" class="sm">Função objetivo</th>
                         <td>
-                            Função {{ task.task_kwargs.function|title }}
+                            {{ task.task_kwargs.function|title }}
                         </td>
                     </tr>
                     <tr class="col-sm">
@@ -50,15 +50,9 @@
                     </tr>
                 {% else %}
                     <tr class="col-sm">
-                        <th scope="row" class="sm">Base de dados</th>
+                        <th scope="row" class="sm">Função objetivo</th>
                         <td>
-                            {{ dataset.name }}
-                        </td>
-                    </tr>
-                    <tr class="col-sm">
-                        <th scope="row" class="sm">Função de transferência</th>
-                        <td>
-                            {{ task.task_kwargs.transfer_function|title }}
+                            {{ task.task_kwargs.function|upper }}
                         </td>
                     </tr>
                     <tr class="col-sm">
@@ -78,6 +72,18 @@
                                 <b>Limite superior:</b>
                                 1 para todas as variáveis
                             </span>
+                        </td>
+                    </tr>
+                    <tr class="col-sm">
+                        <th scope="row" class="sm">Base de dados</th>
+                        <td>
+                            {{ dataset.name }}
+                        </td>
+                    </tr>
+                    <tr class="col-sm">
+                        <th scope="row" class="sm">Função de transferência</th>
+                        <td>
+                            {{ task.task_kwargs.transfer_function|title }}
                         </td>
                     </tr>
                 {% endif %}

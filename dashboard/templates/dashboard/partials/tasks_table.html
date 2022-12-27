@@ -4,7 +4,7 @@
             <th scope="col">Identificador</th>
             <th scope="col" class="text-center">Tipo</th>
             <th scope="col" class="text-center">Otimizador</th>
-            <th scope="col" class="text-center">Função Custo</th>
+            <th scope="col" class="text-center">Função Objetivo</th>
             <th scope="col" class="text-center">Base de Dados</th>
             <th scope="col" class="text-center">Status</th>
             <th scope="col">Criada em</th>
@@ -25,7 +25,7 @@
                 <td class="text-center">{{ task.task_kwargs.optimizer }}</td>
 
                 {% if task.task_name == 'Seleção de Características' %}
-                    <td class="text-center">OPF</th>
+                    <td class="text-center">{{ task.task_kwargs.function }}</th>
                     <td class="text-center"> 
                         {% for d in datasets_name %}
                             {% if task.task_kwargs.dataset == d.file_name %}

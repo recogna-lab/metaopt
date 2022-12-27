@@ -117,7 +117,8 @@ def start_feature_selection_task(request):
     
     fs_task = feature_selection.delay(
         user_id=request.user.id,
-        optimizer=form_data['optimizer'].acronym, 
+        optimizer=form_data['optimizer'].acronym,
+        function='OPF', # Only for saving in the db
         dataset=form_data['dataset'].file_name,
         transfer_function=form_data['transfer_function'].name.lower(),
         dimension=form_data['dataset'].features,
@@ -140,7 +141,7 @@ def task_detail(request, task_id):
     dataset = None
 
     if task['task_name'] == 'Seleção de Características':
-        dataset = models.get_dataset_info(task.task_kwargs['dataset'])
+        dataset = models.get_dataset_info(task['task_kwargs']['dataset'])
 
     return render(request, 'dashboard/pages/task_detail.html', context={
         'title': 'Detalhes da Tarefa',
@@ -162,7 +163,7 @@ def task_result(request, task_id):
     dataset = None
 
     if task['task_name'] == 'Seleção de Características':
-        dataset = models.get_dataset_info(task.task_kwargs['dataset'])
+        dataset = models.get_dataset_info(task['task_kwargs']['dataset'])
     
     fitness_values = task['result']['fitness_values']
     conv_plot_div = plot_convergence(fitness_values)

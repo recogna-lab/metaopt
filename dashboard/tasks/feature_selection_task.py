@@ -217,8 +217,9 @@ class _FeatureSelectionTask(_OptimizationTask):
 
 # This is the feature selection task
 @app.task(base=_FeatureSelectionTask, bind=True)
-def feature_selection(self, user_id, optimizer, dataset, transfer_function,
-                      dimension, agents, iterations, executions):
+def feature_selection(self, user_id, optimizer, function, dataset,
+                      transfer_function, dimension, agents, 
+                      iterations, executions):
     # Run the feature selection task as specified by the following arguments
     return self.run_feature_selection(
         optimizer, 
