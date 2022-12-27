@@ -130,6 +130,9 @@ def filter_tasks(user_id, search_term):
     # Get the task_id of all of the user tasks
     task_ids = get_task_ids(user_id)
     
+    # Create query to search for particular ids
+    task_id_query = Q(task_id__icontains=search_term)
+    
     # Get tuple with names that contains search term
     task_names = translate.task_name_icontains(search_term)
     task_names_query = Q(task_name__in=task_names)
@@ -142,17 +145,26 @@ def filter_tasks(user_id, search_term):
     # a substring of the optimizer key inside the 
     # json string that is in task_kwargs
     optimizer_regex = translate.optimizer_regex(search_term)
-    
-    # Create optimizer query
     optimizer_query = Q(task_kwargs__regex=optimizer_regex)
+    
+    # Get function regex and create query
+    function_regex = translate.function_regex(search_term)
+    function_query = Q(task_kwargs__regex=function_regex)
+    
+    # Get dataset regex and create query
+    dataset_regex = translate.dataset_regex(search_term)
+    dataset_query = Q(task_kwargs__regex=dataset_regex)
     
     # Filter tasks using task ids and queries
     filtered_tasks = TaskResult.objects.filter(
         Q(task_id__in=task_ids),
         Q(
+            task_id_query |
             task_names_query |
             status_query |
-            optimizer_query
+            optimizer_query |
+            function_query |
+            dataset_query
         )
     )
     

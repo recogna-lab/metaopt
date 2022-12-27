@@ -54,3 +54,15 @@ def optimizer_regex(search_term):
     # and check if search_term is part of the value
     optimizer_regex = r'.*"optimizer":\s"[A-Z]*{}[A-Z]*".*'
     return optimizer_regex.format(search_term.upper())
+
+def function_regex(search_term):
+    # Define regex to find function key inside json string
+    # and check if search_term is part of the value
+    function_regex = r'.*"function":\s"[a-zA-Z]*(?i){}[a-zA-Z0-9]*".*'
+    return function_regex.format(search_term)
+
+def dataset_regex(search_term):
+    # Define regex to find dataset key inside json string
+    # and check if search_term is part of the value
+    dataset_regex = r'.*"dataset":\s"[a-zA-Z\s]*(?i){}[a-zA-Z\s]*".*'
+    return dataset_regex.format(search_term)
