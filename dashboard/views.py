@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from utils import load_json
-from utils.plots import plot_convergence
+from utils.plots import plot_convergence, plot_bar, get_distribution
 
 from . import models
 from .forms import FeatureSelectionForm, OptimizationForm
@@ -147,17 +147,21 @@ def task_result(request, task_id):
     
     if 'progress' in task['result']:
         redirect('dashboard:task_detail', task_id=task_id)
-
-    dataset = None
     
-    fitness_values = task['result']['fitness_values']
-    conv_plot_div = plot_convergence(fitness_values)
+    conv_plot_div = plot_convergence(task)
+
+    bar_plot_div = None
+    task_type = task['task_name']
+
+    if task_type == 'Seleção de Características':
+        bar_plot_div = plot_bar(task)
 
     return render(request, 'dashboard/pages/task_result.html', context={
         'title': 'Resultado da Tarefa',
         'return_to': reverse('dashboard:task_detail', args=(task_id,)),
         'task': task,
-        'conv_plot_div': conv_plot_div
+        'conv_plot_div': conv_plot_div,
+        'bar_plot_div': bar_plot_div
     })
 
 # Endpoint for retrieving progress
