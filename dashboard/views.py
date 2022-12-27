@@ -8,17 +8,17 @@ from django.urls import reverse
 from utils import load_json
 from utils.plots import plot_convergence
 
+from . import models
 from .forms import FeatureSelectionForm, OptimizationForm
-from .models import get_all_tasks, get_task, get_dataset_info, get_all_datasets_names, get_tasks_filter
 from .tasks import feature_selection, optimization
 
 # Dashboard page
 
 @login_required
 def index(request):
-    tasks = get_all_tasks(user_id=request.user.id)
-
-    datasets_name = get_all_datasets_names()
+    tasks = models.get_all_tasks(user_id=request.user.id)
+    
+    datasets_name = models.get_all_datasets_names()
 
     return render(request, 'dashboard/pages/index.html', context={
         'title': 'Dashboard',
@@ -27,19 +27,22 @@ def index(request):
     })
 
 @login_required
-def perform_search(request):
+def search(request):
+    search_term = request.GET.get('q')
 
-    search = request.GET.get('filter')
-
-    if(search == ''):
+    if not search_term or not search_term.strip():
         return redirect('dashboard:index')
 
-    tasks = get_tasks_filter(user_id = request.user.id, search = search)
-
-    datasets_name = get_all_datasets_names()
+    tasks = models.filter_tasks(
+        user_id=request.user.id, 
+        search_term=search_term
+    )
+    
+    datasets_name = models.get_all_datasets_names()
 
     return render(request, 'dashboard/pages/index.html', context={
         'title': 'Dashboard',
+        'search_term': search_term,
         'tasks': tasks,
         'datasets_name': datasets_name
     })
@@ -129,15 +132,15 @@ def start_feature_selection_task(request):
 
 @login_required
 def task_detail(request, task_id):
-    task = get_task(request.user.id, task_id)
+    task = models.get_task(request.user.id, task_id)
     
     if task is None:
         raise Http404()
 
     dataset = None
 
-    if task.task_name == 'Seleção de Características':
-        dataset = get_dataset_info(task.task_kwargs['dataset'])
+    if task['task_name'] == 'Seleção de Características':
+        dataset = models.get_dataset_info(task.task_kwargs['dataset'])
 
     return render(request, 'dashboard/pages/task_detail.html', context={
         'title': 'Detalhes da Tarefa',
@@ -148,20 +151,20 @@ def task_detail(request, task_id):
 
 @login_required
 def task_result(request, task_id):
-    task = get_task(request.user.id, task_id)
+    task = models.get_task(request.user.id, task_id)
     
     if task is None:
         raise Http404()
     
-    if 'progress' in task.result:
+    if 'progress' in task['result']:
         redirect('dashboard:task_detail', task_id=task_id)
 
     dataset = None
 
-    if task.task_name == 'Seleção de Características':
-        dataset = get_dataset_info(task.task_kwargs['dataset'])
+    if task['task_name'] == 'Seleção de Características':
+        dataset = models.get_dataset_info(task.task_kwargs['dataset'])
     
-    fitness_values = task.result['fitness_values']
+    fitness_values = task['result']['fitness_values']
     conv_plot_div = plot_convergence(fitness_values)
 
     return render(request, 'dashboard/pages/task_result.html', context={
@@ -176,7 +179,7 @@ def task_result(request, task_id):
 
 @login_required
 def task_progress(request, task_id):
-    task = get_task(request.user.id, task_id)
+    task = models.get_task(request.user.id, task_id)
     
     if task is None:
         raise Http404()

@@ -125,85 +125,137 @@ class UserTask(models.Model):
         ordering = ('-task__date_created', )
 
 
-def get_dataset_info(filename):
-    try:
-        dataset = Dataset.objects.get(file_name = filename)
+# Get all tasks that contain a certain word
+def filter_tasks(user_id, search_term):
+    # Get task_id of all tasks that belong to the user
+    user_tasks = UserTask.objects.filter(user__id=user_id)
+    user_tasks = user_tasks.values_list('task__task_id')
 
-        print(dataset)
-
-        return dataset
-
-    except Dataset.DoesNotExist:
-        return None
-
-def get_all_datasets_names():
-
-    try:
-        dataset = Dataset.objects.all()
-        return dataset
+    # Get the task information using task ids
+    tasks = TaskResult.objects.filter(task_id__in=user_tasks)
+    tasks = tasks.order_by('-date_created')
     
-    except Dataset.DoesNotExist:
-        return None
+    # Select the desired fields in a dict
+    tasks = select_task_fields(tasks)
+    
+    # Create query variables (with query that has no matches)
+    opt_query = Q(task_name='batman')
+    selection_query = Q(task_name='batman')
+    status_query = Q(task_name='batman')
+    
+    # If term contains optimization letters, add opt tasks
+    if translate.icontains_optimization(search_term):
+        opt_query = Q(task_name='optimization')
+    
+    # If term contains selection letters, add fs tasks
+    if translate.icontains_selection(search_term):
+        selection_query = Q(task_name='feature_selection')
+    
+    # Get tuple with status that contains search term
+    status = translate.icontains_status(search_term)
+    status_query = Q(status__in=status)
+    
+    # Define regex to find optimizer substring and check search term
+    optimizer_regex = r'.*"optimizer":\s"[a-zA-Z]*{}[a-zA-Z]*".*'
+    optimizer_regex = optimizer_regex.format(search_term.upper())
+    
+    # Create optimizer query
+    optimizer_query = Q(task_kwargs__regex=optimizer_regex)
+    
+    # Filter tasks using the search word
+    filtered_tasks = tasks.filter(
+        Q(
+            opt_query |
+            selection_query |
+            status_query |
+            optimizer_query
+        )
+    )
+    
+    for task in filtered_tasks:
+        task = format_task(task)
+    
+    return filtered_tasks
+
+# Get all tasks via user task
+def get_all_tasks(user_id):
+    # Get user_tasks with user_id
+    user_tasks = UserTask.objects.filter(user__id=user_id)
+    
+    # Get the task_id from all of the user tasks
+    user_tasks = user_tasks.values_list('task__task_id')
+    
+    # Get the task information from the tasks with matching id
+    tasks = TaskResult.objects.filter(task_id__in=user_tasks)
+    tasks = tasks.order_by('-date_created')
+
+    # Select the desired fields in a dict
+    tasks = select_task_fields(tasks)
+    
+    # Format tasks
+    for task in tasks:
+        task = format_task(task)
+    
+    # Return formatted tasks
+    return tasks
 
 # Get a single task via user task
 def get_task(user_id, task_id):
     try:
+        # Check if user owns the task
         UserTask.objects.get(
             user__id=user_id, 
             task__task_id=task_id
         )
         
-        task = TaskResult.objects.get(
+        # Get task information
+        task = TaskResult.objects.filter(
             task_id=task_id
         )
         
-        return format_task(task=task)
+        # Select the desired fields in a dict
+        task = select_task_fields(task)
+        
+        # Return formatted task
+        return format_task(task=task.first())
     except UserTask.DoesNotExist:
         return None
 
-# Get all tasks via user task
-def get_all_tasks(user_id):
-    user_tasks = UserTask.objects.filter(user__id=user_id)
-    user_tasks = user_tasks.values_list('task__task_id')
-    
-    tasks = TaskResult.objects.filter(task_id__in=user_tasks)
-    tasks = tasks.order_by('-date_created')
-    
-    for task in tasks:
-        task = format_task(task)
-    
-    return tasks
-
-# Get all tasks that contain a certain word
-def get_tasks_filter(user_id, search):
-    user_tasks = UserTask.objects.filter(user__id=user_id)
-    user_tasks = user_tasks.values_list('task__task_id')
-
-    tasks = TaskResult.objects.filter(task_id__in=user_tasks)
-    tasks = tasks.order_by('-date_created')
-    tasks_filtered = tasks.filter(
-        Q(
-            Q(task_name__icontains = search) |
-            Q(status__icontains = search) |
-            Q(task_kwargs__icontains = search)
-        )
+def select_task_fields(task_qs):
+    # Select the desired values
+    return task_qs.values(
+        'task_id',
+        'task_name',
+        'task_kwargs',
+        'status',
+        'result',
+        'date_created',
+        'date_done'        
     )
 
-    for task in tasks_filtered:
-        task = format_task(task)
-
-    return tasks_filtered
-    
 # Format task before getting it
 def format_task(task):
-    task.task_name = translate.task_name(task.task_name)
-    task.status = translate.task_status(task.status)
-    task.task_kwargs = load_json(task.task_kwargs)
+    task['task_name'] = translate.task_name(task['task_name'])
+    task['status'] = translate.task_status(task['status'])
+    task['task_kwargs'] = load_json(task['task_kwargs'])
 
-    if task.result is not None:
-        task.result = load_json(task.result)
+    if task['result'] is not None:
+        task['result'] = load_json(task['result'])
     
     return task
+
+def get_dataset_info(filename):
+    try:
+        return Dataset.objects.get(file_name = filename)
+    except Dataset.DoesNotExist:
+        return None
+
+def get_all_datasets_names():
+    try:
+        return Dataset.objects.all()
+    except Dataset.DoesNotExist:
+        return None
+
 
 # Before saving a task result instance
 @receiver(pre_save, sender=TaskResult)
