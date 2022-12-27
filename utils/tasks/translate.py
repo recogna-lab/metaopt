@@ -17,3 +17,26 @@ def task_status(status):
         status = 'Pendente'
     
     return status
+
+def icontains_optimization(q):
+    return True if q.lower() in 'otimização' else False
+
+def icontains_selection(q):
+    return True if q.lower() in 'seleção' else False
+
+def icontains_status(q):
+    q = q.lower()
+    
+    # Status that match condition
+    status = ()
+    
+    if q in 'sucesso':
+        status = status + ('SUCCESS', )
+    elif q in 'falha':
+        status = status + ('FAILURE', )
+    elif q in 'progresso':
+        status = status + ('PROGRESS', )
+    elif q in 'pendente':
+        status = status + ('PENDING', )
+    
+    return status
