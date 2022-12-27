@@ -19,7 +19,7 @@ def index(request):
     tasks = models.get_all_tasks(user_id=request.user.id)
     
     datasets_name = models.get_all_datasets_names()
-
+    
     return render(request, 'dashboard/pages/index.html', context={
         'title': 'Dashboard',
         'tasks': tasks,
@@ -119,7 +119,7 @@ def start_feature_selection_task(request):
         user_id=request.user.id,
         optimizer=form_data['optimizer'].acronym,
         function='OPF', # Only for saving in the db
-        dataset=form_data['dataset'].file_name,
+        dataset=form_data['dataset'].name,
         transfer_function=form_data['transfer_function'].name.lower(),
         dimension=form_data['dataset'].features,
         agents=form_data['agents'], 
