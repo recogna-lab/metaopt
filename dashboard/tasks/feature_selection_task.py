@@ -32,6 +32,11 @@ class _FeatureSelectionTask(_OptimizationTask):
         
         # Run the feature selection n times:
         for curr_exec in range(self.executions):
+
+            executions -= 1
+
+            np.random.seed(executions)
+
             # Set progress description
             self.set_progress_description(curr_exec + 1)
             

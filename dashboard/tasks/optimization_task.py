@@ -1,3 +1,5 @@
+import numpy as np
+
 from opytimizer import Opytimizer
 from opytimizer.core import Function
 from opytimizer.spaces import SearchSpace
@@ -23,6 +25,10 @@ class _OptimizationTask(app.Task):
         
         # Run the optimization method n times:
         for curr_exec in range(self.executions):
+            executions -= 1
+
+            np.random.seed(executions)
+
             # Set progress description
             self.set_progress_description(curr_exec + 1)
             
@@ -61,6 +67,7 @@ class _OptimizationTask(app.Task):
         }
     
     def setup(self, optimizer, function, space, agents):
+
         # Get and set the optimizer object    
         self.optimizer = get_optimizer(optimizer)
         
