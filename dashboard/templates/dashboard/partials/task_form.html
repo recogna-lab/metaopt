@@ -4,9 +4,15 @@
     <fieldset>
         {% for field in form %}
             <div class="form-group">
-                {{ field.label }}
+                {{ field.label_tag }}
                 {{ field }}
             </div>
+
+            {% if field.label == 'Função' %}
+                <div id="expression-wrapper" class="text-center">
+                    <div id="render-expression"></div>
+                </div>
+            {% endif %}
         {% endfor %}
     </fieldset>
     

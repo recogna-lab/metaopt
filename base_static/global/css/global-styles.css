@@ -564,3 +564,8 @@ h6 {
 	flex-direction: column;
 	justify-content: center;
 }
+
+#expression-wrapper {
+	overflow-x: auto;
+	overflow-y: hidden;
+}

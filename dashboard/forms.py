@@ -56,8 +56,8 @@ class OptimizationForm(_TaskForm):
     function = forms.ModelChoiceField(
         label='Função',
         queryset=Function.objects.all(),
-        to_field_name='short_name',
-        empty_label=None
+        to_field_name='latex_expression',
+        empty_label='Selecione uma função de benchmark'
     )
 
     field_order = ['optimizer', 'function', 'agents', 'iterations']

@@ -3,6 +3,8 @@
 <head>
     {% include 'global/partials/head.html' %}
     
+    {% block head_scripts %}{% endblock head_scripts %}
+    
     <title>{% block title %}{% endblock title %} MetaOPT</title>
 </head>
 <body>
@@ -23,6 +25,7 @@
         {% include 'global/partials/footer.html' %}
         
     {% endblock foooter %}
+    
+    {% block scripts %}{% endblock scripts %}
 </body>
-{% block scripts %}{% endblock scripts %}
 </html>
