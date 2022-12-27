@@ -4,6 +4,7 @@ import numpy as np
 import opfython.math.general as g
 import opfython.stream.loader as l
 import opfython.stream.splitter as sp
+from django.template.defaultfilters import slugify
 from opfython.models.supervised import SupervisedOPF
 from opytimizer.core import Function
 
@@ -88,9 +89,11 @@ class _FeatureSelectionTask(_OptimizationTask):
         return self.concatenate_results(result_opt, result_fs, metrics)
     
     def dataset_split(self, dataset):
+        filename = f'{slugify(dataset)}.txt'
+        
         # Take the path of dataset
         dir = os.path.join(
-            BASE_DIR, 'dashboard/static/dashboard/datasets', dataset
+            BASE_DIR, 'dashboard/static/dashboard/datasets', filename
         )
         
         # Loading a .txt file to a numpy array
