@@ -1,5 +1,8 @@
 // Configure MathJax
 MathJax = {
+    startup: {
+        typeset: false
+    },
     tex: {
         inlineMath: [
             ["$", "$"],
