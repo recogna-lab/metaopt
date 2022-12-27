@@ -1,5 +1,5 @@
 // Configure MathJax
-MathJax = {
+window.MathJax = {
     startup: {
         typeset: false
     },
