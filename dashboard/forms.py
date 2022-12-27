@@ -82,7 +82,7 @@ class FeatureSelectionForm(_TaskForm):
     transfer_function = forms.ModelChoiceField(
         label='Função de Transferência',
         queryset=TransferFunction.objects.all(),
-        to_field_name='name',
+        to_field_name='latex_expression',
         empty_label=None
     )
 

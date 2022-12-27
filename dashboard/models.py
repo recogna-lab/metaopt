@@ -99,6 +99,12 @@ class TransferFunction(models.Model):
         verbose_name='Name',
         help_text='Name of the Transfer Function'
     )
+
+    latex_expression = models.CharField(
+        max_length=255,
+        verbose_name='Latex Expression',
+        help_text='Latex expression for the transfer function'
+    )
     
     def __str__(self):
         return f'{self.name}'
