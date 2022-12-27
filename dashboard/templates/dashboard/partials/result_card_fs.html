@@ -52,7 +52,7 @@
                     {% for rec in task.result.recall %}
                         <div>
                             <b>Classe {{forloop.counter}}:</b>
-                            {{rec|floatformat:3}}
+                            {{ rec|floatformat:3 }}
                         </div>
                     {% endfor %}
                 </td>
