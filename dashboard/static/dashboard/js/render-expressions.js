@@ -29,5 +29,7 @@ const renderExpression = (expression) => {
 
 // Create listener to detect changes in the select element
 selectElement.addEventListener('change', (event) => {
-    renderExpression(event.target.value)
+    if (window.MathJax) {
+        renderExpression(event.target.value)
+    }
 })
