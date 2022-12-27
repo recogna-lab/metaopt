@@ -25,14 +25,8 @@
                 <td class="text-center">{{ task.task_kwargs.optimizer }}</td>
 
                 {% if task.task_name == 'Seleção de Características' %}
-                    <td class="text-center">{{ task.task_kwargs.function }}</th>
-                    <td class="text-center"> 
-                        {% for d in datasets_name %}
-                            {% if task.task_kwargs.dataset == d.file_name %}
-                                {{ d.name }}
-                            {% endif %}
-                        {% endfor %}
-                    </td>
+                    <td class="text-center">{{ task.task_kwargs.function }}</td>
+                    <td class="text-center">{{ task.task_kwargs.dataset }}</td>
                 {% else %}
                     <td class="text-center">{{ task.task_kwargs.function }}</td>
                     <td class="text-center text-muted">Não se aplica</td>

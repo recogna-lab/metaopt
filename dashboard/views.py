@@ -18,12 +18,9 @@ from .tasks import feature_selection, optimization
 def index(request):
     tasks = models.get_all_tasks(user_id=request.user.id)
     
-    datasets_name = models.get_all_datasets_names()
-    
     return render(request, 'dashboard/pages/index.html', context={
         'title': 'Dashboard',
-        'tasks': tasks,
-        'datasets_name': datasets_name
+        'tasks': tasks
     })
 
 @login_required
@@ -38,13 +35,10 @@ def search(request):
         search_term=search_term
     )
     
-    datasets_name = models.get_all_datasets_names()
-
     return render(request, 'dashboard/pages/index.html', context={
         'title': 'Dashboard',
         'search_term': search_term,
-        'tasks': tasks,
-        'datasets_name': datasets_name
+        'tasks': tasks
     })
 
 # Optimization related views
@@ -138,16 +132,10 @@ def task_detail(request, task_id):
     if task is None:
         raise Http404()
 
-    dataset = None
-
-    if task['task_name'] == 'Seleção de Características':
-        dataset = models.get_dataset_info(task['task_kwargs']['dataset'])
-
     return render(request, 'dashboard/pages/task_detail.html', context={
         'title': 'Detalhes da Tarefa',
         'return_to': reverse('dashboard:index'),
-        'task': task,
-        'dataset': dataset
+        'task': task
     })
 
 @login_required
@@ -161,9 +149,6 @@ def task_result(request, task_id):
         redirect('dashboard:task_detail', task_id=task_id)
 
     dataset = None
-
-    if task['task_name'] == 'Seleção de Características':
-        dataset = models.get_dataset_info(task['task_kwargs']['dataset'])
     
     fitness_values = task['result']['fitness_values']
     conv_plot_div = plot_convergence(fitness_values)
@@ -172,8 +157,7 @@ def task_result(request, task_id):
         'title': 'Resultado da Tarefa',
         'return_to': reverse('dashboard:task_detail', args=(task_id,)),
         'task': task,
-        'conv_plot_div': conv_plot_div,
-        'dataset': dataset
+        'conv_plot_div': conv_plot_div
     })
 
 # Endpoint for retrieving progress

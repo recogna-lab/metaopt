@@ -248,18 +248,6 @@ def format_task(task):
     
     return task
 
-def get_dataset_info(filename):
-    try:
-        return Dataset.objects.get(file_name = filename)
-    except Dataset.DoesNotExist:
-        return None
-
-def get_all_datasets_names():
-    try:
-        return Dataset.objects.all()
-    except Dataset.DoesNotExist:
-        return None
-
 
 # Before saving a task result instance
 @receiver(pre_save, sender=TaskResult)
