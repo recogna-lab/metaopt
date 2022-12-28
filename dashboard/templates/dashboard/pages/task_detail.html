@@ -47,7 +47,7 @@
                 <h1>Resultados</h1>
 
                 <div id="task-result">
-                    <span>Após a execução, resultados aparecem aqui!</span>
+                    <span>Após a execução, os resultados aparecerão aqui.</span>
                 </div>
             </div>
         </div>
@@ -59,11 +59,12 @@
 
     {% load static %}
     <script src="{% static 'celery_progress/celery_progress.js' %}"></script>
-    <script src="{% static 'dashboard/js/scripts.js' %}"></script>
+    <script src="{% static 'dashboard/js/progress.js' %}"></script>
 
     <script>
         let progressURL = "{% url 'dashboard:task_progress' task.task_id %}"
         let resultURL = "{% url 'dashboard:task_result' task.task_id %}"
+
         initializeProgressBar(progressURL, resultURL)
     </script>
 

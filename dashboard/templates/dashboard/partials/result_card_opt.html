@@ -10,13 +10,13 @@
         </thead>
         <tbody>
             <tr class="col-sm">
-                <th scope="row" class="sm">Melhor Solução</th>
+                <th scope="row" class="sm">Melhor solução</th>
                 
                 {% load dashboard_extras %}
                 <td>{{ task.result.best_solution|listformat:3 }}</td>
             </tr>
             <tr class="col-sm">
-                <th scope="row" class="sm">Valor da Função</th>
+                <th scope="row" class="sm">Melhor valor da função</th>
                 <td>
                     {% if task.task_kwargs.executions > 1 %}
                         <div>
@@ -38,7 +38,7 @@
             </tr>
             {% if task.task_kwargs.executions > 1 %}
                 <tr class="col-sm">
-                    <th scope="row" class="sm">Desvio Padrão</th>
+                    <th scope="row" class="sm">Desvio padrão</th>
                     <td>{{ task.result.stdev_value|floatformat:3 }}</td>
                 </tr>
             {% endif %}

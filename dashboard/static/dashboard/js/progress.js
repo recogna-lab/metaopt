@@ -1,15 +1,18 @@
 const initializeProgressBar = (progressURL, resultURL) => {
+    // Create custom pbar colors
     const defaultBarColors = {
         success: '#76ce60',
         progress: '#68a9ef',
         error: '#dc4f63'
     }
 
+    // Create custom pbar messages
     const defaultPBarMessages = {
         waiting: 'Esperando a tarefa iniciar...',
         started: 'Tarefa iniciando...'
     }
 
+    // Function that will be executed during progress
     const onProgress = (pBarElement, pBarMessageElement, progress) => {
         pBarElement.style.backgroundColor = defaultBarColors.progress
         pBarElement.style.width = progress.percent + '%'
@@ -28,16 +31,14 @@ const initializeProgressBar = (progressURL, resultURL) => {
         }
     }
 
+    // Function that will be executed when an error happens
     const onError = (pBarElement, pBarMessageElement, exception, _) => {
         pBarElement.style.backgroundColor = defaultBarColors.error
         pBarMessageElement.textContent = 'Algo deu errado! Recarregue ' + 
             'a página ou execute a tarefa novamente.'
-        
-        // If necessary, use the lines above to see the problem
-        // exception = exception
-        // console.log(exception)
     }
 
+    // Function that will be executed when retry happens
     const onRetry = (pBarElement, pBarMessageElement, exception, retryWhen) => {
         pBarElement.style.backgroundColor = defaultBarColors.error
         
@@ -46,20 +47,17 @@ const initializeProgressBar = (progressURL, resultURL) => {
 
         pBarMessageElement.textContent = 'Algo deu errado! Reexecutando ' +
             'tarefa em ' + retryWhen + ' segundos'
-        
-        // If necessary, use the lines above to see the problem
-        // exception = exception
-        // console.log(exception)
     }
 
+    // Function that will be executed when success happens
     const onSuccess = (pBarElement, pBarMessageElement, _) => {
         pBarElement.style.backgroundColor = defaultBarColors.success
         pBarMessageElement.textContent = 'Tarefa concluída com sucesso!'
     }
     
+    // Function that will be executed to show the results
     const onResult = (resultElement, result) => {
-        bestSolution = formatArray(result.best_solution)
-        bestValue = formatNumber(result.best_value)
+        const [first, second] = extractResults(result)
 
         resultHTML = `
             <table class="table table-striped table-nowrap">
@@ -71,12 +69,12 @@ const initializeProgressBar = (progressURL, resultURL) => {
                 </thead>
                 <tbody>
                     <tr class="col-sm">
-                        <th scope="row" class="sm">Melhor solução</th>
-                        <td>${bestSolution}</td>
+                        <th scope="row" class="sm">${first.label}</th>
+                        <td>${first.value}</td>
                     </tr>
                     <tr class="col-sm">
-                        <th scope="row" class="sm">Melhor valor da função</th>
-                        <td>${bestValue}</td>
+                        <th scope="row" class="sm">${second.label}</th>
+                        <td>${second.value}</td>
                     </tr>
                 </tbody>
             </table>
@@ -91,6 +89,45 @@ const initializeProgressBar = (progressURL, resultURL) => {
         resultElement.innerHTML = resultHTML
     }
 
+    // Helper function to extract results
+    const extractResults = (result) => {
+        let first = {}
+        let second = {}
+
+        if (result.best_features_vector) {
+            first.label = 'Melhor vetor de características'
+            first.value = formatBooleanArray(result.best_features_vector)
+
+            second.label = 'Precisão'
+            second.value = formatNumber(result.best_value)
+        } else {
+            first.label = 'Melhor solução'
+            first.value = formatArray(result.best_solution)
+
+            second.label = 'Melhor valor da função'
+            second.value = formatNumber(result.best_value)
+        }
+
+        return [first, second]
+    }
+
+    const formatBooleanArray = (arr) => {
+        let output = '['
+
+        for (let i = 0; i < arr.length; i++) {
+            let value = arr[i].toString()
+
+            output += value.charAt(0).toUpperCase() + value.slice(1)
+
+            if (i != arr.length - 1) {
+                output += ', '
+            }
+        }
+
+        return output + ']'
+    }
+    
+    // Helper function to format number
     const formatNumber = (number) => {
         number = number.toLocaleString('pt-br', options={
             minimumFractionDigits: 3, 
@@ -100,6 +137,7 @@ const initializeProgressBar = (progressURL, resultURL) => {
         return number
     }
 
+    // Helper function to format array
     const formatArray = (arr) => {
         let output = '['
 
@@ -116,7 +154,9 @@ const initializeProgressBar = (progressURL, resultURL) => {
         return output + ']'
     }
     
+    // When DOM content is already loaded, initialize pbar
     document.addEventListener('DOMContentLoaded', function () {
+        // Initialize celery pbar
         CeleryProgressBar.initProgressBar(progressURL, {
             progressBarMessageId: 'progress-bar-status',
             resultElementId: 'task-result',

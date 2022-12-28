@@ -10,6 +10,10 @@
         </thead>
         <tbody>
             <tr class="col-sm">
+                <tr class="col-sm">
+                    <th scope="row" class="sm">Melhor vetor de características</th>
+                    <td>{{ task.result.best_features_vector }}</td>
+                </tr>
                 <th scope="row" class="sm">Acurácia</th>
                 <td>
                     {% if task.task_kwargs.executions > 1 %}
@@ -31,11 +35,7 @@
                 </td>
             </tr>
             <tr class="col-sm">
-                <th scope="row" class="sm">Vetor de Características Ótimo</th>
-                <td>{{ task.result.best_features_vector }}</td>
-            </tr>
-            <tr class="col-sm">
-                <th scope="row" class="sm">Precision</th>
+                <th scope="row" class="sm">Precisão</th>
                 <td> 
                     {% for p in task.result.precision %}
                         <div>
@@ -58,7 +58,7 @@
                 </td>
             </tr>
             <tr class="col-sm">
-                <th scope="row" class="sm">F1-Score</th>
+                <th scope="row" class="sm">F1-score</th>
                 <td>
                     {% for f in task.result.f1_score %}
                         <div>
