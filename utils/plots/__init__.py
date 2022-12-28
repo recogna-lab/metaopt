@@ -3,80 +3,20 @@ import plotly.graph_objs as go
 from plotly.offline import plot
 
 
-def get_distribution(task):
-    """Gets the distribution of each feature
-
-    Args:
-        task (dict): A task's dictionary
-
-    Returns:
-        list: A list containing the distribution's percentage of each feature
-
-    """
-
-    executions = task['task_kwargs']['executions']
-
-    feature_vectors = get_feature_vectors(task, executions)
-
-    qtde_features = len(feature_vectors[0])
-    quantities = []
-    
-    for i in range(qtde_features):
-        quantities.insert(i, 0)
-
-    for feature_vector in feature_vectors:
-        for chave, feature in enumerate(feature_vector):
-            if feature:
-                quantities[chave] += 1
-    
-    distributions = [(i/executions * 100) for i in quantities]
-
-    return distributions
-
-def get_feature_vectors(task, executions):
-    """Gets the feature's vectors of each execution if there are
-
-    Args:
-        task (dict): A task's dictionary
-        executions: The number of indepedent executions
-    
-    Returns:
-        list: A list where each position is a feature vector
-    """
-
-    feature_vectors = []
-
-    if executions == 1:
-        feature_vectors.append(task['result']['best_features_vector'])
-
-    else:
-        for i in range(executions):
-            name = "exec_" + str(i+1)
-            feature_vectors.append(task['result'][name]['best_selected_features'])
-
-    return feature_vectors
-
 def plot_convergence(task):
-    """Plots a graphic for fitness value over the iterations
-
-    Args:
-        task (dict): A task's dictionary
-
-    Returns:
-        plotly: An object plotly which contains a HTML version of the graphic
-    """
+    # Name of the optimizer used in the execution
+    optimizer = task['task_kwargs']['optimizer']['acronym']
     
+    # Get list with fitness values
     fitness_values = task['result']['fitness_values']
 
     # Create a list with the iterations
     iterations = list(range(1, len(fitness_values) + 1))
-    
-    name_opt = task['task_kwargs']['optimizer']['acronym']
 
     # Set up the plot
     fig = go.Figure()
     scatter = go.Scatter(
-        name = str(name_opt),
+        name=optimizer,
         x=iterations,
         y=fitness_values,
         mode='lines',
@@ -84,9 +24,8 @@ def plot_convergence(task):
         marker_color='blue')
     fig.add_trace(scatter)
     fig.update_layout(
-        title='Gráfico de Convergência',
+        legend_title='Otimizador',
         title_x=0.5,
-        legend_title="Otimizador",
         template='simple_white',
         xaxis=dict(
             title='Iteração',
@@ -114,42 +53,33 @@ def plot_convergence(task):
     return plot_div
 
 def plot_bar(task):
-    """Plots a histogram for feature distribuitions
-
-    Args:
-        task (dict): A task's dictionary
-
-    Returns:
-        plotly: An object plotly which contains a HTML version of the histogram
-    """
-
-    distributions = get_distribution(task)
-
-    name_opt = task['task_kwargs']['optimizer']['acronym']
+    # Name of the optimizer used in the execution
+    optimizer = task['task_kwargs']['optimizer']['acronym']
     
-    number_of_features = list(range(1, len(distributions) + 1))
-
+    # Distribution values for features
+    distributions = get_distribution(task)
+    
+    # List with number of features in the distributions
+    features = list(range(1, len(distributions) + 1))
+    
+    # Set up the plot
     fig = go.Figure()
-
     bar = go.Bar(
-        name=str(name_opt),
-        x = number_of_features,
-        y = distributions,
+        name=optimizer,
+        x=features,
+        y=distributions,
         marker_color = 'blue',
         opacity=0.8,
     )
-
     fig.add_trace(bar)
-
     fig.update_layout(
-        title='Gráfico de Distribuição de Frequências',
-        legend_title="Otimizador",
+        legend_title='Otimizador',
         title_x=0.5,
         template='simple_white',
         xaxis=dict(
             title='Característica',
             showgrid=False,
-            tickvals=number_of_features
+            tickvals=features
         ),
         yaxis=dict(
             title='Porcentagem de Ocorrência',
@@ -170,5 +100,53 @@ def plot_bar(task):
     })
     
     return plot_div
+
+
+# Helper function to get features distribution
+def get_distribution(task):
+    # Get list with features vector
+    feature_vectors = get_feature_vectors(task)
+
+    # Get number of features in a vector
+    feature_count = len(feature_vectors[0])
     
+    # Initialize freq list
+    freq = [0] * feature_count
+
+    # Compute feature freq
+    for vector in feature_vectors:
+        for i, feature in enumerate(vector):
+            if feature:
+                freq[i] += 1
+    
+    # Get the number of executions
+    executions = task['task_kwargs']['executions']
+    
+    # Compute distributions based on freq
+    return [(x/executions * 100) for x in freq]
+
+# Helper function to get feature vectors
+def get_feature_vectors(task):
+    # Get number of executions
+    executions = task['task_kwargs']['executions']
+    
+    # If there's only one execution, return the best features
+    # vector in a list 
+    if executions == 1:
+        return [task['result']['best_features_vector']]
+
+    # Create a list to hold features vector 
+    feature_vectors = []
+    
+    # Access data from all executions and extract
+    # the features vectors
+    for i in range(executions):
+        exec = "exec_" + str(i+1)
+        
+        feature_vectors.append(
+            task['result'][exec]['best_selected_features']
+        )
+    
+    # Return the list with feature vectors
+    return feature_vectors
 
