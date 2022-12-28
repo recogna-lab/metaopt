@@ -6,7 +6,13 @@
             <div class="form-group">
                 {{ field.label_tag }}
                 {{ field }}
+                {% if field.label == 'Base de Dados' %}
+                    <div id="load-info">
+                        <div id="render-info"></div>
+                    </div>
+                {% endif %}
             </div>
+            
 
             {% if field.label == 'Função' or field.label == 'Função de Transferência' %}
                 <div id="expression-wrapper" class="text-center">
