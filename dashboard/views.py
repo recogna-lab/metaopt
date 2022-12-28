@@ -43,11 +43,8 @@ def search(request):
 
 @login_required
 def compare(request):
-    compare_form = CompareForm(request.user.id)
-    
     return render(request, 'dashboard/pages/compare_tasks.html', context={
         'title': 'Comparação de tarefas',
-        'compare_form': compare_form
     })
 
 # Optimization related views
