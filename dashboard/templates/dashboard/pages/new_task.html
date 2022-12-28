@@ -7,8 +7,6 @@
     
     <script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 
-    <script src="{% static 'dashboard/js/render-expressions.js' %}" defer></script>
-
 {% endblock head_scripts %}
 
 {% block title %}{{ title }} |{% endblock title %}
@@ -26,3 +24,9 @@
     </div>
 
 {% endblock content %}
+
+{% block scripts %}
+    
+    <script src="{% static 'dashboard/js/render-expressions.js' %}"></script>
+    
+{% endblock scripts %}
