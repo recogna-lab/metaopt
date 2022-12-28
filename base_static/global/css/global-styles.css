@@ -572,3 +572,11 @@ h6 {
 	width: 100%;
 	margin-top: 3vmax;
 }
+
+.striped tbody tr:nth-child(even) {
+	background: rgba(0, 0, 0, 0.05);
+}
+
+.striped tbody tr:nth-child(odd) {
+	background: rgba(0, 0, 0, 0.07);
+}
