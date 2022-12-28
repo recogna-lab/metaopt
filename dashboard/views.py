@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from utils import load_json
-from utils.plots import plot_convergence, plot_bar, get_distribution
+from utils.plots import plot_bar, plot_convergence
 
 from . import models
 from .forms import FeatureSelectionForm, OptimizationForm
@@ -154,12 +154,14 @@ def task_result(request, task_id):
     if 'progress' in task['result']:
         redirect('dashboard:task_detail', task_id=task_id)
     
+    # Get div with convergence plot
     conv_plot_div = plot_convergence(task)
 
+    # Create variable to hold div with bar plot
     bar_plot_div = None
-    task_type = task['task_name']
 
-    if task_type == 'Seleção de Características':
+    # If task is a feature selection, get bar plot div
+    if task['task_name'] == 'Seleção de Características':
         bar_plot_div = plot_bar(task)
 
     return render(request, 'dashboard/pages/task_result.html', context={
