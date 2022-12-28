@@ -3,7 +3,7 @@ from django_select2 import forms as s2forms
 
 from utils.django.forms import add_attr
 
-from .models import Dataset, Function, Optimizer, TransferFunction, TaskResult, get_task_ids
+from .models import Dataset, Function, Optimizer, TransferFunction
 
 
 class _TaskForm(forms.Form):
