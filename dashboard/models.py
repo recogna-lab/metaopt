@@ -56,7 +56,7 @@ class Function(models.Model):
         help_text='JSON representation of the search space'
     )
     
-    optimal_result = models.TextField(
+    optimal = models.TextField(
         verbose_name='Optimal Result',
         help_text='JSON representation of the optimal result'
     )
@@ -271,6 +271,9 @@ def add_function_info(task):
     
     if function:
         task['task_kwargs']['function'] = function.values().first()
+        task['task_kwargs']['function']['optimal'] = load_json(
+            task['task_kwargs']['function']['optimal']
+        )
 
 
 # Before saving a task result instance

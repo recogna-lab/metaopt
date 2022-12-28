@@ -101,7 +101,7 @@ class UserTaskAdmin(admin.ModelAdmin):
         return False
 
 class FunctionAdmin(admin.ModelAdmin):
-    list_display = ('short_name', 'name', 'optimal_result')
+    list_display = ('short_name', 'name', 'optimal')
 
 admin.site.unregister(GroupResult)
 admin.site.unregister(TaskResult)
