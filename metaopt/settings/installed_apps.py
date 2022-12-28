@@ -13,4 +13,5 @@ INSTALLED_APPS = [
     'celery_progress',
     'django_celery_results',
     'fontawesomefree',
+    'django_select2',
 ]

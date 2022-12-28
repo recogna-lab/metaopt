@@ -1,8 +1,9 @@
 from django import forms
+from django_select2 import forms as s2forms
 
 from utils.django.forms import add_attr
 
-from .models import Dataset, Function, Optimizer, TransferFunction
+from .models import Dataset, Function, Optimizer, TransferFunction, TaskResult, get_task_ids
 
 
 class _TaskForm(forms.Form):
@@ -93,3 +94,37 @@ class FeatureSelectionForm(_TaskForm):
         'agents',
         'iterations'
     ]
+
+class CompareForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        self.user_id = args[0]
+
+        self.task_ids = get_task_ids(self.user_id)
+
+        self.creatingFields()    
+
+        self.name = 'compare_form'
+
+    def creatingFields(self):
+
+        task_one = forms.ModelChoiceField(
+            queryset = TaskResult.objects.filter(task_id__in=self.task_ids),
+            label="Task_One",
+            widget=s2forms.ModelSelect2Widget(
+                search_fields=['task_id__in']
+            )
+        )
+    
+        task_two = forms.ModelChoiceField(
+            queryset = TaskResult.objects.filter(task_id__in=self.task_ids),
+            label="Task_Two",
+            widget=s2forms.ModelSelect2Widget(
+                search_fields=['task_id__in'],
+                dependent_fields={'task_one': 'task_one'}
+            )
+        )
+
+   
