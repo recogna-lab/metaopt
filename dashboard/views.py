@@ -9,7 +9,7 @@ from utils import load_json
 from utils.plots import plot_bar, plot_convergence
 
 from . import models
-from .forms import CompareForm, FeatureSelectionForm, OptimizationForm
+from .forms import FeatureSelectionForm, OptimizationForm
 from .tasks import feature_selection, optimization
 
 # Dashboard page
@@ -43,11 +43,8 @@ def search(request):
 
 @login_required
 def compare(request):
-    compare_form = CompareForm(request.user.id)
-    
     return render(request, 'dashboard/pages/compare_tasks.html', context={
-        'title': 'Comparação de tarefas',
-        'compare_form': compare_form
+        'title': 'Comparação de tarefas'
     })
 
 # Optimization related views
