@@ -5,7 +5,7 @@
     "fields": {
         "short_name": "Ackley2",
         "name": "Função Ackley 2",
-        "latex_expression": "$ f(x_1, x_2) = -200e^{-0.2\\sqrt{x_1^2+x_2^2}} $",
+        "latex_expression": "$ f(x_1, x_2) = -200e^{-0{,}2\\sqrt{x_1^2+x_2^2}} $",
         "search_space": "{\"dimension\": 2, \"lower_bound\": [-32, -32], \"upper_bound\": [32, 32]}",
         "optimal_result": "{\"optimal_solution\": [0, 0], \"optimal_value\": -200}"
     }
@@ -16,7 +16,7 @@
     "fields": {
         "short_name": "Adjiman",
         "name": "Função Adjiman",
-        "latex_expression": "$ f(x_1, x_2) = cos(x_1) sin(x_2) - \\frac{x_1}{x_2^2+1} $",
+        "latex_expression": "$ f(x_1, x_2) = cos(x_1)sin(x_2) - \\frac{x_1}{x_2^2+1} $",
         "search_space": "{\"dimension\": 2, \"lower_bound\": [-1, -1], \"upper_bound\": [2, 1]}",
         "optimal_result": "{\"optimal_solution\": [2, 0.10578], \"optimal_value\": -2.02181}"
     }
@@ -27,9 +27,86 @@
     "fields": {
         "short_name": "Beale",
         "name": "Função Beale",
-        "latex_expression": "$ f(x_1, x_2) = (1.5-x_1+x_1x_2)^2 + (2.25-x_1+x_1x_2^2)^2 + (2.625-x_1+x_1x_2^3)^2 $",
+        "latex_expression": "$ f(x_1, x_2) = (1{,}5-x_1+x_1x_2)^2 + (2{,}25-x_1+x_1x_2^2)^2 + (2{,}625-x_1+x_1x_2^3)^2 $",
         "search_space": "{\"dimension\": 2, \"lower_bound\": [-4.5, -4.5], \"upper_bound\": [4.5, 4.5]}",
         "optimal_result": "{\"optimal_solution\": [3, 0.5], \"optimal_value\": 0}"
+    }
+},
+{
+    "model": "dashboard.function",
+    "pk": 4,
+    "fields": {
+        "short_name": "Booth",
+        "name": "Função Booth",
+        "latex_expression": "$ f(x_1, x_2) = (x_1 + 2x_2 - 7)^2 + (2x_1 + x_2 - 5)^2 $",
+        "search_space": "{\"dimension\": 2, \"lower_bound\": [-10, -10], \"upper_bound\": [10, 10]}",
+        "optimal_result": "{\"optimal_solution\": [1, 3], \"optimal_value\": 0}"
+    }
+},
+{
+    "model": "dashboard.function",
+    "pk": 5,
+    "fields": {
+        "short_name": "Brent",
+        "name": "Função Brent",
+        "latex_expression": "$ f(x_1, x_2) = (x_1 + 10)^2 + (x_2 + 10)^2 + e^{-x_1^2 - x_2^2} $",
+        "search_space": "{\"dimension\": 2, \"lower_bound\": [-10, -10], \"upper_bound\": [10, 10]}",
+        "optimal_result": "{\"optimal_solution\": [0, 0], \"optimal_value\": 0}"
+    }
+},
+{
+    "model": "dashboard.function",
+    "pk": 6,
+    "fields": {
+        "short_name": "Bukin2",
+        "name": "Função Bukin 2",
+        "latex_expression": "$ f(x_1, x_2) = 100(x_2 - 0{,}01x_1^2 + 1) + 0{,}01(x_1 + 10)^2 $",
+        "search_space": "{\"dimension\": 2, \"lower_bound\": [-15, -3], \"upper_bound\": [-5, 3]}",
+        "optimal_result": "{\"optimal_solution\": [-10, 0], \"optimal_value\": 0}"
+    }
+},
+{
+    "model": "dashboard.function",
+    "pk": 7,
+    "fields": {
+        "short_name": "Camel3",
+        "name": "Função Camel 3",
+        "latex_expression": "$ f(x_1, x_2) = 2x_1^2 - 1{,}05x_1^4 + \\frac{x_1^6}{6} + x_1x_2 + x_2^2 $",
+        "search_space": "{\"dimension\": 2, \"lower_bound\": [-5, -5], \"upper_bound\": [5, 5]}",
+        "optimal_result": "{\"optimal_solution\": [0, 0], \"optimal_value\": 0}"
+    }
+},
+{
+    "model": "dashboard.function",
+    "pk": 8,
+    "fields": {
+        "short_name": "Cube",
+        "name": "Função Cube",
+        "latex_expression": "$ f(x_1, x_2) = 100(x_2 - x_1^3)^2 + (1 - x_1)^2 $",
+        "search_space": "{\"dimension\": 2, \"lower_bound\": [-10, -10], \"upper_bound\": [10, 10]}",
+        "optimal_result": "{\"optimal_solution\": [-1, 1], \"optimal_value\": 0}"
+    }
+},
+{
+    "model": "dashboard.function",
+    "pk": 9,
+    "fields": {
+        "short_name": "Easom",
+        "name": "Função Easom",
+        "latex_expression": "$ f(x_1, x_2) = -cos(x_1)cos(x_2)e^{-(x_1-\\pi)^2 -(x_2-\\pi)^2} $",
+        "search_space": "{\"dimension\": 2, \"lower_bound\": [-100, -100], \"upper_bound\": [100, 100]}",
+        "optimal_result": "{\"optimal_solution\": [3.14159, 3.14159], \"optimal_value\": -1}"
+    }
+},
+{
+    "model": "dashboard.function",
+    "pk": 10,
+    "fields": {
+        "short_name": "EggCrate",
+        "name": "Função EggCrate",
+        "latex_expression": "$ f(x_1, x_2) = x_1^2 + x_2^2 + 25(sin^2(x_1) + sin^2(x_2)) $",
+        "search_space": "{\"dimension\": 2, \"lower_bound\": [-5, -5], \"upper_bound\": [5, 5]}",
+        "optimal_result": "{\"optimal_solution\": [0, 0], \"optimal_value\": 0}"
     }
 }
 ]
