@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "name": "S1",
-        "latex_expression": "f(x_{i}) = \\frac{1}{1 + e^(-1 * x_{i})}"
+        "latex_expression": "$ f(x_{i}) = \\frac{1}{1 + e^(-1 * x_{i})} $"
     }
 },
 {
@@ -12,7 +12,7 @@
     "pk": 2,
     "fields": {
         "name": "S2",
-        "latex_expression": "f(x_{i}) = \\frac{1}{1 + e^(-2 * x_{i}) }"
+        "latex_expression": "$ f(x_{i}) = \\frac{1}{1 + e^(-2 * x_{i}) } $"
     }
 },
 {
@@ -20,7 +20,7 @@
     "pk": 3,
     "fields": {
         "name": "S3",
-        "latex_expression": "f(x_{i}) = \\frac{1}{1 + e^(\\frac{-1 * x_{i}}{2})}"
+        "latex_expression": "$ f(x_{i}) = \\frac{1}{1 + e^(\\frac{-1 * x_{i}}{2})} $"
     }
 },
 {
@@ -28,7 +28,7 @@
     "pk": 4,
     "fields": {
         "name": "S4",
-        "latex_expression": "f(x_{i}) = \\frac{1}{1 + e^(\\frac{-1 * x_{i}}{3})}"
+        "latex_expression": "$ f(x_{i}) = \\frac{1}{1 + e^(\\frac{-1 * x_{i}}{3})} $"
     }
 },
 {
@@ -36,7 +36,7 @@
     "pk": 5,
     "fields": {
         "name": "V1",
-        "latex_expression": "f(x_{i}) = |erf(\\frac{\\sqrt{\\pi}}{(2 * (-1 * i))})|"
+        "latex_expression": "$ f(x_{i}) = |erf(\\frac{\\sqrt{\\pi}}{(2 * (-1 * i))})| $"
     }
 },
 {
@@ -44,7 +44,7 @@
     "pk": 6,
     "fields": {
         "name": "V2",
-        "latex_expression": "f(x_{i}) = |\\tanh{(-1 * i)}|"
+        "latex_expression": "$ f(x_{i}) = |\\tanh{(-1 * i)}| $"
     }
 },
 {
@@ -52,7 +52,7 @@
     "pk": 7,
     "fields": {
         "name": "V3",
-        "latex_expression": "f(x_{i}) = |\\frac{x_{i}}{\\sqrt{1 -x_{i}^{2}}}|"
+        "latex_expression": "$ f(x_{i}) = |\\frac{x_{i}}{\\sqrt{1 -x_{i}^{2}}}| $"
     }
 },
 {
@@ -60,7 +60,7 @@
     "pk": 8,
     "fields": {
         "name": "V4",
-        "latex_expression": "f(x_{i}) = |\\frac{2}{\\pi * \\arctan{\\frac{\\pi}{2 * (-x_{i})}}}|"
+        "latex_expression": "$ f(x_{i}) = |\\frac{2}{\\pi * \\arctan{\\frac{\\pi}{2 * (-x_{i})}}}| $"
     }
 }
 ]
