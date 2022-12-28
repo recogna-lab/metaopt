@@ -13,59 +13,48 @@ logger = log.get_logger(__name__)
 
 
 class ResultFS(Result):
-    def __init__(self):
-        super().__init__()
-
-    def update(self, result):
-        if self.best_solution is None:
-            self._initialize(result)
-        else:
-            self._update(result)
 
     def _initialize(self, result):
-        super()._initialize(result)
-
         self.precision = np.array(result['precision'])
         self.recall = np.array(result['recall'])
         self.f1_score = np.array(result['f1_score'])
 
         self.acc_values = [result['accuracy']]
-        self.bsf_list = [result['best_selected_features']]
+        self.best_selected_features = result['best_selected_features']
+        
+        super()._initialize(result)
     
     def _update(self, result):
-        super()._update(result)
-
-        self.bsf_list.append(result['best_selected_features'])
         self.acc_values.append(result['accuracy'])
+        
+        if max(self.acc_values) == result['accuracy']:
+            self.best_selected_features = result['best_selected_features']
 
         self.precision += np.array(result['precision'])
         self.recall += np.array(result['recall'])
         self.f1_score += np.array(result['f1_score'])
+        
+        super()._update(result)
 
     def as_dict(self):
+        # Get results dict given by super class
+        results_dict = super().as_dict()
+        
         # Get the number of executions
         count = len(self.exec_data)
-
-        best_acc_index = self.acc_values.index(max(self.acc_values))
         
         # Add average values to results dict
         # Remeber that standard deviation requires count > 1
-        results_dict = {
-            'best_solution': (self.best_solution / count).tolist(),
-            'best_value': sum(self.values) / count,
-            'min_value': min(self.values),
-            'max_value': max(self.values),
-            'stdev_value': stdev(self.values) if count > 1 else None,
-            'fitness_values': (self.fitness_values / count).tolist(),
-            'best_features_vector': self.bsf_list[best_acc_index],
-            'accuracy': sum(self.acc_values) / count,
+        results_dict.update({
+            'best_features_vector': self.best_selected_features,
+            'best_acc': max(self.acc_values),
             'min_acc': min(self.acc_values),
-            'max_acc': max(self.acc_values),
+            'avg_acc': sum(self.acc_values) / count,
             'stdev_acc': stdev(self.acc_values) if count > 1 else None,
             'precision': (self.precision / count).tolist(),
             'recall': (self.recall / count).tolist(),
             'f1_score': (self.f1_score / count).tolist()
-        }
+        })
         
         # If it has more than one execution
         if count > 1:
@@ -73,20 +62,20 @@ class ResultFS(Result):
             for i in range(count):
                 # Save execution data to results dict
                 k = f'exec_{i + 1}'
-                results_dict[k] = self.exec_data[i]
+                results_dict[k].update(self.exec_data[i])
         
-        # Return results dict
+        # Return updated results dict
         return results_dict
 
 # Create a custom parser function based on 
 # the function extracted from Opfython
 def parse_loader(data):
     logger.info('Parsing data ...')
-
+    
     try:
         # From third columns beyond, we should have the features
         X = data[:, 2:]
-
+        
         # Second column should be the label
         Y = data[:, 1]
 
@@ -99,7 +88,7 @@ def parse_loader(data):
 
         # If there are unsequential labels
         if len(counts) != (np.max(Y)):
-            raise e.ValueError('Parsed data should have sequential labels, e.g., 0, 1, ..., n-1')
+            raise e.ValueError('Parsed data should have sequential labels.')
 
         logger.info('Data parsed.')
 

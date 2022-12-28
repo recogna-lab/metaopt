@@ -13,27 +13,29 @@ class Result:
     
     def __init__(self):
         # Just to know if result was not initialized
-        self.best_solution = None
+        self.fitness_values = None
     
     def update(self, result):
-        if self.best_solution is None:
+        if self.fitness_values is None:
             self._initialize(result)
         else:
             self._update(result)
     
     def _initialize(self, result):
-        self.best_solution = np.array(result['best_solution'])
         self.fitness_values = np.array(result['fitness_values'])
         
+        self.best_solution = result['best_solution']
         self.values = [result['best_value']]
         
         self.exec_data = [result]
     
     def _update(self, result):
-        self.best_solution += np.array(result['best_solution'])
         self.fitness_values += np.array(result['fitness_values'])
         
         self.values.append(result['best_value'])
+        
+        if min(self.values) == result['best_value']:
+            self.best_solution = result['best_solution']
         
         self.exec_data.append(result)
     
@@ -44,9 +46,9 @@ class Result:
         # Add average values to results dict
         # Remeber that standard deviation requires count > 1
         results_dict = {
-            'best_solution': (self.best_solution / count).tolist(),
-            'best_value': sum(self.values) / count,
-            'min_value': min(self.values),
+            'best_solution': self.best_solution,
+            'best_value': min(self.values),
+            'avg_value': sum(self.values) / count,
             'max_value': max(self.values),
             'stdev_value': stdev(self.values) if count > 1 else None,
             'fitness_values': (self.fitness_values / count).tolist()
