@@ -1,58 +1,66 @@
 [
-{
-    "model": "dashboard.transferfunction",
-    "pk": 1,
-    "fields": {
-        "name": "S1"
+    {
+        "model": "dashboard.transferfunction",
+        "pk": 1,
+        "fields": {
+            "name": "S1",
+            "latex_expression": "f(x_{i}) = \\\\frac{1}{1 + e^(-1 * x_{i})}"
+        }
+    },
+    {
+        "model": "dashboard.transferfunction",
+        "pk": 2,
+        "fields": {
+            "name": "S2",
+            "latex_expression": "f(x_{i}) = \\\\frac{1}{1 + e^(-2 * x_{i}) }"
+        }
+    },
+    {
+        "model": "dashboard.transferfunction",
+        "pk": 3,
+        "fields": {
+            "name": "S3",
+            "latex_expression": "f(x_{i}) = \\\\frac{1}{1 + e^(\\\\frac{-1 * x_{i}}{2})}"
+        }
+    },
+    {
+        "model": "dashboard.transferfunction",
+        "pk": 4,
+        "fields": {
+            "name": "S4",
+            "latex_expression": "f(x_{i}) = \\\\frac{1}{1 + e^(\\\\frac{-1 * x_{i}}{3})}"
+        }
+    },
+    {
+        "model": "dashboard.transferfunction",
+        "pk": 5,
+        "fields": {
+            "name": "V1",
+            "latex_expression": "f(x_{i}) = |erf(\\\\frac{\\\\sqrt{\\\\pi}}{(2 * (-1 * i))})|"
+        }
+    },
+    {
+        "model": "dashboard.transferfunction",
+        "pk": 6,
+        "fields": {
+            "name": "V2",
+            "latex_expression": "f(x_{i}) = |\\\\tanh{(-1 * i)}|"
+        }
+    },
+    {
+        "model": "dashboard.transferfunction",
+        "pk": 7,
+        "fields": {
+            "name": "V3",
+            "latex_expression": "f(x_{i}) = |\\\\frac{x_{i}}{\\\\sqrt{1 -x_{i}^{2}}}|"
+        }
+    },
+    {
+        "model": "dashboard.transferfunction",
+        "pk": 8,
+        "fields": {
+            "name": "V4",
+            "latex_expression": "f(x_{i}) = |\\\\frac{2}{\\\\pi * \\\\arctan{\\\\frac{\\\\pi}{2 * (-x_{i})}}}|"
+        }
     }
-},
-{
-    "model": "dashboard.transferfunction",
-    "pk": 2,
-    "fields": {
-        "name": "S2"
-    }
-},
-{
-    "model": "dashboard.transferfunction",
-    "pk": 3,
-    "fields": {
-        "name": "S3"
-    }
-},
-{
-    "model": "dashboard.transferfunction",
-    "pk": 4,
-    "fields": {
-        "name": "S4"
-    }
-},
-{
-    "model": "dashboard.transferfunction",
-    "pk": 5,
-    "fields": {
-        "name": "V1"
-    }
-},
-{
-    "model": "dashboard.transferfunction",
-    "pk": 6,
-    "fields": {
-        "name": "V2"
-    }
-},
-{
-    "model": "dashboard.transferfunction",
-    "pk": 7,
-    "fields": {
-        "name": "V3"
-    }
-},
-{
-    "model": "dashboard.transferfunction",
-    "pk": 8,
-    "fields": {
-        "name": "V4"
-    }
-}
-]
+] 
