@@ -1,73 +1,106 @@
 <div class="custom-card">
     <h1>Seleção de Características</h1>
 
-    <table class="table table-striped table-nowrap">
-        <thead>
-            <tr>
-                <th class="th-sm"></th>
-                <th class="th-sm"></th>     
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="col-sm">
+    <div>
+        <h3>Vetor de Características</h3>
+        
+        <table class="table table-sm striped table-nowrap">
+            <thead>
+                <tr>
+                    <th class="th-sm"></th>
+                    <th class="th-sm"></th>     
+                </tr>
+            </thead>
+            <tbody>
                 <tr class="col-sm">
-                    <th scope="row" class="sm">Melhor vetor de características</th>
+                    <th scope="row" class="sm">Melhor vetor</th>
+                    
+                    {% load dashboard_extras %}
                     <td>{{ task.result.best_features_vector }}</td>
                 </tr>
-                <th scope="row" class="sm">Acurácia</th>
-                <td>
-                    {% if task.task_kwargs.executions > 1 %}
-                        <div>
-                            <b>Mínimo:</b> 
-                            {{ task.result.min_acc|floatformat:3 }}
-                        </div>
-                        <div>
-                            <b>Médio:</b>
-                            {{ task.result.accuracy|floatformat:3 }}
-                        </div>
-                        <div>
-                            <b>Máximo:</b> 
-                            {{ task.result.max_acc|floatformat:3 }}
-                        </div>
-                    {% else %}
-                        {{ task.result.accuracy|floatformat:3 }}
-                    {% endif %}
-                </td>
-            </tr>
-            <tr class="col-sm">
-                <th scope="row" class="sm">Precisão</th>
-                <td> 
-                    {% for p in task.result.precision %}
-                        <div>
-                            <b>Classe {{forloop.counter}}:</b>  
-                            {{ p|floatformat:3 }}
-                        </div>
-                    {% endfor %}
-                </td>
-            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <h3>Acurácia</h3>
+        
+        <table class="table table-sm striped table-nowrap">
+            <thead>
+                <tr>
+                    <th class="th-sm"></th>
+                    <th class="th-sm"></th>     
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="col-sm">
+                    <th scope="row" class="sm">Melhor valor</th>
+                    <td>{{ task.result.best_acc|floatformat:3 }}</td>
+                </tr>
     
-            <tr class="col-sm">
-                <th scope="row" class="sm">Recall</th>
-                <td>
-                    {% for rec in task.result.recall %}
-                        <div>
-                            <b>Classe {{forloop.counter}}:</b>
-                            {{ rec|floatformat:3 }}
-                        </div>
-                    {% endfor %}
-                </td>
-            </tr>
-            <tr class="col-sm">
-                <th scope="row" class="sm">F1-score</th>
-                <td>
-                    {% for f in task.result.f1_score %}
-                        <div>
-                            <b>Classe {{forloop.counter}}:</b>
-                            {{ f|floatformat:3 }}
-                        </div>
-                    {% endfor %}
-                </td>
-            </tr>    
-        </tbody>
-    </table>
+                {% if task.task_kwargs.executions > 1 %}
+                    <tr class="col-sm">
+                        <th scope="row" class="sm">Pior valor</th>
+                        <td>{{ task.result.min_acc|floatformat:3 }}</td>
+                    </tr>
+                    <tr class="col-sm">
+                        <th scope="row" class="sm">Valor médio</th>
+                        <td>{{ task.result.avg_acc|floatformat:3 }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="sm">Desvio padrão</th>
+                        <td>{{ task.result.stdev_acc|floatformat:3 }}</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <h3>Demais Métricas</h3>
+        
+        <table class="table table-sm striped table-nowrap">
+            <thead>
+                <tr>
+                    <th class="th-sm"></th>
+                    <th class="th-sm"></th>     
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="col-sm">
+                    <th scope="row" class="sm">Precisão</th>
+                    <td> 
+                        {% for p in task.result.precision %}
+                            <div>
+                                <b>Classe {{forloop.counter}}:</b>  
+                                {{ p|floatformat:3 }}
+                            </div>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr class="col-sm">
+                    <th scope="row" class="sm">Recall</th>
+                    <td>
+                        {% for rec in task.result.recall %}
+                            <div>
+                                <b>Classe {{forloop.counter}}:</b>
+                                {{ rec|floatformat:3 }}
+                            </div>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr class="col-sm">
+                    <th scope="row" class="sm">F1-score</th>
+                    <td>
+                        {% for f in task.result.f1_score %}
+                            <div>
+                                <b>Classe {{forloop.counter}}:</b>
+                                {{ f|floatformat:3 }}
+                            </div>
+                        {% endfor %}
+                    </td>
+                </tr>    
+            </tbody>
+        </table>
+    </div>
 </div>

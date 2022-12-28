@@ -60,7 +60,7 @@ const initializeProgressBar = (progressURL, resultURL) => {
         const [first, second] = extractResults(result)
 
         resultHTML = `
-            <table class="table table-striped table-nowrap">
+            <table class="table table-sm striped table-nowrap">
                 <thead>
                     <tr>
                         <th class="th-sm"></th>
@@ -99,7 +99,7 @@ const initializeProgressBar = (progressURL, resultURL) => {
             first.value = formatBooleanArray(result.best_features_vector)
 
             second.label = 'Acurácia'
-            second.value = formatNumber(result.accuracy)
+            second.value = formatNumber(result.best_acc)
         } else {
             first.label = 'Melhor solução'
             first.value = formatArray(result.best_solution)

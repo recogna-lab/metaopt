@@ -12,28 +12,30 @@
                 {% include 'dashboard/partials/result_card_fs.html' %}
             {% endif %}
             
-
             {% if bar_plot_div %}
-            <div class="custom-card">
-                <h1> Gráfico de Distribuição de Frequências
-                <div class="graphic">
-                    
+                <div class="custom-card">
+                    <h1>
+                        Gráfico de Distribuição
+                        {% if task.task_kwargs.executions > 1 %}Média{% endif %}
+                        de Frequências
+                    </h1>
+
+                    <div class="graphic">
                         {{ bar_plot_div|safe }}
-                    
+                    </div>
                 </div>
-            </div>
             {% endif %}
             
             <div class="custom-card">
-                <h1>Gráfico de Convergência</h1>
+                <h1>
+                    Gráfico de Convergência
+                    {% if task.task_kwargs.executions > 1 %}Média{% endif %}
+                </h1>
 
                 <div class="graphic">
-                    {% if conv_plot_div %}
-                        {{ conv_plot_div|safe }}
-                    {% endif %}
+                    {{ conv_plot_div|safe }}
                 </div>
             </div>
-            
         </div>
     </div>
 
