@@ -249,10 +249,28 @@ def format_task(task):
     task['status'] = translate.task_status(task['status'])
     task['task_kwargs'] = load_json(task['task_kwargs'])
 
+    add_optimizer_info(task)
+    add_function_info(task)
+    
     if task['result'] is not None:
         task['result'] = load_json(task['result'])
     
     return task
+
+def add_optimizer_info(task):
+    optimizer = Optimizer.objects.filter(
+        acronym=task['task_kwargs']['optimizer']
+    )
+    
+    task['task_kwargs']['optimizer'] = optimizer.values().first()
+
+def add_function_info(task):
+    function = Function.objects.filter(
+        short_name=task['task_kwargs']['function']
+    )
+    
+    if function:
+        task['task_kwargs']['function'] = function.values().first()
 
 
 # Before saving a task result instance

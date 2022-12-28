@@ -17,7 +17,8 @@
                 <tr class="col-sm">
                     <th scope="row" class="sm">Otimizador</th>
                     <td>
-                        {{ task.task_kwargs.optimizer|upper }}
+                        {{ task.task_kwargs.optimizer.name }}
+                        ({{ task.task_kwargs.optimizer.acronym }})
                     </td>
                 </tr>
 
@@ -25,7 +26,7 @@
                     <tr class="col-sm">
                         <th scope="row" class="sm">Função objetivo</th>
                         <td>
-                            {{ task.task_kwargs.function|title }}
+                            {{ task.task_kwargs.function.name }}
                         </td>
                     </tr>
                     <tr class="col-sm">
@@ -52,7 +53,7 @@
                     <tr class="col-sm">
                         <th scope="row" class="sm">Função objetivo</th>
                         <td>
-                            {{ task.task_kwargs.function|upper }}
+                            Classificador {{ task.task_kwargs.function }}
                         </td>
                     </tr>
                     <tr class="col-sm">
