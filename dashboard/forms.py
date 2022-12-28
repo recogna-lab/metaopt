@@ -18,7 +18,7 @@ class _TaskForm(forms.Form):
         label='Otimizador',
         queryset=Optimizer.objects.all(),
         to_field_name='acronym',
-        empty_label=None
+        empty_label='Selecione um otimizador'
     )
 
     agents = forms.IntegerField(
@@ -75,8 +75,8 @@ class FeatureSelectionForm(_TaskForm):
     dataset = forms.ModelChoiceField(
         label='Base de Dados',
         queryset=Dataset.objects.all(),
-        to_field_name='file_name',
-        empty_label=None
+        to_field_name='features',
+        empty_label='Selecione uma base de dados'
     )
 
     transfer_function = forms.ModelChoiceField(
