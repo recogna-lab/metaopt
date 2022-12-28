@@ -1,5 +1,4 @@
 from django import forms
-from django_select2 import forms as s2forms
 
 from utils.django.forms import add_attr
 
