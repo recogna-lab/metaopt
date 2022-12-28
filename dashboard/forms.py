@@ -83,7 +83,7 @@ class FeatureSelectionForm(_TaskForm):
         label='Função de Transferência',
         queryset=TransferFunction.objects.all(),
         to_field_name='latex_expression',
-        empty_label=None
+        empty_label='Selecione uma função de transferência'
     )
 
     field_order = [
