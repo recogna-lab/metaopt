@@ -1,7 +1,7 @@
+import numpy as np
 import plotly.graph_objs as go
 from plotly.offline import plot
 
-import numpy as np
 
 def get_distribution(task):
     """Gets the distribution of each feature
@@ -20,7 +20,7 @@ def get_distribution(task):
 
     qtde_features = len(feature_vectors[0])
     quantities = []
-
+    
     for i in range(qtde_features):
         quantities.insert(i, 0)
 
@@ -71,7 +71,7 @@ def plot_convergence(task):
     # Create a list with the iterations
     iterations = list(range(1, len(fitness_values) + 1))
     
-    name_opt = task['task_kwargs']['optimizer']
+    name_opt = task['task_kwargs']['optimizer']['acronym']
 
     # Set up the plot
     fig = go.Figure()
@@ -125,8 +125,8 @@ def plot_bar(task):
 
     distributions = get_distribution(task)
 
-    name_opt = task['task_kwargs']['optimizer']
-
+    name_opt = task['task_kwargs']['optimizer']['acronym']
+    
     number_of_features = list(range(1, len(distributions) + 1))
 
     fig = go.Figure()
@@ -168,7 +168,7 @@ def plot_bar(task):
         'displaylogo': False,
         'modeBarButtonsToRemove': ['resetScale']
     })
-
+    
     return plot_div
     
 
