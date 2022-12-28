@@ -1,6 +1,5 @@
 // Create function to render expressions
 const renderExpression = (expression) => {
-    
     if (expression == '') {
         // If no expression, remove class to wrapper
         wrapperElement.classList.remove('form-group')
@@ -22,7 +21,9 @@ const renderExpression = (expression) => {
 // Get function select
 let selectElement = document.getElementById('id_function')
 
-if(!selectElement){
+// If it has no function select
+if (!selectElement) {
+    // Get the transfer function select instead
     selectElement = document.getElementById('id_transfer_function')
 }
         
