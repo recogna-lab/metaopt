@@ -1,14 +1,6 @@
-// Get function select
-const selectElement = document.getElementById('id_function')
-        
-// Get wrapper element
-const wrapperElement = document.getElementById('expression-wrapper') 
-
-// Get render expression element
-const renderElement = document.getElementById('render-expression')
-
 // Create function to render expressions
 const renderExpression = (expression) => {
+    
     if (expression == '') {
         // If no expression, remove class to wrapper
         wrapperElement.classList.remove('form-group')
@@ -27,9 +19,29 @@ const renderExpression = (expression) => {
     })
 }
 
+// Get function select
+let selectElement = document.getElementById('id_function')
+
+if(!selectElement){
+    selectElement = document.getElementById('id_transfer_function')
+}
+        
+// Get wrapper element
+const wrapperElement = document.getElementById('expression-wrapper') 
+
+// Get render expression element
+const renderElement = document.getElementById('render-expression')
+
 // Create listener to detect changes in the select element
 selectElement.addEventListener('change', (event) => {
     if (window.MathJax) {
         renderExpression(event.target.value)
     }
 })
+
+
+
+
+
+
+
