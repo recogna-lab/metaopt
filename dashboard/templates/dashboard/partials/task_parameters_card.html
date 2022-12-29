@@ -22,13 +22,14 @@
                     </td>
                 </tr>
 
+                <tr class="col-sm">
+                    <th scope="row" class="sm">Função objetivo</th>
+                    <td>
+                        {{ task.task_kwargs.function.name }}
+                    </td>
+                </tr>
+
                 {% if task.task_name == 'Otimização' %}
-                    <tr class="col-sm">
-                        <th scope="row" class="sm">Função objetivo</th>
-                        <td>
-                            {{ task.task_kwargs.function.name }}
-                        </td>
-                    </tr>
                     <tr class="col-sm">
                         <th scope="row" class="sm">Espaço de busca</th>
                         <td>
@@ -45,17 +46,10 @@
                         <span>
                             <b>Limite superior:</b>
                             {{ task.task_kwargs.space.upper_bound }}
-        
                         </span>
                         </td>
                     </tr>
                 {% else %}
-                    <tr class="col-sm">
-                        <th scope="row" class="sm">Função objetivo</th>
-                        <td>
-                            Classificador {{ task.task_kwargs.function }}
-                        </td>
-                    </tr>
                     <tr class="col-sm">
                         <th scope="row" class="sm">Espaço de busca</th>
                         <td>
