@@ -33,6 +33,11 @@ urlpatterns = [
         name='task_detail'
     ),
     path(
+        'revoke/<uuid:task_id>/', 
+        views.revoke_task, 
+        name='revoke_task'
+    ),
+    path(
         'result/<uuid:task_id>/',
         views.task_result,
         name='task_result'

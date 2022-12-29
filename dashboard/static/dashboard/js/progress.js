@@ -34,8 +34,17 @@ const initializeProgressBar = (progressURL, resultURL) => {
     // Function that will be executed when an error happens
     const onError = (pBarElement, pBarMessageElement, exception, _) => {
         pBarElement.style.backgroundColor = defaultBarColors.error
-        pBarMessageElement.textContent = 'Algo deu errado! Recarregue ' + 
-            'a página ou execute a tarefa novamente.'
+
+        if (exception == 'Task terminated') {
+            pBarMessageElement.textContent = 'A tarefa foi cancelada.'
+        } else {
+            pBarMessageElement.textContent = 'Algo deu errado! Recarregue ' + 
+                'a página ou execute a tarefa novamente.'
+        }
+    }
+
+    const onTaskError = (pBarElement, pBarMessageElement, exception) => {
+        onError(pBarElement, pBarMessageElement, exception)
     }
 
     // Function that will be executed when retry happens
@@ -57,8 +66,15 @@ const initializeProgressBar = (progressURL, resultURL) => {
     
     // Function that will be executed to show the results
     const onResult = (resultElement, result) => {
+        // If task was terminated, exit function
+        if (result == 'Task terminated') {
+            return
+        }
+        
+        // Extract result
         const [first, second] = extractResults(result)
 
+        // Create HTML table with result
         resultHTML = `
             <table class="table table-sm striped table-nowrap">
                 <thead>
@@ -164,6 +180,7 @@ const initializeProgressBar = (progressURL, resultURL) => {
             pollInterval: 400,
             onProgress: onProgress,
             onError: onError,
+            onTaskError: onTaskError,
             onRetry: onRetry,
             onSuccess: onSuccess,
             onResult: onResult

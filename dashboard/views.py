@@ -5,6 +5,7 @@ from django.http import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
+from metaopt.celery import app
 from utils import load_json
 from utils.plots import plot_bar, plot_convergence
 
@@ -144,6 +145,25 @@ def task_detail(request, task_id):
         'return_to': reverse('dashboard:index'),
         'task': task
     })
+
+def revoke_task(request, task_id):
+    task = models.get_task(request.user.id, task_id)
+    
+    # It task doensn't exist, raise page not found
+    if task is None:
+        raise Http404()
+    
+    task_detail_url = 'dashboard:task_detail'
+    
+    # If task is revoked already, redirect
+    if task['status'] == 'Cancelada':
+        return redirect(task_detail_url, task_id=task_id)
+    
+    # Revoke
+    app.control.revoke(task_id, terminate=True, signal='SIGKILL')
+
+    # And redirect
+    return redirect(task_detail_url, task_id=task_id)
 
 @login_required
 def task_result(request, task_id):

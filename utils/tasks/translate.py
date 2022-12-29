@@ -15,6 +15,8 @@ def task_status(status):
         status = 'Progresso'
     elif status == 'PENDING':
         status = 'Pendente'
+    elif status == 'REVOKED':
+        status = 'Cancelada'
     
     return status
 
