@@ -23,8 +23,8 @@ class SignupForm(forms.ModelForm):
             add_attr(field, 'class', 'form-control')
             
             # Add tooltips
-            add_attr(field, 'data-toggle', 'tooltip')
-            add_attr(field, 'title', field.help_text)
+            add_attr(field, 'data-bs-toggle', 'tooltip')
+            add_attr(field, 'data-bs-title', field.help_text)
         
         add_attr(self.fields['first_name'], 'class', 'tooltip-left')
         add_attr(self.fields['password'], 'class', 'tooltip-left')
