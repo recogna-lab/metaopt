@@ -24,6 +24,12 @@
 
                 {% if task.task_name == 'Otimização' %}
                     <tr class="col-sm">
+                        <th scope="row" class="sm">Função objetivo</th>
+                        <td>
+                            {{ task.task_kwargs.function.name }}
+                        </td>
+                    </tr>
+                    <tr class="col-sm">
                         <th scope="row" class="sm">Espaço de busca</th>
                         <td>
                         <span>
@@ -44,12 +50,12 @@
                     </tr>
                 {% else %}
                     <tr class="col-sm">
-                        <tr class="col-sm">
-                            <th scope="row" class="sm">Função objetivo</th>
-                            <td>
-                                {{ task.task_kwargs.function }}
-                            </td>
-                        </tr>
+                        <th scope="row" class="sm">Função objetivo</th>
+                        <td>
+                            {{ task.task_kwargs.function }}
+                        </td>
+                    </tr>
+                    <tr class="col-sm">
                         <th scope="row" class="sm">Espaço de busca</th>
                         <td>
                             <span>

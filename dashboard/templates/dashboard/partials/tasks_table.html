@@ -33,7 +33,7 @@
                     <td class="text-center">{{ task.task_kwargs.dataset }}</td>
                 {% else %}
                     <td class="text-center">
-                        {{ task.task_kwargs.function }}
+                        {{ task.task_kwargs.function.short_name }}
                     </td>
                     <td class="text-center text-secondary">Não se aplica</td>
                 {% endif %}
