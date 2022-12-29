@@ -8,8 +8,7 @@ from django.urls import reverse
 from utils import load_json
 from utils.plots import plot_bar, plot_convergence
 
-from . import models
-from .forms import FeatureSelectionForm, OptimizationForm
+from . import forms, models
 from .tasks import feature_selection, optimization
 
 # Dashboard page
@@ -41,17 +40,11 @@ def search(request):
         'tasks': tasks
     })
 
-@login_required
-def compare(request):
-    return render(request, 'dashboard/pages/compare_tasks.html', context={
-        'title': 'Comparação de tarefas'
-    })
-
 # Optimization related views
 
 @login_required
 def new_optimization_task(request):
-    optimization_form = OptimizationForm()
+    optimization_form = forms.OptimizationForm()
     
     return render(request, 'dashboard/pages/new_task.html', context={
         'title': 'Otimização',
@@ -67,10 +60,10 @@ def start_optimization_task(request):
     if not request.POST:
         return redirect(new_opt_url)
     
-    optimization_form = OptimizationForm(request.POST)
+    optimization_form = forms.OptimizationForm(request.POST)
     
     if not optimization_form.is_valid():
-        messages.error(request, 'Por favor, selecione as opções desejadas.')
+        messages.error(request, 'Por favor, selecione todas as opções.')
         return redirect(new_opt_url)
     
     form_data = optimization_form.cleaned_data
@@ -91,7 +84,7 @@ def start_optimization_task(request):
 
 @login_required
 def new_feature_selection_task(request):
-    feature_selection_form = FeatureSelectionForm()
+    feature_selection_form = forms.FeatureSelectionForm()
     
     return render(request, 'dashboard/pages/new_task.html', context={
         'title': 'Seleção de Características',
@@ -107,7 +100,7 @@ def start_feature_selection_task(request):
     if not request.POST:
         return redirect(new_fs_url)
     
-    feature_selection_form = FeatureSelectionForm(request.POST)
+    feature_selection_form = forms.FeatureSelectionForm(request.POST)
     
     if not feature_selection_form.is_valid():
         messages.error(request, 'Por favor, selecione as opções desejadas.')
