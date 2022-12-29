@@ -48,6 +48,10 @@ def status_icontains(q):
         status = status + ('PROGRESS', )
     elif q in 'pendente':
         status = status + ('PENDING', )
+    elif q in 'cancelada':
+        status = status + ('REVOKED', )
+    else:
+        status = status + (q, )
     
     return status
 
@@ -60,7 +64,7 @@ def optimizer_regex(search_term):
 def function_regex(search_term):
     # Define regex to find function key inside json string
     # and check if search_term is part of the value
-    function_regex = r'.*"function":\s"[a-zA-Z]*(?i){}[a-zA-Z0-9]*".*'
+    function_regex = r'.*"function":\s"[a-zA-Z\s]*(?i){}[a-zA-Z0-9\s]*".*'
     return function_regex.format(search_term)
 
 def dataset_regex(search_term):
