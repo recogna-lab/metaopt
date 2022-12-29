@@ -97,8 +97,8 @@ const initializeProgressBar = (progressURL, resultURL) => {
         if (result.best_features_vector) {
             first.label = 'Melhor vetor de características'
             first.value = formatBooleanArray(result.best_features_vector)
-
-            second.label = 'Acurácia'
+            
+            second.label = 'Melhor acurácia'
             second.value = formatNumber(result.best_acc)
         } else {
             first.label = 'Melhor solução'
