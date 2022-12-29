@@ -153,17 +153,13 @@ def revoke_task(request, task_id):
     if task is None:
         raise Http404()
     
-    task_detail_url = 'dashboard:task_detail'
+    # If task is in progress or pendent, revoke
+    if task['status'] in 'Progresso Pendente':
+        # Revoke
+        app.control.revoke(task_id, terminate=True, signal='SIGKILL')
     
-    # If task is revoked already, redirect
-    if task['status'] == 'Cancelada':
-        return redirect(task_detail_url, task_id=task_id)
-    
-    # Revoke
-    app.control.revoke(task_id, terminate=True, signal='SIGKILL')
-
     # And redirect
-    return redirect(task_detail_url, task_id=task_id)
+    return redirect('dashboard:task_detail', task_id=task_id)
 
 @login_required
 def task_result(request, task_id):
