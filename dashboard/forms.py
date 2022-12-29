@@ -28,22 +28,22 @@ class _TaskForm(forms.Form):
     agents = forms.IntegerField(
         label='Número de Agentes',
         initial=10,
-        min_value=10, 
-        max_value=50, 
+        min_value=5,
+        max_value=50,
         step_size=5,
         help_text=(
-            'Escolha de 10 a 50 agentes para o otimizador.'
+            'Escolha de 5 a 50 agentes para o otimizador.'
         )
     )
 
     iterations = forms.IntegerField(
         label='Número de Iterações',
-        initial=100,
+        initial=50,
         min_value=10,
         max_value=500,
         step_size=10,
         help_text=(
-            'Escolha de 100 a 500 iterações para a '
+            'Escolha de 10 a 500 iterações para a '
             'execução do otimizador.'
         )
     )
@@ -52,9 +52,9 @@ class _TaskForm(forms.Form):
         label='Número de Execuções',
         initial=1,
         min_value=1,
-        max_value=5,
+        max_value=30,
         help_text=(
-            'Escolha de 1 a 5 execuções para a tarefa.'
+            'Escolha de 1 a 30 execuções para a tarefa.'
         )
     )
 
@@ -73,7 +73,7 @@ class OptimizationForm(_TaskForm):
             add_attr(field, 'data-bs-title', field.help_text)
     
     function = forms.ModelChoiceField(
-        label='Função',
+        label='Função de Teste',
         queryset=Function.objects.all(),
         to_field_name='latex_expression',
         empty_label='Selecione uma função de benchmark',
@@ -120,7 +120,7 @@ class FeatureSelectionForm(_TaskForm):
             'extrair as características presentes na base.'
         )
     )
-
+    
     field_order = [
         'optimizer',
         'dataset',
