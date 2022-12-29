@@ -125,6 +125,10 @@ main {
 	align-items: center;
 }
 
+.error-content .error-header {
+	margin-bottom: 2vmax;
+}
+
 .dash-content .custom-card {
 	width: 100%;
 }
@@ -175,7 +179,7 @@ footer {
 ========================================================================== */
 
 .p-t-15 {
-	padding-top: 15px;
+	margin-top: 2vmax;
 }
 
 /* ==========================================================================
@@ -402,10 +406,6 @@ fieldset .button-wrapper {
 #TITLE
 ========================================================================== */
 
-h1, h2, h3, h4, h5, h6 {
-	font-weight: 400;
-}
-
 h1 {
 	font-size: 2em;
 }
@@ -472,14 +472,12 @@ h6 {
 }
 
 .account-card a,
-.subnavbar-content .left-nav a,
-.error-content a {
+.subnavbar-content .left-nav a {
 	color: #198754;
 }
 
 .account-card a:hover,
-.subnavbar-content .left-nav a:hover,
-.error-content a:hover {
+.subnavbar-content .left-nav a:hover {
 	color: #157347;
 }
 
