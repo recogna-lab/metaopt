@@ -1,3 +1,9 @@
+// Get wrapper element
+const wrapperElement = document.getElementById('expression-wrapper') 
+
+// Get render expression element
+const renderElement = document.getElementById('render-expression')
+
 // Create function to render expressions
 const renderExpression = (expression) => {
     if (expression == '') {
@@ -26,12 +32,6 @@ if (!selectElement) {
     // Get the transfer function select instead
     selectElement = document.getElementById('id_transfer_function')
 }
-        
-// Get wrapper element
-const wrapperElement = document.getElementById('expression-wrapper') 
-
-// Get render expression element
-const renderElement = document.getElementById('render-expression')
 
 // Create listener to detect changes in the select element
 selectElement.addEventListener('change', (event) => {

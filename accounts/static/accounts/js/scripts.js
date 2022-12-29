@@ -1,5 +1,5 @@
 $(function() {
-    const elements = $('[data-toggle="tooltip"]')
+    const elements = $('[data-bs-toggle="tooltip"]')
     let elementsArray = [...elements]
 
     elementsArray.forEach((e) => {
