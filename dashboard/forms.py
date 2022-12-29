@@ -21,7 +21,7 @@ class _TaskForm(forms.Form):
         to_field_name='acronym',
         empty_label='Selecione um otimizador',
         help_text=(
-            'Escolha uma das meta-heurísticas de otimização listadas.'
+            'Escolha uma das meta-heurísticas de otimização.'
         )
     )
 
