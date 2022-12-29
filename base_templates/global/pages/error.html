@@ -7,12 +7,25 @@
     <div class="font-robo custom-container">
         <div class="error-content">
             <div class="custom-card">
-                <h1 class="fw-bold">{{ status_code }}!</h1>
-                <h2 class="fw-bold">{{ title }}.</h2>
+                <div class="error-header">
+                    <h1 class="fw-bold">{{ status_code }}!</h1>
+                    <h2 class="fw-bold">{{ title }}.</h2>
+                </div>
+
                 <h4>{{ error_message }}</h4>
-                <a href="{% url 'dashboard:index' %}">
-                    Retorne à página inicial.
-                </a>
+
+                <div class="button-div p-t-15 a-right">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard:index' %}" class="btn btn-basic btn-success btn-radius">
+                            Retornar à dashboard
+                        </a>
+                    {% else %}
+                        <a href="{% url 'accounts:login' %}" class="btn btn-basic btn-success btn-radius">
+                            Retornar ao login
+                        </a>
+                    {% endif %}
+                        
+                </div>
             </div>
         </div>
     </div>
