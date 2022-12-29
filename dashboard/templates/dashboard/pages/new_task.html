@@ -18,6 +18,8 @@
             <div class="custom-card task-card">
                 <h1>Configure sua tarefa</h1>
 
+                {% include 'global/partials/messages.html' %}
+
                 {% include 'dashboard/partials/task_form.html' %}
             </div>
         </div>
@@ -27,7 +29,13 @@
 
 {% block scripts %}
     
+    <script>
+        $(function() {
+            $('[data-bs-toggle="tooltip"]').tooltip({placement: 'right'})
+        })
+    </script>
+
     <script src="{% static 'dashboard/js/render-expressions.js' %}"></script>
-    <script src="{% static 'dashboard/js/load-info.js' %}"></script>
+    <script src="{% static 'dashboard/js/load-features.js' %}"></script>
     
 {% endblock scripts %}
