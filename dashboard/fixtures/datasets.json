@@ -32,7 +32,7 @@
     "fields": {
         "name": "Spambase",
         "file_name": "spambase.txt",
-        "features": 57
+        "features": 48
     }
 }
 ]
