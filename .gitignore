@@ -136,5 +136,5 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 
-# Draft file
-draft.txt
+# Ignore optimization and fs logs
+*.log.*
