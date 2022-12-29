@@ -63,7 +63,11 @@ def start_optimization_task(request):
     optimization_form = forms.OptimizationForm(request.POST)
     
     if not optimization_form.is_valid():
-        messages.error(request, 'Por favor, selecione todas as opções.')
+        error_message = (
+            'Por favor, selecione todas as opções e insira valores válidos.'
+        )
+        messages.error(request, error_message)
+        
         return redirect(new_opt_url)
     
     form_data = optimization_form.cleaned_data
@@ -103,7 +107,11 @@ def start_feature_selection_task(request):
     feature_selection_form = forms.FeatureSelectionForm(request.POST)
     
     if not feature_selection_form.is_valid():
-        messages.error(request, 'Por favor, selecione as opções desejadas.')
+        error_message = (
+            'Por favor, selecione todas as opções e insira valores válidos.'
+        )
+        messages.error(request, error_message)
+        
         return redirect(new_fs_url)
     
     form_data = feature_selection_form.cleaned_data
