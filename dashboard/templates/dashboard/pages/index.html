@@ -12,15 +12,12 @@
                 <div class="dash-task">
                     {% include 'dashboard/partials/search_form.html' %}
                     
-                    
                     {% include 'dashboard/partials/task_dropdown.html' %}
                     
-                    <a href="{% url 'dashboard:compare' %}" class="btn btn-basic btn-success btn-radius">
-                        Comparar tarefas
-                    </a>
+                    {% include 'dashboard/partials/compare_dropdown.html' %}
                 </div>
             </div>
-
+            
             <div class="dash-tasks-table custom-card">
                 <h1>Suas Tarefas</h1>
 

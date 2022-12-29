@@ -1,0 +1,14 @@
+<div class="dropdown new-task-dpdwn">
+    <button class="btn btn-basic btn-success btn-radius dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Comparar tarefas
+    </button>
+    
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="{% url 'dashboard:compare_opt_tasks' %}">
+            Otimização
+        </a>
+        <a class="dropdown-item" href="{% url 'dashboard:compare_fs_tasks' %}">
+            Seleção de Características
+        </a>
+    </div>
+</div>
