@@ -558,6 +558,10 @@ h6 {
 	justify-content: center;
 }
 
+.task-description {
+	margin-bottom: 2vmax;
+}
+
 #expression-wrapper {
 	overflow-x: auto;
 	overflow-y: hidden;
