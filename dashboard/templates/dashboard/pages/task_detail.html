@@ -41,11 +41,11 @@
                 </div>
 
                 {% if task.status in 'Progresso Pendente' %}
-                <div id="revoke_task" class="a-right p-t-15">
-                    <a href="{% url 'dashboard:revoke_task' task.task_id %}" class="btn btn-basic btn-danger btn-radius">
-                        Cancelar
-                    </a>
-                </div>
+                    <div id="revoke_task" class="a-right p-t-15">
+                        <a href="{% url 'dashboard:revoke_task' task.task_id %}" class="btn btn-basic btn-danger btn-radius">
+                            Cancelar
+                        </a>
+                    </div>
                 {% endif %}
             </div>
 
