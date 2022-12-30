@@ -13,7 +13,7 @@ logger = log.get_logger(__name__)
 
 
 class ResultFS(Result):
-
+    
     def _initialize(self, result):
         self.precision = np.array(result['precision'])
         self.recall = np.array(result['recall'])
@@ -67,6 +67,7 @@ class ResultFS(Result):
         
         # Return updated results dict
         return results_dict
+
 
 # Create a custom parser function based on 
 # the function extracted from Opfython

@@ -69,10 +69,14 @@ class _OptimizationTask(app.Task):
         self.optimizer = get_optimizer(optimizer)
         
         # Get the function object
-        function = get_function(function)
+        function = get_function(function, space['dimension'])
         
         # Set the cost function
         self.function = Function(function)
+        
+        # Generate lower and upper bound lists
+        space['lower_bound'] = [space['lower_bound']] * space['dimension']
+        space['upper_bound'] = [space['upper_bound']] * space['dimension']
         
         # Configure the search space
         self.setup_space(agents, space)

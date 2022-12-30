@@ -32,6 +32,8 @@ class _FeatureSelectionTask(_OptimizationTask):
         
         # Run the feature selection n times:
         for curr_exec in range(self.executions):
+            np.random.seed(curr_exec)
+            
             # Set progress description
             self.set_progress_description(curr_exec + 1)
 
@@ -64,7 +66,7 @@ class _FeatureSelectionTask(_OptimizationTask):
         # Set lower and upper bound
         lower_bound = [0] * dimension
         upper_bound = [1] * dimension
-
+        
         # Set space dict
         space = {
             'dimension': dimension, 

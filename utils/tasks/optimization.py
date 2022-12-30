@@ -1,7 +1,7 @@
 from statistics import stdev
 
 import numpy as np
-from opytimark.markers.two_dimensional import *
+from opytimark.markers.n_dimensional import *
 from opytimizer.optimizers.evolutionary import *
 from opytimizer.optimizers.science import *
 from opytimizer.optimizers.swarm import *
@@ -73,6 +73,6 @@ def get_optimizer(optimizer):
 
 
 # Get function class through its short name 
-def get_function(function):
+def get_function(function, dimension):
     function_class = globals()[function]
-    return function_class()
+    return function_class(dims=dimension)
