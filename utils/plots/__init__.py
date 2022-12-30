@@ -21,7 +21,9 @@ def plot_convergence(task):
         y=fitness_values,
         mode='lines',
         opacity=0.8,
-        marker_color='blue')
+        marker_color='blue',
+        hovertemplate='(%{x}; %{y})'
+    )
     fig.add_trace(scatter)
     fig.update_layout(
         legend_title='Otimizador',
@@ -35,10 +37,11 @@ def plot_convergence(task):
         yaxis=dict(
             title='Valor da Função',
             showgrid=False,
-            tickformat='.4f',
+            tickformat='.3f',
             showexponent='all',
             exponentformat='e'
         ),
+        separators=',',
         margin=dict(l=0, r=0, t=30, b=30),
         showlegend=True
     )
@@ -70,6 +73,7 @@ def plot_bar(task):
         y=distributions,
         marker_color = 'blue',
         opacity=0.8,
+        hovertemplate='(%{x}; %{y})'
     )
     fig.add_trace(bar)
     fig.update_layout(
@@ -88,6 +92,7 @@ def plot_bar(task):
             showexponent='all',
             exponentformat='e'
         ),
+        separators=',',
         margin=dict(l=0, r=0, t=30, b=30),
         showlegend=True
     )
