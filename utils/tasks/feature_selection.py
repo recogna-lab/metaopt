@@ -13,7 +13,7 @@ logger = log.get_logger(__name__)
 
 
 class ResultFS(Result):
-
+    
     def _initialize(self, result):
         self.precision = np.array(result['precision'])
         self.recall = np.array(result['recall'])
