@@ -40,11 +40,19 @@
                         <span>
                             <b>Limite inferior:</b>
                             {{ task.task_kwargs.space.lower_bound }}
+
+                            {% if task.task_kwargs.space.dimension > 1 %}
+                                para todas as variáveis
+                            {% endif %}
                         </span>
                         </br>
                         <span>
                             <b>Limite superior:</b>
                             {{ task.task_kwargs.space.upper_bound }}
+
+                            {% if task.task_kwargs.space.dimension > 1 %}
+                                para todas as variáveis
+                            {% endif %}
                         </span>
                         </td>
                     </tr>
