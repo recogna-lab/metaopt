@@ -66,6 +66,9 @@ const initializeProgressBar = (progressURL, resultURL) => {
     
     // Function that will be executed to show the results
     const onResult = (resultElement, result) => {
+        // Hide the revoke button if necessary
+        hideRevokeButton()
+
         // If task was terminated, exit function
         if (result == 'Task terminated') {
             return
@@ -103,6 +106,16 @@ const initializeProgressBar = (progressURL, resultURL) => {
         `
 
         resultElement.innerHTML = resultHTML
+    }
+
+    const hideRevokeButton = () => {
+        // Get revoke button
+        const revokeButton = document.getElementById('revoke_task')
+
+        // Hide it, there's no reason to show it anymore
+        if (revokeButton) {
+            revokeButton.style.display = 'none'
+        }
     }
 
     // Helper function to extract results
