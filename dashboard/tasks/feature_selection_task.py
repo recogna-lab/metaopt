@@ -32,12 +32,11 @@ class _FeatureSelectionTask(_OptimizationTask):
         
         # Run the feature selection n times:
         for curr_exec in range(self.executions):
-            np.random.seed(curr_exec)
+
+            self.current_execution = curr_exec
             
             # Set progress description
             self.set_progress_description(curr_exec + 1)
-
-            np.random.seed(curr_exec)
             
             # Get execution data
             execution_data = self.select_features(
@@ -101,12 +100,12 @@ class _FeatureSelectionTask(_OptimizationTask):
 
         # Split data into training and test sets
         self.X_train, self.X_test, self.Y_train, self.Y_test = sp.split(
-            X, Y, percentage=0.5, random_state=1
+            X, Y, percentage=0.5, random_state=self.current_execution
         )
 
         # Training set will be splited into training and validation sets
         self.X_train, self.X_val, self.Y_train, self.Y_val = sp.split(
-            self.X_train, self.Y_train, percentage = 0.2, random_state=1
+            self.X_train, self.Y_train, percentage = 0.2, random_state=self.current_execution
         )
     
     def optimize(self, optimizer, function, dim, bound, agents, iterations):
