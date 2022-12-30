@@ -66,6 +66,7 @@ class OptimizationForm(_TaskForm):
         self.name = 'optimization_form'
         
         add_attr(self.fields['function'], 'class', 'form-select')
+        add_attr(self.fields['dimension'], 'class', 'form-control')
         
         for field in self.fields.values():
             # Add tooltips
@@ -82,7 +83,17 @@ class OptimizationForm(_TaskForm):
         )
     )
 
-    field_order = ['optimizer', 'function', 'agents', 'iterations']
+    dimension = forms.IntegerField(
+        label='Dimensão (n)',
+        initial=5,
+        min_value=1,
+        max_value=10,
+        help_text=(
+            'Escolha entre 1 e 10 variáveis para a função.'
+        )
+    )
+    
+    field_order = ['optimizer', 'function', 'dimension', 'agents', 'iterations']
 
 class FeatureSelectionForm(_TaskForm):
     

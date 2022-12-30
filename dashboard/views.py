@@ -77,7 +77,8 @@ def start_optimization_task(request):
         user_id=request.user.id,
         optimizer=form_data['optimizer'].acronym,
         function=form_data['function'].short_name,
-        space=load_json(form_data['function'].search_space),
+        dimension=form_data['dimension'],
+        bound=load_json(form_data['function'].bound),
         agents=form_data['agents'],
         iterations=form_data['iterations'],
         executions=form_data['executions']
