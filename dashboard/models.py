@@ -85,6 +85,12 @@ class Dataset(models.Model):
         verbose_name='Features',
         help_text='Number of features of the dataset'
     )
+
+    samples = models.IntegerField(
+        verbose_name='Samples',
+        help_text='Number of samples of the dataset',
+        default = 1
+    )
     
     def __str__(self):
         return f'{self.name}'
