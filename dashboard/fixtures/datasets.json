@@ -34,5 +34,14 @@
         "file_name": "spambase.txt",
         "features": 48
     }
+},
+{
+    "model": "dashboard.dataset",
+    "pk": 5,
+    "fields": {
+        "name": "Ionosphere",
+        "file_name": "ionosphere.txt",
+        "features": 34
+    }
 }
 ]
