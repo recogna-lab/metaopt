@@ -35,21 +35,21 @@
             <tbody>
                 <tr class="col-sm">
                     <th scope="row" class="sm">Melhor valor</th>
-                    <td>{{ task.result.best_value|floatformat:3 }}</td>
+                    <td>{{ task.result.best_value|stringformat:".3E" }}</td>
                 </tr>
                 
                 {% if task.task_kwargs.executions > 1 %}
                     <tr class="col-sm">
                         <th scope="row" class="sm">Pior valor</th>
-                        <td>{{ task.result.max_value|floatformat:3 }}</td>
+                        <td>{{ task.result.max_value|stringformat:".3E" }}</td>
                     </tr>
                     <tr class="col-sm">
                         <th scope="row" class="sm">Valor médio</th>
-                        <td>{{ task.result.avg_value|floatformat:3 }}</td>
+                        <td>{{ task.result.avg_value|stringformat:".3E" }}</td>
                     </tr>
                     <tr class="col-sm">
                         <th scope="row" class="sm">Desvio padrão</th>
-                        <td>{{ task.result.stdev_value|floatformat:3 }}</td>
+                        <td>{{ task.result.stdev_value|stringformat:".3E" }}</td>
                     </tr>
                 {% endif %}
             </tbody>
@@ -77,7 +77,7 @@
                             <th scope="row" class="sm">
                                 Valor ótimo da função
                             </th>
-                            <td>{{ optimal.value|floatformat:3 }}</td>
+                            <td>{{ optimal.value|stringformat:".3E" }}</td>
                         </tr>
                     </tbody>
                 </table>
