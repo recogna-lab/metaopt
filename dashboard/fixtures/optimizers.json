@@ -9,26 +9,10 @@
 },
 {
     "model": "dashboard.optimizer",
-    "pk": 2,
-    "fields": {
-        "acronym": "DE",
-        "name": "Evolução Diferencial"
-    }
-},
-{
-    "model": "dashboard.optimizer",
     "pk": 3,
     "fields": {
         "acronym": "GA",
         "name": "Algoritmo Genético"
-    }
-},
-{
-    "model": "dashboard.optimizer",
-    "pk": 4,
-    "fields": {
-        "acronym": "HS",
-        "name": "Busca Harmônica"
     }
 },
 {
@@ -45,6 +29,22 @@
     "fields": {
         "acronym": "SA",
         "name": "Recozimento Simulado"
+    }
+},
+{
+    "model": "dashboard.optimizer",
+    "pk": 7,
+    "fields": {
+        "acronym": "FA",
+        "name": "Algoritmo do Vaga-lume"
+    }
+},
+{
+    "model": "dashboard.optimizer",
+    "pk": 8,
+    "fields": {
+        "acronym": "ABC",
+        "name": "Colônia Artificial de Abelhas"
     }
 }
 ]
