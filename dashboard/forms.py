@@ -114,7 +114,7 @@ class FeatureSelectionForm(_TaskForm):
         label='Base de Dados',
         queryset=Dataset.objects.all(),
         to_field_name='features',
-        empty_label='Selecione uma base de dados',
+        empty_label='Selecione uma base',
         help_text=(
             'Escolha uma das bases para a tarefa de '
             'seleção de características.'
