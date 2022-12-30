@@ -43,5 +43,23 @@
         "file_name": "ionosphere.txt",
         "features": 34
     }
+},
+{
+    "model": "dashboard.dataset",
+    "pk": 6,
+    "fields": {
+        "name": "Waveform",
+        "file_name": "waveform.txt",
+        "features": 40
+    }
+},
+{
+    "model": "dashboard.dataset",
+    "pk": 7,
+    "fields": {
+        "name": "Hill Valley",
+        "file_name": "hill-valley.txt",
+        "features": 100
+    }
 }
 ]
