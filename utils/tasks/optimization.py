@@ -30,7 +30,9 @@ class Result:
         self.exec_data = [result]
     
     def _update(self, result):
-        self.fitness_values += np.array(result['fitness_values'])
+        self.fitness_values = np.vstack(
+            (self.fitness_values, result['fitness_values'])
+        )
         
         self.values.append(result['best_value'])
         
@@ -43,6 +45,20 @@ class Result:
         # Get the number of executions
         count = len(self.exec_data)
         
+        # Create var for avg and in case count == 1, add fitness list
+        avg_fitness_values = self.fitness_values.tolist()
+        
+        # Create var for std and set it to None
+        stdev_fitness_values = None
+        
+        # If there's more than one execution, compute stdev
+        if count > 1:
+            avg_fitness_values = np.average(self.fitness_values, axis=0)
+            avg_fitness_values = avg_fitness_values.tolist()
+            
+            stdev_fitness_values = np.std(self.fitness_values, axis=0)
+            stdev_fitness_values = stdev_fitness_values.tolist()
+        
         # Add average values to results dict
         # Remeber that standard deviation requires count > 1
         results_dict = {
@@ -51,7 +67,8 @@ class Result:
             'avg_value': sum(self.values) / count,
             'max_value': max(self.values),
             'stdev_value': stdev(self.values) if count > 1 else None,
-            'fitness_values': (self.fitness_values / count).tolist()
+            'fitness_values': avg_fitness_values,
+            'stdev_fitness_values': stdev_fitness_values
         }
         
         # If it has more than one execution

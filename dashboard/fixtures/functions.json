@@ -100,12 +100,12 @@
 },
 {
     "model": "dashboard.function",
-    "pk": 21,
+    "pk": 22,
     "fields": {
-        "short_name": "Weierstrass",
-        "name": "Função Weierstrass",
-        "latex_expression": "$ f(\\mathbf{x}) = \\sum_{i=1}^{n} (\\sum_{k=0}^{20} [0{,}5^k cos(2\\pi 3^k(x_i+0{,}5))]) - n \\sum_{k=0}^{20}[0{,}5^k cos(2\\pi 3^k 0{,}5)] $",
-        "bound": "{\"lower\": -0.5, \"upper\": 0.5}",
+        "short_name": "Csendes",
+        "name": "Função Csendes",
+        "latex_expression": "$ f(\\mathbf{x}) = \\sum_{i=1}^{n}x_i^6(2 + sin(\\frac{1}{x_i})) $",
+        "bound": "{\"lower\": -1, \"upper\": 1}",
         "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 }

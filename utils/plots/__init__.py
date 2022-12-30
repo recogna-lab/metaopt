@@ -10,11 +10,16 @@ def plot_convergence(task):
     # Get list with fitness values
     fitness_values = task['result']['fitness_values']
 
+    # Get stdev of fitness values
+    stdev_fitness_values = task['result']['stdev_fitness_values']
+    
     # Create a list with the iterations
     iterations = list(range(1, len(fitness_values) + 1))
 
-    # Set up the plot
+    # Create figure
     fig = go.Figure()
+    
+    # Set up fitness values curve
     scatter = go.Scatter(
         name=optimizer,
         x=iterations,
@@ -24,7 +29,40 @@ def plot_convergence(task):
         marker_color='blue',
         hovertemplate='(%{x}; %{y})'
     )
-    fig.add_trace(scatter)
+    
+    # Add curve to the fig
+    fig.add_traces(scatter)
+    
+    # If there's stdev for the fitness values
+    if stdev_fitness_values:
+        # Convert values and stdev to numpy arrays
+        fitness_values = np.array(fitness_values)
+        stdev_fitness_values = np.array(stdev_fitness_values)
+        
+        # Compute lower and upper fitness
+        lower_fitness = (fitness_values - stdev_fitness_values).tolist()
+        upper_fitness = (fitness_values + stdev_fitness_values).tolist()
+        
+        # Set the area for the stdev
+        area_x = iterations + iterations[::-1]
+        area_y = upper_fitness + lower_fitness[::-1]
+        
+        # Draw the stdev area above and down the curve
+        stdev_scatter = go.Scatter(
+            name='Desvio Padrão',
+            x=area_x,
+            y=area_y,
+            fill='toself',
+            fillcolor='rgba(0,100,80,0.2)',
+            line=dict(color='rgba(255,255,255,0)'),
+            hoverinfo="skip",
+            showlegend=True
+        )
+        
+        # Add stdev scatter to the fig
+        fig.add_traces(stdev_scatter)
+    
+    # Update fig layout    
     fig.update_layout(
         legend_title='Otimizador',
         title_x=0.5,
@@ -37,9 +75,7 @@ def plot_convergence(task):
         yaxis=dict(
             title='Valor da Função',
             showgrid=False,
-            tickformat='.3f',
-            showexponent='all',
-            exponentformat='e'
+            tickformat='.3e'
         ),
         separators=',',
         margin=dict(l=0, r=0, t=30, b=30),
@@ -53,6 +89,7 @@ def plot_convergence(task):
         'modeBarButtonsToRemove': ['resetScale']
     })
     
+    # Return plot div
     return plot_div
 
 def plot_bar(task):
@@ -97,9 +134,7 @@ def plot_bar(task):
         yaxis=dict(
             title='Porcentagem de Ocorrência',
             showgrid=False,
-            tickformat='.2f',
-            showexponent='all',
-            exponentformat='e'
+            tickformat='.3e'
         ),
         separators=',',
         margin=dict(l=0, r=0, t=30, b=30),
