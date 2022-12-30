@@ -18,6 +18,13 @@
                     {% load dashboard_extras %}
                     <td>{{ task.result.best_features_vector }}</td>
                 </tr>
+
+                <tr class="col-sm">
+                    <th scope="row" class="sm">Quantidade selecionada</th>
+                    
+                    {% load dashboard_extras %}
+                    <td>{{ task.result.number_of_features }}</td>
+                </tr>
             </tbody>
         </table>
     </div>

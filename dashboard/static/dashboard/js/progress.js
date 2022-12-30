@@ -75,7 +75,7 @@ const initializeProgressBar = (progressURL, resultURL) => {
         }
         
         // Extract result
-        const [first, second] = extractResults(result)
+        const [first, second, third] = extractResults(result)
 
         // Create HTML table with result
         resultHTML = `
@@ -91,13 +91,25 @@ const initializeProgressBar = (progressURL, resultURL) => {
                         <th scope="row" class="sm">${first.label}</th>
                         <td>${first.value}</td>
                     </tr>
+        `
+
+        if (result.best_features_vector){
+            resultHTML +=`
+                    <tr class="col-sm">
+                        <th scope="row" class="sm">${third.label}</th>
+                        <td>${third.value}</td>
+                    </tr>
+            `
+        }
+
+        resultHTML += `
                     <tr class="col-sm">
                         <th scope="row" class="sm">${second.label}</th>
                         <td>${second.value}</td>
                     </tr>
                 </tbody>
             </table>
-            
+                
             <div class="a-right p-t-15">
                 <a href="${resultURL}" class="btn btn-basic btn-success btn-radius">
                     Ver mais
@@ -122,13 +134,18 @@ const initializeProgressBar = (progressURL, resultURL) => {
     const extractResults = (result) => {
         let first = {}
         let second = {}
+        let third = {}
 
         if (result.best_features_vector) {
             first.label = 'Melhor vetor de características'
             first.value = formatBooleanArray(result.best_features_vector)
-            
+
             second.label = 'Melhor acurácia'
-            second.value = formatNumber(result.best_acc)
+            second.value = formatNumber(result.best_acc)  
+            
+            third.label = 'Quantidade selecionada'
+            third.value = result.number_of_features
+
         } else {
             first.label = 'Melhor solução'
             first.value = formatArray(result.best_solution)
@@ -137,16 +154,14 @@ const initializeProgressBar = (progressURL, resultURL) => {
             second.value = formatNumber(result.best_value)
         }
 
-        return [first, second]
+        return [first, second, third]
     }
 
     const formatBooleanArray = (arr) => {
         let output = '['
 
         for (let i = 0; i < arr.length; i++) {
-            let value = arr[i].toString()
-
-            output += value.charAt(0).toUpperCase() + value.slice(1)
+            output += arr[i].toString()
 
             if (i != arr.length - 1) {
                 output += ', '
