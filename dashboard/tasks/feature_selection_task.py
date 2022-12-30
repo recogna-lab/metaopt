@@ -36,6 +36,8 @@ class _FeatureSelectionTask(_OptimizationTask):
             
             # Set progress description
             self.set_progress_description(curr_exec + 1)
+
+            np.random.seed(curr_exec)
             
             # Get execution data
             execution_data = self.select_features(

@@ -5,7 +5,8 @@
     "fields": {
         "name": "Heart Statlog",
         "file_name": "heart.txt",
-        "features": 13
+        "features": 13,
+        "samples": 270
     }
 },
 {
@@ -14,7 +15,8 @@
     "fields": {
         "name": "Sonar",
         "file_name": "sonar.txt",
-        "features": 60
+        "features": 60,
+        "samples": 208
     }
 },
 {
@@ -23,7 +25,8 @@
     "fields": {
         "name": "Vehicle",
         "file_name": "vehicle.txt",
-        "features": 18
+        "features": 18,
+        "samples": 846
     }
 },
 {
@@ -32,7 +35,8 @@
     "fields": {
         "name": "Spambase",
         "file_name": "spambase.txt",
-        "features": 48
+        "features": 48,
+        "samples": 4601
     }
 },
 {
@@ -41,7 +45,28 @@
     "fields": {
         "name": "Ionosphere",
         "file_name": "ionosphere.txt",
-        "features": 34
+        "features": 34,
+        "samples": 351
+    }
+},
+{
+    "model": "dashboard.dataset",
+    "pk": 6,
+    "fields": {
+        "name": "Waveform",
+        "file_name": "waveform.txt",
+        "features": 40,
+        "samples": 5000
+    }
+},
+{
+    "model": "dashboard.dataset",
+    "pk": 7,
+    "fields": {
+        "name": "Hill Valley",
+        "file_name": "hill-valley.txt",
+        "features": 100,
+        "samples": 606
     }
 }
 ]
