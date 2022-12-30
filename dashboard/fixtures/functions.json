@@ -1,112 +1,112 @@
 [
 {
     "model": "dashboard.function",
-    "pk": 1,
+    "pk": 11,
     "fields": {
-        "short_name": "Ackley2",
-        "name": "Função Ackley 2",
-        "latex_expression": "$ f(x_1, x_2) = -200e^{-0{,}2\\sqrt{x_1^2+x_2^2}} $",
-        "search_space": "{\"dimension\": 2, \"lower_bound\": [-32, -32], \"upper_bound\": [32, 32]}",
-        "optimal": "{\"solution\": [0, 0], \"value\": -200}"
+        "short_name": "Rosenbrock",
+        "name": "Função Rosenbrock",
+        "latex_expression": "$ f(\\mathbf{x}) = \\sum_{i=1}^{n-1}[100(x_{i+1}-x_i^2)^2 + (x_i - 1)^2] $",
+        "search_space": "{\"dimension\": 10, \"lower_bound\": -30, \"upper_bound\": 30}",
+        "optimal": "{\"solution\": 1, \"value\": 0}"
     }
 },
 {
     "model": "dashboard.function",
-    "pk": 2,
+    "pk": 12,
     "fields": {
-        "short_name": "Adjiman",
-        "name": "Função Adjiman",
-        "latex_expression": "$ f(x_1, x_2) = cos(x_1)sin(x_2) - \\frac{x_1}{x_2^2+1} $",
-        "search_space": "{\"dimension\": 2, \"lower_bound\": [-1, -1], \"upper_bound\": [2, 1]}",
-        "optimal": "{\"solution\": [2, 0.10578], \"value\": -2.02181}"
+        "short_name": "Rastrigin",
+        "name": "Função Rastrigin",
+        "latex_expression": "$ f(\\mathbf{x}) = 10n + \\sum_{i=1}^{n}(x_i^2 - 10cos(2 \\pi x_i)) $",
+        "search_space": "{\"dimension\": 10, \"lower_bound\": -5.12, \"upper_bound\": 5.12}",
+        "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 },
 {
     "model": "dashboard.function",
-    "pk": 3,
+    "pk": 13,
     "fields": {
-        "short_name": "Beale",
-        "name": "Função Beale",
-        "latex_expression": "$ f(x_1, x_2) = (1{,}5-x_1+x_1x_2)^2 + (2{,}25-x_1+x_1x_2^2)^2 + (2{,}625-x_1+x_1x_2^3)^2 $",
-        "search_space": "{\"dimension\": 2, \"lower_bound\": [-4.5, -4.5], \"upper_bound\": [4.5, 4.5]}",
-        "optimal": "{\"solution\": [3, 0.5], \"value\": 0}"
+        "short_name": "Griewank",
+        "name": "Função Griewank",
+        "latex_expression": "$ f(\\mathbf{x}) = 1 + \\sum_{i=1}^{n}\\frac{x_i^2}{4000} - \\prod cos(\\frac{x_i}{\\sqrt{i}}) $",
+        "search_space": "{\"dimension\": 10, \"lower_bound\": -100, \"upper_bound\": 100}",
+        "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 },
 {
     "model": "dashboard.function",
-    "pk": 4,
+    "pk": 14,
     "fields": {
-        "short_name": "Booth",
-        "name": "Função Booth",
-        "latex_expression": "$ f(x_1, x_2) = (x_1 + 2x_2 - 7)^2 + (2x_1 + x_2 - 5)^2 $",
-        "search_space": "{\"dimension\": 2, \"lower_bound\": [-10, -10], \"upper_bound\": [10, 10]}",
-        "optimal": "{\"solution\": [1, 3], \"value\": 0}"
+        "short_name": "PowellSum",
+        "name": "Função Powell Sum",
+        "latex_expression": "$ f(\\mathbf{x}) = \\sum_{i=1}^{n}|x_i|^{i+1} $",
+        "search_space": "{\"dimension\": 10, \"lower_bound\": -1, \"upper_bound\": 1}",
+        "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 },
 {
     "model": "dashboard.function",
-    "pk": 5,
+    "pk": 15,
     "fields": {
-        "short_name": "Brent",
-        "name": "Função Brent",
-        "latex_expression": "$ f(x_1, x_2) = (x_1 + 10)^2 + (x_2 + 10)^2 + e^{-x_1^2 - x_2^2} $",
-        "search_space": "{\"dimension\": 2, \"lower_bound\": [-10, -10], \"upper_bound\": [10, 10]}",
-        "optimal": "{\"solution\": [0, 0], \"value\": 0}"
+        "short_name": "Step",
+        "name": "Função Step",
+        "latex_expression": "$ f(\\mathbf{x}) = \\sum_{i=1}^{n} ⌊x_i⌋ $",
+        "search_space": "{\"dimension\": 10, \"lower_bound\": -100, \"upper_bound\": 100}",
+        "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 },
 {
     "model": "dashboard.function",
-    "pk": 6,
+    "pk": 16,
     "fields": {
-        "short_name": "Bukin2",
-        "name": "Função Bukin 2",
-        "latex_expression": "$ f(x_1, x_2) = 100(x_2 - 0{,}01x_1^2 + 1) + 0{,}01(x_1 + 10)^2 $",
-        "search_space": "{\"dimension\": 2, \"lower_bound\": [-15, -3], \"upper_bound\": [-5, 3]}",
-        "optimal": "{\"solution\": [-10, 0], \"value\": 0}"
+        "short_name": "Ackley1",
+        "name": "Função Ackley 1",
+        "latex_expression": "$ f(\\mathbf{x}) = -20e^{-0.2\\sqrt{\\frac{1}{n}\\sum_{i=1}^{n}x_i^2}}-e^{\\frac{1}{n}\\sum_{i=1}^{n}cos(2 \\pi x_i)}+ 20 + e $",
+        "search_space": "{\"dimension\": 10, \"lower_bound\": -32, \"upper_bound\": 32}",
+        "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 },
 {
     "model": "dashboard.function",
-    "pk": 7,
+    "pk": 17,
     "fields": {
-        "short_name": "Camel3",
-        "name": "Função Camel 3",
-        "latex_expression": "$ f(x_1, x_2) = 2x_1^2 - 1{,}05x_1^4 + \\frac{x_1^6}{6} + x_1x_2 + x_2^2 $",
-        "search_space": "{\"dimension\": 2, \"lower_bound\": [-5, -5], \"upper_bound\": [5, 5]}",
-        "optimal": "{\"solution\": [0, 0], \"value\": 0}"
+        "short_name": "Alpine1",
+        "name": "Função Alpine 1",
+        "latex_expression": "$ f(\\mathbf{x}) = \\sum_{i=1}^{n}|x_i sin(x_i)+0.1x_i| $",
+        "search_space": "{\"dimension\": 10, \"lower_bound\": -10, \"upper_bound\": 10}",
+        "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 },
 {
     "model": "dashboard.function",
-    "pk": 8,
+    "pk": 18,
     "fields": {
-        "short_name": "Cube",
-        "name": "Função Cube",
-        "latex_expression": "$ f(x_1, x_2) = 100(x_2 - x_1^3)^2 + (1 - x_1)^2 $",
-        "search_space": "{\"dimension\": 2, \"lower_bound\": [-10, -10], \"upper_bound\": [10, 10]}",
-        "optimal": "{\"solution\": [-1, 1], \"value\": 0}"
+        "short_name": "Schwefel",
+        "name": "Função Schwefel",
+        "latex_expression": "$ f(\\mathbf{x}) = 418.9829n -\\sum_{i=1}^{n} x_i sin(\\sqrt{|x_i|}) $",
+        "search_space": "{\"dimension\": 10, \"lower_bound\": -100, \"upper_bound\": 100}",
+        "optimal": "{\"solution\": 420.9687, \"value\": 0}"
     }
 },
 {
     "model": "dashboard.function",
-    "pk": 9,
+    "pk": 19,
     "fields": {
-        "short_name": "Easom",
-        "name": "Função Easom",
-        "latex_expression": "$ f(x_1, x_2) = -cos(x_1)cos(x_2)e^{-(x_1-\\pi)^2 -(x_2-\\pi)^2} $",
-        "search_space": "{\"dimension\": 2, \"lower_bound\": [-100, -100], \"upper_bound\": [100, 100]}",
-        "optimal": "{\"solution\": [3.14159, 3.14159], \"value\": -1}"
+        "short_name": "Salomon",
+        "name": "Função Salomon",
+        "latex_expression": "$ f(\\mathbf{x}) = 1 - cos(2 \\pi \\sqrt{\\sum_{i=1}^{n}x_i^2}) + 0.1\\sqrt{\\sum_{i=1}^{n}x_i^2} $",
+        "search_space": "{\"dimension\": 10, \"lower_bound\": -100, \"upper_bound\": 100}",
+        "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 },
 {
     "model": "dashboard.function",
-    "pk": 10,
+    "pk": 21,
     "fields": {
-        "short_name": "EggCrate",
-        "name": "Função EggCrate",
-        "latex_expression": "$ f(x_1, x_2) = x_1^2 + x_2^2 + 25(sin^2(x_1) + sin^2(x_2)) $",
-        "search_space": "{\"dimension\": 2, \"lower_bound\": [-5, -5], \"upper_bound\": [5, 5]}",
-        "optimal": "{\"solution\": [0, 0], \"value\": 0}"
+        "short_name": "Weierstrass",
+        "name": "Função Weierstrass",
+        "latex_expression": "$ f(\\mathbf{x}) = \\sum_{i=1}^{n} (\\sum_{k=0}^{20} [0.5^k cos(2\\pi 3^k(x_i+0.5))]) - n \\sum_{k=0}^{20}[0.5^k cos(2\\pi 3^k 0.5)] $",
+        "search_space": "{\"dimension\": 10, \"lower_bound\": -0.5, \"upper_bound\": 0.5}",
+        "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 }
 ]
