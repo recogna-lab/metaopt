@@ -59,8 +59,10 @@ def plot_bar(task):
     # Name of the optimizer used in the execution
     optimizer = task['task_kwargs']['optimizer']['acronym']
     
+    executions = task['task_kwargs']['executions']
+
     # Distribution values for features
-    distributions = get_distribution(task)
+    distributions, stdev = get_distribution(task)
     
     # List with number of features in the distributions
     features = list(range(1, len(distributions) + 1))
@@ -75,6 +77,13 @@ def plot_bar(task):
         opacity=0.8,
         hovertemplate='(%{x}; %{y})'
     )
+
+    if executions > 1:
+      bar.error_y = go.bar.ErrorY(
+        type='data',
+        array=stdev
+      )   
+        
     fig.add_trace(bar)
     fig.update_layout(
         legend_title='Otimizador',
@@ -114,21 +123,19 @@ def get_distribution(task):
 
     # Get number of features in a vector
     feature_count = len(feature_vectors[0])
-    
-    # Initialize freq list
-    freq = [0] * feature_count
 
-    # Compute feature freq
+    new_feature_vectors = []
+
     for vector in feature_vectors:
-        for i, feature in enumerate(vector):
-            if feature:
-                freq[i] += 1
-    
-    # Get the number of executions
-    executions = task['task_kwargs']['executions']
+        new_feature_vectors.append(list(map(int, vector)))
+
+    new_feature_vectors = np.array(new_feature_vectors)
+
+    freq = (np.mean(np.array(new_feature_vectors), axis=0)*100).tolist()
+    stdev = np.std(np.array(new_feature_vectors), axis=0).tolist()
     
     # Compute distributions based on freq
-    return [(x/executions * 100) for x in freq]
+    return freq, stdev
 
 # Helper function to get feature vectors
 def get_feature_vectors(task):
