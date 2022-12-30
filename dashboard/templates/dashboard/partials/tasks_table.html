@@ -23,18 +23,16 @@
                 <td class="text-center">{{ task.task_name.split.0 }}</td>
 
                 <td class="text-center">
-                    {{ task.task_kwargs.optimizer.acronym }}
+                    {{ task.task_kwargs.optimizer }}
                 </td>
 
+                <td class="text-center">
+                    {{ task.task_kwargs.function }}
+                </td>
+                
                 {% if task.task_name == 'Seleção de Características' %}
-                    <td class="text-center">
-                        {{ task.task_kwargs.function }}
-                    </td>
                     <td class="text-center">{{ task.task_kwargs.dataset }}</td>
                 {% else %}
-                    <td class="text-center">
-                        {{ task.task_kwargs.function.short_name }}
-                    </td>
                     <td class="text-center text-secondary">Não se aplica</td>
                 {% endif %}
 

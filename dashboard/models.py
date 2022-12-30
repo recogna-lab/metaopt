@@ -197,11 +197,9 @@ def get_all_tasks(user_id):
     # Select the desired fields in a dict
     tasks = select_task_fields(tasks)
     
-    # Format tasks
     for task in tasks:
         task = format_task(task)
     
-    # Return formatted tasks
     return tasks
 
 def get_task_ids(user_id):
@@ -227,7 +225,13 @@ def get_task(user_id, task_id):
         task = select_task_fields(task)
         
         # Return formatted task
-        return format_task(task=task.first())
+        task = format_task(task=task.first())
+        
+        # Add optimizer and function info
+        add_extra_info(task)
+        
+        # Return task dict
+        return task
     except UserTask.DoesNotExist:
         return None
 
@@ -248,14 +252,15 @@ def format_task(task):
     task['task_name'] = translate.task_name(task['task_name'])
     task['status'] = translate.task_status(task['status'])
     task['task_kwargs'] = load_json(task['task_kwargs'])
-
-    add_optimizer_info(task)
-    add_function_info(task)
     
     if task['result'] is not None:
         task['result'] = load_json(task['result'])
     
     return task
+
+def add_extra_info(task):
+    add_optimizer_info(task)
+    add_function_info(task)
 
 def add_optimizer_info(task):
     optimizer = Optimizer.objects.filter(
