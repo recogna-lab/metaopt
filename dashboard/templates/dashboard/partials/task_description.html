@@ -1,5 +1,16 @@
 {% if title in 'Otimização' %}
-    <h4 class="task-description">
-        As tarefas de otimização do MetaOPT procuram empregar meta-heurísticas para minimizar uma função de teste. As heurísticas são flexiveís e capazes de encontrar boas soluções para vários problemas. Quanto às funções de teste, pode-se dizer que são problemas artificias de diferentes níveis de dificuldade, servindo para avaliar a performance e a convergência dos otimizadores. Disponibilizam-se aqui os algoritmos e as funções mais populares da literatura.
+    <h4 class="task-description" style="text-align: justify;">
+        As tarefas de otimização do MetaOPT empregam meta-heurísticas para minimizar uma função de teste, uma vez que elas
+        são flexiveís e capazes de encontrar boas soluções para vários problemas. 
+        Quanto às funções de teste, pode-se dizer que são problemas artificiais de diferentes níveis de dificuldade, servindo para avaliar a performance e a convergência dos otimizadores. 
+        Disponibilizam-se aqui os algoritmos e as funções mais populares da literatura.
     </h4>
+
+{% else %}
+<h4 class="task-description" style="text-align: justify;">
+    A funcionalidade de seleção de características do MetaOPT emprega as meta-heurísticas mais populares da literatura para encontrar o vetor de características 
+    que minimiza o erro de classificação. O classificador de padrões utilizado foi o OPF (Optimum Path-Forest) e as bases de dados
+    pertencem ao repositório UCI Machine Learning que foram escolhidas devido à sua relevância na literatura.
+    Ademais, como nenhuma versão binária das técnicas de otimização foi implementada, o uso de funções de transferências se fez necessário.
+</h4>
 {% endif %}
