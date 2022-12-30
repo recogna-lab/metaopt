@@ -34,23 +34,23 @@
                         <td>
                         <span>
                             <b>Dimensão:</b>
-                            {{ task.task_kwargs.space.dimension }}
+                            {{ task.task_kwargs.dimension }}
                         </span>
                         </br>
                         <span>
                             <b>Limite inferior:</b>
-                            {{ task.task_kwargs.space.lower_bound }}
+                            {{ task.task_kwargs.bound.lower }}
 
-                            {% if task.task_kwargs.space.dimension > 1 %}
+                            {% if task.task_kwargs.dimension > 1 %}
                                 para todas as variáveis
                             {% endif %}
                         </span>
                         </br>
                         <span>
                             <b>Limite superior:</b>
-                            {{ task.task_kwargs.space.upper_bound }}
+                            {{ task.task_kwargs.bound.upper }}
 
-                            {% if task.task_kwargs.space.dimension > 1 %}
+                            {% if task.task_kwargs.dimension > 1 %}
                                 para todas as variáveis
                             {% endif %}
                         </span>
