@@ -6,7 +6,7 @@
         "short_name": "Rosenbrock",
         "name": "Função Rosenbrock",
         "latex_expression": "$ f(\\mathbf{x}) = \\sum_{i=1}^{n-1}[100(x_{i+1}-x_i^2)^2 + (x_i - 1)^2] $",
-        "search_space": "{\"dimension\": 10, \"lower_bound\": -30, \"upper_bound\": 30}",
+        "bound": "{\"lower\": -30, \"upper\": 30}",
         "optimal": "{\"solution\": 1, \"value\": 0}"
     }
 },
@@ -17,7 +17,7 @@
         "short_name": "Rastrigin",
         "name": "Função Rastrigin",
         "latex_expression": "$ f(\\mathbf{x}) = 10n + \\sum_{i=1}^{n}(x_i^2 - 10cos(2 \\pi x_i)) $",
-        "search_space": "{\"dimension\": 10, \"lower_bound\": -5.12, \"upper_bound\": 5.12}",
+        "bound": "{\"lower\": -5.12, \"upper\": 5.12}",
         "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 },
@@ -28,7 +28,7 @@
         "short_name": "Griewank",
         "name": "Função Griewank",
         "latex_expression": "$ f(\\mathbf{x}) = 1 + \\sum_{i=1}^{n}\\frac{x_i^2}{4000} - \\prod cos(\\frac{x_i}{\\sqrt{i}}) $",
-        "search_space": "{\"dimension\": 10, \"lower_bound\": -100, \"upper_bound\": 100}",
+        "bound": "{\"lower\": -100, \"upper\": 100}",
         "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 },
@@ -39,7 +39,7 @@
         "short_name": "PowellSum",
         "name": "Função Powell Sum",
         "latex_expression": "$ f(\\mathbf{x}) = \\sum_{i=1}^{n}|x_i|^{i+1} $",
-        "search_space": "{\"dimension\": 10, \"lower_bound\": -1, \"upper_bound\": 1}",
+        "bound": "{\"lower\": -1, \"upper\": 1}",
         "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 },
@@ -50,7 +50,7 @@
         "short_name": "Step",
         "name": "Função Step",
         "latex_expression": "$ f(\\mathbf{x}) = \\sum_{i=1}^{n} ⌊x_i⌋ $",
-        "search_space": "{\"dimension\": 10, \"lower_bound\": -100, \"upper_bound\": 100}",
+        "bound": "{\"lower\": -100, \"upper\": 100}",
         "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 },
@@ -60,8 +60,8 @@
     "fields": {
         "short_name": "Ackley1",
         "name": "Função Ackley 1",
-        "latex_expression": "$ f(\\mathbf{x}) = -20e^{-0.2\\sqrt{\\frac{1}{n}\\sum_{i=1}^{n}x_i^2}}-e^{\\frac{1}{n}\\sum_{i=1}^{n}cos(2 \\pi x_i)}+ 20 + e $",
-        "search_space": "{\"dimension\": 10, \"lower_bound\": -32, \"upper_bound\": 32}",
+        "latex_expression": "$ f(\\mathbf{x}) = -20e^{-0{,}2\\sqrt{\\frac{1}{n}\\sum_{i=1}^{n}x_i^2}}-e^{\\frac{1}{n}\\sum_{i=1}^{n}cos(2 \\pi x_i)}+ 20 + e $",
+        "bound": "{\"lower\": -32, \"upper\": 32}",
         "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 },
@@ -71,8 +71,8 @@
     "fields": {
         "short_name": "Alpine1",
         "name": "Função Alpine 1",
-        "latex_expression": "$ f(\\mathbf{x}) = \\sum_{i=1}^{n}|x_i sin(x_i)+0.1x_i| $",
-        "search_space": "{\"dimension\": 10, \"lower_bound\": -10, \"upper_bound\": 10}",
+        "latex_expression": "$ f(\\mathbf{x}) = \\sum_{i=1}^{n}|x_i sin(x_i)+0{,}1x_i| $",
+        "bound": "{\"lower\": -10, \"upper\": 10}",
         "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 },
@@ -82,8 +82,8 @@
     "fields": {
         "short_name": "Schwefel",
         "name": "Função Schwefel",
-        "latex_expression": "$ f(\\mathbf{x}) = 418.9829n -\\sum_{i=1}^{n} x_i sin(\\sqrt{|x_i|}) $",
-        "search_space": "{\"dimension\": 10, \"lower_bound\": -100, \"upper_bound\": 100}",
+        "latex_expression": "$ f(\\mathbf{x}) = 418{,}9829n -\\sum_{i=1}^{n} x_i sin(\\sqrt{|x_i|}) $",
+        "bound": "{\"lower\": -100, \"upper\": 100}",
         "optimal": "{\"solution\": 420.9687, \"value\": 0}"
     }
 },
@@ -93,8 +93,8 @@
     "fields": {
         "short_name": "Salomon",
         "name": "Função Salomon",
-        "latex_expression": "$ f(\\mathbf{x}) = 1 - cos(2 \\pi \\sqrt{\\sum_{i=1}^{n}x_i^2}) + 0.1\\sqrt{\\sum_{i=1}^{n}x_i^2} $",
-        "search_space": "{\"dimension\": 10, \"lower_bound\": -100, \"upper_bound\": 100}",
+        "latex_expression": "$ f(\\mathbf{x}) = 1 - cos(2 \\pi \\sqrt{\\sum_{i=1}^{n}x_i^2}) + 0{,}1\\sqrt{\\sum_{i=1}^{n}x_i^2} $",
+        "bound": "{\"lower\": -100, \"upper\": 100}",
         "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 },
@@ -104,8 +104,8 @@
     "fields": {
         "short_name": "Weierstrass",
         "name": "Função Weierstrass",
-        "latex_expression": "$ f(\\mathbf{x}) = \\sum_{i=1}^{n} (\\sum_{k=0}^{20} [0.5^k cos(2\\pi 3^k(x_i+0.5))]) - n \\sum_{k=0}^{20}[0.5^k cos(2\\pi 3^k 0.5)] $",
-        "search_space": "{\"dimension\": 10, \"lower_bound\": -0.5, \"upper_bound\": 0.5}",
+        "latex_expression": "$ f(\\mathbf{x}) = \\sum_{i=1}^{n} (\\sum_{k=0}^{20} [0{,}5^k cos(2\\pi 3^k(x_i+0{,}5))]) - n \\sum_{k=0}^{20}[0{,}5^k cos(2\\pi 3^k 0{,}5)] $",
+        "bound": "{\"lower\": -0.5, \"upper\": 0.5}",
         "optimal": "{\"solution\": 0, \"value\": 0}"
     }
 }

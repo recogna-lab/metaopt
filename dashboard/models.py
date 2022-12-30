@@ -51,9 +51,9 @@ class Function(models.Model):
         help_text='Latex expression for the function'
     )
     
-    search_space = models.TextField(
-        verbose_name='Search Space',
-        help_text='JSON representation of the search space'
+    bound = models.TextField(
+        verbose_name='Bound',
+        help_text='JSON representation of the bound'
     )
     
     optimal = models.TextField(
@@ -93,13 +93,13 @@ class Dataset(models.Model):
         ordering = ('name', )
 
 class TransferFunction(models.Model):
-
+    
     name = models.CharField(
         max_length=50,
         verbose_name='Name',
         help_text='Name of the Transfer Function'
     )
-
+    
     latex_expression = models.CharField(
         max_length=255,
         verbose_name='Latex Expression',
@@ -282,12 +282,9 @@ def add_function_info(task):
     # Load optimal json
     function['optimal'] = load_json(function['optimal'])
     
-    # Load search space json
-    function['search_space'] = load_json(function['search_space'])
-    
     # Get solution and dimension
     sol = function['optimal']['solution']
-    dim = function['search_space']['dimension']
+    dim = task['task_kwargs']['dimension']
     
     # Update solution  
     sol = [sol] * dim
