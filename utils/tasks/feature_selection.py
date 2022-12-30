@@ -15,9 +15,9 @@ logger = log.get_logger(__name__)
 class ResultFS(Result):
     
     def _initialize(self, result):
-        self.precision = np.array(result['precision'])
-        self.recall = np.array(result['recall'])
-        self.f1_score = np.array(result['f1_score'])
+        self.precision = [result['precision']]
+        self.recall = [result['recall']]
+        self.f1_score = [result['f1_score']]
 
         self.acc_values = [result['accuracy']]
         self.best_selected_features = result['best_selected_features']
@@ -30,18 +30,22 @@ class ResultFS(Result):
         if max(self.acc_values) == result['accuracy']:
             self.best_selected_features = result['best_selected_features']
 
-        self.precision += np.array(result['precision'])
-        self.recall += np.array(result['recall'])
-        self.f1_score += np.array(result['f1_score'])
+        self.precision.append(result['precision'])
+        self.recall.append(result['recall'])
+        self.f1_score.append(result['f1_score'])
         
         super()._update(result)
 
     def as_dict(self):
         # Get results dict given by super class
         results_dict = super().as_dict()
-        
-        # Get the number of executions
+
         count = len(self.exec_data)
+
+        # Get the number of executions
+        self.precision = np.array(self.precision)
+        self.recall = np.array(self.recall)
+        self.f1_score = np.array(self.f1_score)
         
         # Add average values to results dict
         # Remeber that standard deviation requires count > 1
@@ -52,9 +56,12 @@ class ResultFS(Result):
             'min_acc': min(self.acc_values),
             'avg_acc': sum(self.acc_values) / count,
             'stdev_acc': stdev(self.acc_values) if count > 1 else None,
-            'precision': (self.precision / count).tolist(),
-            'recall': (self.recall / count).tolist(),
-            'f1_score': (self.f1_score / count).tolist()
+            'precision': np.mean(self.precision, axis = 0).tolist(),
+            'stdev_precision': np.std(self.precision, axis=0).tolist(),
+            'recall': np.mean(self.recall, axis=0).tolist(),
+            'stdev_recall': np.std(self.recall, axis=0).tolist(),
+            'f1_score': np.mean(self.f1_score, axis=0).tolist(),
+            'stdev_f1_score': np.std(self.f1_score, axis=0).tolist()
         })
         
         # If it has more than one execution

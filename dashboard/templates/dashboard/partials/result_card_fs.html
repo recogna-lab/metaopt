@@ -64,8 +64,8 @@
     </div>
 
     <div>
-        <h3>Demais Métricas</h3>
-        
+        <h3>Precision</h3>
+    
         <table class="table table-sm striped table-nowrap">
             <thead>
                 <tr>
@@ -75,7 +75,7 @@
             </thead>
             <tbody>
                 <tr class="col-sm">
-                    <th scope="row" class="sm">Precisão</th>
+                    <th scope="row" class="sm">Valor médio</th>
                     <td> 
                         {% for p in task.result.precision %}
                             <div>
@@ -86,18 +86,65 @@
                     </td>
                 </tr>
                 <tr class="col-sm">
-                    <th scope="row" class="sm">Recall</th>
+                    <th scope="row" class="sm">Desvio Padrão</th>
+                    <td>
+                        {% for f in task.result.stdev_precision %}
+                            <div>
+                                <b>Classe {{forloop.counter}}:</b>
+                                {{ f|floatformat:3 }}
+                            </div>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3> Recall </h3>
+        <table class="table table-sm striped table-nowrap">
+            <thead>
+                <tr>
+                    <th class="th-sm"></th>
+                    <th class="th-sm"></th>     
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="col-sm">
+                    <th scope="row" class="sm">Valor médio</th>
                     <td>
                         {% for rec in task.result.recall %}
                             <div>
                                 <b>Classe {{forloop.counter}}:</b>
                                 {{ rec|floatformat:3 }}
+                                
                             </div>
                         {% endfor %}
                     </td>
                 </tr>
                 <tr class="col-sm">
-                    <th scope="row" class="sm">F1-score</th>
+                    <th scope="row" class="sm">Desvio Padrão</th>
+                    <td>
+                        {% for r in task.result.stdev_recall %}
+                            <div>
+                                <b>Classe {{forloop.counter}}:</b>
+                                {{ r|floatformat:3 }}
+                            </div>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3> F1-Score </h3>
+        <table class="table table-sm striped table-nowrap">
+            <thead>
+                <tr>
+                    <th class="th-sm"></th>
+                    <th class="th-sm"></th>     
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="col-sm">
+                    <th scope="row" class="sm">Valor médio</th>
                     <td>
                         {% for f in task.result.f1_score %}
                             <div>
@@ -106,7 +153,18 @@
                             </div>
                         {% endfor %}
                     </td>
-                </tr>    
+                </tr> 
+                <tr class="col-sm">
+                    <th scope="row" class="sm">Desvio Padrão</th>
+                    <td>
+                        {% for f in task.result.stdev_f1_score %}
+                            <div>
+                                <b>Classe {{forloop.counter}}:</b>
+                                {{ f|floatformat:3 }}
+                            </div>
+                        {% endfor %}
+                    </td>
+                </tr>   
             </tbody>
         </table>
     </div>
