@@ -14,7 +14,7 @@ class _OptimizationTask(app.Task):
     
     abstract = True
     
-    def run_optimization(self, optimizer, function, space, agents, 
+    def run_optimization(self, optimizer, function, dim, bound, agents, 
                          iterations, executions):
         # Create results object
         results = Result()
@@ -31,7 +31,7 @@ class _OptimizationTask(app.Task):
             
             # Get best solution, best value and fitness values
             execution_data = self.optimize(
-                optimizer, function, space, agents, iterations
+                optimizer, function, dim, bound, agents, iterations
             )
             
             # Update the results object
@@ -46,9 +46,9 @@ class _OptimizationTask(app.Task):
         else:
             self.progress_description = None
     
-    def optimize(self, optimizer, function, space, agents, iterations):
+    def optimize(self, optimizer, function, dim, bound, agents, iterations):
         # Set optimizer, function and search space
-        self.setup(optimizer, function, space, agents)
+        self.setup(optimizer, function, dim, bound, agents)
         
         # Start the optimization
         self.start(iterations)
@@ -63,31 +63,30 @@ class _OptimizationTask(app.Task):
             'fitness_values': fitness_values
         }
     
-    def setup(self, optimizer, function, space, agents):
-
+    def setup(self, optimizer, function, dim, bound, agents):
         # Get and set the optimizer object    
         self.optimizer = get_optimizer(optimizer)
         
         # Get the function object
-        function = get_function(function, space['dimension'])
+        function = get_function(function, dim)
         
         # Set the cost function
         self.function = Function(function)
-        
-        # Generate lower and upper bound lists
-        space['lower_bound'] = [space['lower_bound']] * space['dimension']
-        space['upper_bound'] = [space['upper_bound']] * space['dimension']
-        
+                
         # Configure the search space
-        self.setup_space(agents, space)
+        self.setup_space(agents, dim, bound)
     
-    def setup_space(self, agents, space):
+    def setup_space(self, agents, dim, bound):
+        # Generate lower and upper bound list
+        lower_bound = [bound['lower']] * dim
+        upper_bound = [bound['upper']] *dim
+        
         # Create search space
         self.space = SearchSpace(
             n_agents=agents,
-            n_variables=space['dimension'],
-            lower_bound=space['lower_bound'],
-            upper_bound=space['upper_bound']
+            n_variables=dim,
+            lower_bound=lower_bound,
+            upper_bound=upper_bound
         )
     
     def start(self, iterations):
@@ -131,13 +130,14 @@ class _OptimizationTask(app.Task):
 
 # This is the optimization task
 @app.task(name='optimization', base=_OptimizationTask, bind=True)
-def optimization(self, user_id, optimizer, function, space, agents, 
+def optimization(self, user_id, optimizer, function, dimension, bound, agents, 
                  iterations, executions):
     # Run the optimization task as specified by the following arguments
     return self.run_optimization(
         optimizer, 
         function, 
-        space, 
+        dimension,
+        bound, 
         agents, 
         iterations,
         executions

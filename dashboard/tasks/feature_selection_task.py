@@ -61,27 +61,24 @@ class _FeatureSelectionTask(_OptimizationTask):
         # Get transfer function
         self.transfer_function = get_transfer_function(transfer_function)
 
-        # Set lower and upper bound
-        lower_bound = [0] * dimension
-        upper_bound = [1] * dimension
-        
-        # Set space dict
-        space = {
-            'dimension': dimension, 
-            'lower_bound': lower_bound, 
-            'upper_bound': upper_bound
+        # Create the bound dict
+        bound = { 
+            'lower': 0, 
+            'upper': 1
         }
 
         # Run optimize method
-        result_opt = self.optimize(optimizer, None, space, agents, iterations)
-
+        result_opt = self.optimize(
+            optimizer, None, dimension, bound, agents, iterations
+        )
+        
         opf = SupervisedOPF(
             distance='log_squared_euclidean',
             pre_computed_distance=None
         )
 
         result_fs = self.testing_task(opf)
-
+        
         metrics = self.get_metrics(result_fs['confusion_matrix']) 
         
         return self.concatenate_results(result_opt, result_fs, metrics)
@@ -110,13 +107,13 @@ class _FeatureSelectionTask(_OptimizationTask):
             self.X_train, self.Y_train, percentage = 0.2, random_state=1
         )
     
-    def optimize(self, optimizer, function, space, agents, iterations):
+    def optimize(self, optimizer, function, dim, bound, agents, iterations):
         # Run super class method with desired function
         return super().optimize(
-            optimizer, self.supervised_opf, space, agents, iterations
+            optimizer, self.supervised_opf, dim, bound, agents, iterations
         )
     
-    def setup(self, optimizer, function, space, agents):
+    def setup(self, optimizer, function, dim, bound, agents):
         # Get and set the optimizer object    
         self.optimizer = get_optimizer(optimizer)
         
@@ -124,7 +121,7 @@ class _FeatureSelectionTask(_OptimizationTask):
         self.function = Function(function)
 
         # Configure the search space
-        self.setup_space(agents, space)
+        self.setup_space(agents, dim, bound)
     
     def supervised_opf(self, opytimizer):
         # Transform the continuous solution in boolean solution (feature array) by applying the transfer function
