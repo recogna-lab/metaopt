@@ -274,11 +274,27 @@ def add_function_info(task):
         short_name=task['task_kwargs']['function']
     )
     
-    if function:
-        task['task_kwargs']['function'] = function.values().first()
-        task['task_kwargs']['function']['optimal'] = load_json(
-            task['task_kwargs']['function']['optimal']
-        )
+    if not function:
+        return
+    
+    function = function.values().first()
+    
+    # Load optimal json
+    function['optimal'] = load_json(function['optimal'])
+    
+    # Load search space json
+    function['search_space'] = load_json(function['search_space'])
+    
+    # Get solution and dimension
+    sol = function['optimal']['solution']
+    dim = function['search_space']['dimension']
+    
+    # Update solution  
+    sol = [sol] * dim
+    function['optimal']['solution'] = sol
+    
+    # Add function dict to function key    
+    task['task_kwargs']['function'] = function
 
 
 # Before saving a task result instance
