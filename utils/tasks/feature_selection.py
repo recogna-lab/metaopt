@@ -46,7 +46,8 @@ class ResultFS(Result):
         # Add average values to results dict
         # Remeber that standard deviation requires count > 1
         results_dict.update({
-            'best_features_vector': self.best_selected_features,
+            'best_features_vector': list(map(int, self.best_selected_features)),
+            'number_of_features': self.best_selected_features.count(True),
             'best_acc': max(self.acc_values),
             'min_acc': min(self.acc_values),
             'avg_acc': sum(self.acc_values) / count,
