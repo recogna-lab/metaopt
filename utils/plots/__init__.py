@@ -75,9 +75,7 @@ def plot_convergence(task):
         yaxis=dict(
             title='Valor da Função',
             showgrid=False,
-            tickformat='.3f',
-            showexponent='all',
-            exponentformat='e'
+            tickformat='.3e'
         ),
         separators=',',
         margin=dict(l=0, r=0, t=30, b=30),
@@ -127,9 +125,7 @@ def plot_bar(task):
         yaxis=dict(
             title='Porcentagem de Ocorrência',
             showgrid=False,
-            tickformat='.2f',
-            showexponent='all',
-            exponentformat='e'
+            tickformat='.3e'
         ),
         separators=',',
         margin=dict(l=0, r=0, t=30, b=30),
