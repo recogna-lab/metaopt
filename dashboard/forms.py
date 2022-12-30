@@ -76,7 +76,7 @@ class OptimizationForm(_TaskForm):
         label='Função de Teste',
         queryset=Function.objects.all(),
         to_field_name='latex_expression',
-        empty_label='Selecione uma função de benchmark',
+        empty_label='Selecione uma função',
         help_text=(
             'Escolha uma das funções de teste para a tarefa de otimização.'
         )
