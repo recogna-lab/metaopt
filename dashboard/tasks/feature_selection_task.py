@@ -64,7 +64,7 @@ class _FeatureSelectionTask(_OptimizationTask):
         # Set lower and upper bound
         lower_bound = [0] * dimension
         upper_bound = [1] * dimension
-
+        
         # Set space dict
         space = {
             'dimension': dimension, 
