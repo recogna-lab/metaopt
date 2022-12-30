@@ -42,21 +42,21 @@
             <tbody>
                 <tr class="col-sm">
                     <th scope="row" class="sm">Melhor valor</th>
-                    <td>{{ task.result.best_acc|floatformat:3 }}</td>
+                    <td>{{ task.result.best_acc|stringformat:'.3e' }}</td>
                 </tr>
     
                 {% if task.task_kwargs.executions > 1 %}
                     <tr class="col-sm">
                         <th scope="row" class="sm">Pior valor</th>
-                        <td>{{ task.result.min_acc|floatformat:3 }}</td>
+                        <td>{{ task.result.min_acc|stringformat:'.3e' }}</td>
                     </tr>
                     <tr class="col-sm">
                         <th scope="row" class="sm">Valor médio</th>
-                        <td>{{ task.result.avg_acc|floatformat:3 }}</td>
+                        <td>{{ task.result.avg_acc|stringformat:'.3e' }}</td>
                     </tr>
                     <tr>
                         <th scope="row" class="sm">Desvio padrão</th>
-                        <td>{{ task.result.stdev_acc|floatformat:3 }}</td>
+                        <td>{{ task.result.stdev_acc|stringformat:'.3e' }}</td>
                     </tr>
                 {% endif %}
             </tbody>
@@ -80,7 +80,7 @@
                         {% for p in task.result.precision %}
                             <div>
                                 <b>Classe {{forloop.counter}}:</b>  
-                                {{ p|floatformat:3 }}
+                                {{ p|stringformat:'.3e' }}
                             </div>
                         {% endfor %}
                     </td>
@@ -91,7 +91,7 @@
                         {% for rec in task.result.recall %}
                             <div>
                                 <b>Classe {{forloop.counter}}:</b>
-                                {{ rec|floatformat:3 }}
+                                {{ rec|stringformat:'.3e' }}
                             </div>
                         {% endfor %}
                     </td>
@@ -102,7 +102,7 @@
                         {% for f in task.result.f1_score %}
                             <div>
                                 <b>Classe {{forloop.counter}}:</b>
-                                {{ f|floatformat:3 }}
+                                {{ f|stringformat:'.3e' }}
                             </div>
                         {% endfor %}
                     </td>
