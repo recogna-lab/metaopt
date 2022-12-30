@@ -68,6 +68,7 @@ class ResultFS(Result):
         # Return updated results dict
         return results_dict
 
+
 # Create a custom parser function based on 
 # the function extracted from Opfython
 def parse_loader(data):
