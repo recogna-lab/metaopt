@@ -108,6 +108,13 @@ def plot_bar(task):
     
     executions = task['task_kwargs']['executions']
 
+    dataset = task['task_kwargs']['dataset']
+
+    transfer_function = task['task_kwargs']['transfer_function']
+
+    # Create plot title with optimizer and function
+    plot_title = f'{dataset} - Função de Transferência {transfer_function.upper()}'
+
     # Distribution values for features
     distributions, stdev = get_distribution(task)
     
@@ -133,6 +140,7 @@ def plot_bar(task):
         
     fig.add_trace(bar)
     fig.update_layout(
+        title = plot_title,
         legend_title='Otimizador',
         title_x=0.5,
         template='simple_white',
