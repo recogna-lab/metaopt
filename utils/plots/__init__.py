@@ -7,6 +7,15 @@ def plot_convergence(task):
     # Name of the optimizer used in the execution
     optimizer = task['task_kwargs']['optimizer']['acronym']
     
+    # Name of the optimized function
+    function = task['task_kwargs']['function']
+    
+    if 'Otimização' in task['task_name']:
+        function = task['task_kwargs']['function']['name']
+    
+    # Create plot title with optimizer and function
+    plot_title = f'{optimizer} - {function}'
+    
     # Get list with fitness values
     fitness_values = task['result']['fitness_values']
 
@@ -64,6 +73,7 @@ def plot_convergence(task):
     
     # Update fig layout    
     fig.update_layout(
+        title=plot_title,
         legend_title='Otimizador',
         title_x=0.5,
         template='simple_white',
