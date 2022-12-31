@@ -76,6 +76,7 @@ const initializeProgressBar = (progressURL, resultURL) => {
         
         // Extract result
         const [first, second, third] = extractResults(result)
+        
 
         // Create HTML table with result
         resultHTML = `
@@ -151,7 +152,7 @@ const initializeProgressBar = (progressURL, resultURL) => {
             first.value = formatArray(result.best_solution)
 
             second.label = 'Melhor valor da função'
-            second.value = formatNumber(result.best_value)
+            second.value = Number.parseFloat(result.best_value).toExponential(3)
         }
 
         return [first, second, third]

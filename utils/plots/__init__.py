@@ -134,7 +134,6 @@ def plot_bar(task):
         yaxis=dict(
             title='Porcentagem de Ocorrência',
             showgrid=False,
-            tickformat='.3e'
         ),
         separators=',',
         margin=dict(l=0, r=0, t=30, b=30),
