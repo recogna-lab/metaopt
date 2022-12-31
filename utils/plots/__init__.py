@@ -163,9 +163,9 @@ def get_distribution(task):
     for vector in feature_vectors:
         new_feature_vectors.append(list(map(int, vector)))
 
-    new_feature_vectors = np.array(new_feature_vectors)
+    new_feature_vectors = np.array(new_feature_vectors) * 100
 
-    freq = (np.mean(np.array(new_feature_vectors), axis=0)*100).tolist()
+    freq = np.mean(np.array(new_feature_vectors), axis=0).tolist()
     stdev = np.std(np.array(new_feature_vectors), axis=0).tolist()
     
     # Compute distributions based on freq
