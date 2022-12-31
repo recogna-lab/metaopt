@@ -85,11 +85,11 @@ class OptimizationForm(_TaskForm):
 
     dimension = forms.IntegerField(
         label='Dimensão (n)',
-        initial=5,
+        initial=10,
         min_value=1,
-        max_value=10,
+        max_value=30,
         help_text=(
-            'Escolha entre 1 e 10 variáveis para a função.'
+            'Escolha entre 1 e 30 variáveis para a função.'
         )
     )
     
