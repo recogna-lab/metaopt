@@ -152,7 +152,7 @@ const initializeProgressBar = (progressURL, resultURL) => {
             first.value = formatArray(result.best_solution)
 
             second.label = 'Melhor valor da função'
-            second.value = Number.parseFloat(result.best_value).toExponential(3)
+            second.value = result.best_value.toExponential(3).replace('.', ',')
         }
 
         return [first, second, third]
