@@ -11,4 +11,10 @@ def format_list(values, precision):
     
     return f'[{formatted_list}]'
 
+def replace(values, arg):
+
+    current, new = arg.split('|')
+    return str(values).replace(current, new)
+
 register.filter('listformat', format_list)
+register.filter('replace', replace)
