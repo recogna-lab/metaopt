@@ -116,7 +116,7 @@ def plot_bar(task):
     plot_title = f'{dataset} - Função de Transferência {transfer_function.upper()}'
 
     # Distribution values for features
-    distributions, stdev = get_distribution(task)
+    distributions, _ = get_distribution(task)
     
     # List with number of features in the distributions
     features = list(range(1, len(distributions) + 1))
@@ -131,12 +131,6 @@ def plot_bar(task):
         opacity=0.8,
         hovertemplate='(%{x}; %{y})'
     )
-
-    if executions > 1:
-      bar.error_y = go.bar.ErrorY(
-        type='data',
-        array=stdev
-      )   
         
     fig.add_trace(bar)
     fig.update_layout(
