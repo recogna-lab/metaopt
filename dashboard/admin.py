@@ -101,7 +101,14 @@ class UserTaskAdmin(admin.ModelAdmin):
         return False
 
 class FunctionAdmin(admin.ModelAdmin):
-    list_display = ('short_name', 'name', 'optimal')
+    list_display = ('name', 'latex_expression', 'bound', 'optimal')
+
+class DatasetAdmin(admin.ModelAdmin):
+    list_display = ('name', 'features', 'samples')
+
+class TransferFunctionAdmin(admin.ModelAdmin):
+    list_display = ('name', 'latex_expression')
+
 
 admin.site.unregister(GroupResult)
 admin.site.unregister(TaskResult)
@@ -111,5 +118,5 @@ admin.site.register(UserTask, UserTaskAdmin)
 
 admin.site.register(Optimizer)
 admin.site.register(Function, FunctionAdmin)
-admin.site.register(Dataset)
-admin.site.register(TransferFunction)
+admin.site.register(Dataset, DatasetAdmin)
+admin.site.register(TransferFunction, TransferFunctionAdmin)
