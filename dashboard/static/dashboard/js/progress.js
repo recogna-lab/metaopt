@@ -29,6 +29,20 @@ const initializeProgressBar = (progressURL, resultURL) => {
             pBarMessageElement.textContent = progress.current + ' de ' +
                 progress.total + ' iterações. ' + description
         }
+        
+        // Add execution message
+        updateExecutionMessage(progress=true)
+    }
+
+    const updateExecutionMessage = (progress) => {
+        const executionMesage = document.getElementById('execution-message')
+
+        if (progress) {
+            executionMesage.innerHTML = 'A execução acontece no servidor, ' +
+                'logo você pode continuar navegando ou desconectar-se.'
+        } else {
+            executionMesage.innerHTML = ''
+        }
     }
 
     // Function that will be executed when an error happens
@@ -69,6 +83,9 @@ const initializeProgressBar = (progressURL, resultURL) => {
         // Hide the revoke button if necessary
         hideRevokeButton()
 
+        // Add execution message
+        updateExecutionMessage(progress=false)
+
         // If task was terminated, exit function
         if (result == 'Task terminated') {
             return
@@ -77,7 +94,6 @@ const initializeProgressBar = (progressURL, resultURL) => {
         // Extract result
         const [first, second, third] = extractResults(result)
         
-
         // Create HTML table with result
         resultHTML = `
             <table class="table table-sm striped table-nowrap">
