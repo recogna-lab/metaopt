@@ -74,6 +74,19 @@
                 </tr>
             </thead>
             <tbody>
+                {% if task.task_kwargs.executions == 1 %}
+                <tr class="col-sm">
+                    <th scope="row" class="sm">Valor</th>
+                    <td> 
+                        {% for p in task.result.precision %}
+                            <div>
+                                <b>Classe {{forloop.counter}}:</b>  
+                                {{ p|floatformat:3 }}
+                            </div>
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% else %}
                 <tr class="col-sm">
                     <th scope="row" class="sm">Valor médio</th>
                     <td> 
@@ -86,6 +99,7 @@
                     </td>
                 </tr>
                 <tr class="col-sm">
+                    
                     <th scope="row" class="sm">Desvio Padrão</th>
                     <td>
                         {% for f in task.result.stdev_precision %}
@@ -96,6 +110,7 @@
                         {% endfor %}
                     </td>
                 </tr>
+                {% endif %}
             </tbody>
         </table>
 
@@ -108,6 +123,19 @@
                 </tr>
             </thead>
             <tbody>
+                {% if task.task_kwargs.executions == 1 %}
+                <tr class="col-sm">
+                    <th scope="row" class="sm">Valor</th>
+                    <td>
+                        {% for rec in task.result.recall %}
+                            <div>
+                                <b>Classe {{forloop.counter}}:</b>
+                                {{ rec|floatformat:3 }}
+                            </div>
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% else %}
                 <tr class="col-sm">
                     <th scope="row" class="sm">Valor médio</th>
                     <td>
@@ -130,6 +158,7 @@
                         {% endfor %}
                     </td>
                 </tr>
+                {% endif %}
             </tbody>
         </table>
 
@@ -142,6 +171,19 @@
                 </tr>
             </thead>
             <tbody>
+                {% if task.task_kwargs.executions == 1 %}
+                <tr class="col-sm">
+                    <th scope="row" class="sm">Valor</th>
+                    <td>
+                        {% for f in task.result.f1_score %}
+                            <div>
+                                <b>Classe {{forloop.counter}}:</b>
+                                {{ f|floatformat:3 }}
+                            </div>
+                        {% endfor %}
+                    </td>
+                </tr> 
+                {% else %}
                 <tr class="col-sm">
                     <th scope="row" class="sm">Valor médio</th>
                     <td>
@@ -163,7 +205,8 @@
                             </div>
                         {% endfor %}
                     </td>
-                </tr>   
+                </tr>
+                {% endif %} 
             </tbody>
         </table>
     </div>
