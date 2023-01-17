@@ -30,7 +30,6 @@ class _TaskForm(forms.Form):
         initial=10,
         min_value=5,
         max_value=50,
-        step_size=5,
         help_text=(
             'Escolha de 5 a 50 agentes para o otimizador.'
         )
@@ -41,7 +40,6 @@ class _TaskForm(forms.Form):
         initial=50,
         min_value=10,
         max_value=500,
-        step_size=10,
         help_text=(
             'Escolha de 10 a 500 iterações para a '
             'execução do otimizador.'
