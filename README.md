@@ -1,6 +1,6 @@
-# metaopt - Metaheuristic Optimization App
+# MetaOPT: A Python-based Web Application for Metaheuristics
 
-This is a web app for running metaheuristic optimization tasks.
+This is a web application that employs metaheuristics in optimization and feature selection.
 
 ## How to use
 
