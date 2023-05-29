@@ -5,6 +5,7 @@ from opytimark.markers.n_dimensional import *
 from opytimizer.optimizers.evolutionary import *
 from opytimizer.optimizers.science import *
 from opytimizer.optimizers.swarm import *
+from opytimizer.optimizers.population import *
 
 
 # This helper class holds the results from multiple executions 
